@@ -1,16 +1,15 @@
-import { login } from "../../actions/session_actions";
+import { signup } from "../../actions/session_actions";
 import { connect } from "react-redux";
 import SessionForm from './session_form';
 import { withRouter } from "react-router-dom";
 
-const mSTP = ({errors}) => ({
+const mSTP = ({ errors }) => ({
     errors: errors.session,
-    formType: 'login'
-})
+    formType: 'signup'
+});
 
 const mDTP = dispatch => ({
-    processFrom: (user) => dispatch(login(user))
-})
-
+    processForm: (user) => dispatch(signup(user))
+});
 
 export default withRouter(connect(mSTP, mDTP)(SessionForm))
