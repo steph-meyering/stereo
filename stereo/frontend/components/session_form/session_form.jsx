@@ -20,6 +20,13 @@ class SessionForm extends React.Component {
         });
     }
 
+    guestSignIn() {
+        this.setState({
+            username: 'guest',
+            password: 'password',
+        })
+    }
+    
     handleSubmit(e) {
         e.preventDefault();
         const user = Object.assign({}, this.state);
