@@ -17,4 +17,4 @@ const mDTP = dispatch => ({
     )
 });
 
-export default withRouter(connect(mSTP, mDTP)(SessionForm))
+export default connect(mSTP, mDTP)(SessionForm)

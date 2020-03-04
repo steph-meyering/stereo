@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Greeting = ({ currentUser, logout}) => {
+const Greeting = ({ currentUser, logout, openModal}) => {
     if (currentUser) {
         return (
             <div>
@@ -13,9 +13,9 @@ const Greeting = ({ currentUser, logout}) => {
         return (
             <div>
                 <h3>You aren't logged in</h3>
-                <Link to={`/login`}>Login</Link>
+                <button onClick={()=> openModal('login')}>Login</button>
                 <br/>
-                <Link to={`/signup`}>Sign up</Link>
+                <button onClick={() => openModal('signup')}>Signup</button>
             </div>
 
         )

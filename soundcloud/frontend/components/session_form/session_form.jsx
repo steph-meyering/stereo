@@ -39,7 +39,7 @@ class SessionForm extends React.Component {
     }
 
     signupFields() {
-        if (this.props.location.pathname === "/signup")
+        if (this.props.formType === 'signup')
         {    
             return(
                 <label> <br/> Email:
