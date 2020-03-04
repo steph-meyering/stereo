@@ -12,10 +12,6 @@ const App = () => (
         <header>
             <h1>(((Stereo)))</h1>
             <GreetingContainer />
-            <Switch>
-                {/* <AuthRoute exact path="/login" component={LoginFormContainer} />
-                <AuthRoute exact path="/signup" component={SignupFormContainer}/> */}
-            </Switch>
         </header>
     </div>
 );
