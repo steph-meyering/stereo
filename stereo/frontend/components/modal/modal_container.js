@@ -4,14 +4,14 @@ import Modal from "./modal";
 
 
 const mapStateToProps = state => {
-    debugger
+    // debugger;
     return {
         modal: state.ui.modal
     };
 };
 
 const mapDispatchToProps = dispatch => {
-    debugger
+    // debugger;
     return {
         closeModal: () => dispatch(closeModal())
     };

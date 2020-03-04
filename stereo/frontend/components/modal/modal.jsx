@@ -3,6 +3,7 @@ import LoginFormContainer from "../session_form/login_form_container";
 import SignupFormContainer from "../session_form/signup_form_container";
 
 function Modal({ modal, closeModal }) {
+    // debugger
     if (!modal) {
         return null;
     }

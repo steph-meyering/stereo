@@ -22,12 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // testing start
     // const store = configureStore();
-    window.signup = signup;
-    window.login = login;
-    window.logout = logout;
-    window.getState = store.getState;
-    window.openModal = openModal;
-    window.dispatch = store.dispatch; 
+    // window.signup = signup;
+    // window.login = login;
+    // window.logout = logout;
+    // window.getState = store.getState;
+    // window.openModal = openModal;
+    // window.dispatch = store.dispatch; 
     // testing end
 
     const root = document.getElementById("root");
