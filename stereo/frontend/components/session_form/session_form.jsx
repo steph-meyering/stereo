@@ -20,12 +20,6 @@ class SessionForm extends React.Component {
         });
     }
 
-    guestSignIn() {
-        this.setState({
-            username: 'guest',
-            password: 'password',
-        })
-    }
     
     handleSubmit(e) {
         e.preventDefault();
@@ -58,6 +52,18 @@ class SessionForm extends React.Component {
             )
         }
     }
+
+    guestUserLoginButton() {
+        if (this.props.formType === 'login') {
+            return (
+                <div>
+                    <br/>
+                    <button onClick={() => this.props.guestLogin()}>Guest User Login
+                    </button>
+                </div>
+            );
+        }
+    }
     
     render() {
         return (
@@ -67,6 +73,7 @@ class SessionForm extends React.Component {
                 <br />
                     Please {this.props.formType}, or {this.props.otherForm}
                     {this.renderErrors()}
+                    {this.guestUserLoginButton()}
                     <div className="login-form">
 
                         <br />
