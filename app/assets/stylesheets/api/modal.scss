@@ -10,27 +10,21 @@
 	z-index: 10;
 }
 
+.modal-child {
+	position: fixed;
+	width: 450px;
+	top: 300px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+
 .login-form-box * {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-// .login-form-container h1 {
-//   	@include h1;
-// }
-
-// .login-form-container label {
-// 	@include h3;	
-// }
-
-.modal-child {
-	position: absolute;
-	width: 450px;
-	top: 25%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
 
 .login-form-box {
 	background-color: white;
@@ -38,5 +32,5 @@
 }
 
 .login-form-box button {
-	@include button;
+	@include orange-button;
 }

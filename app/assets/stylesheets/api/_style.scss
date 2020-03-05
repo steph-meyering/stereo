@@ -10,13 +10,16 @@ $blue: #38d;
 //     font-size: 14px;
 // }
 
-@mixin button {
+@mixin orange-button {
     background-color: $orange;
     color: white;
     align-items: center;
     font-size: 16px;
     padding: 10px 15px;
     border-radius: 3px;
+    border: none;
+    margin: 10px 0px;
+
 }
 
 @font-face {
