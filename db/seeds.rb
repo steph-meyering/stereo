@@ -10,5 +10,7 @@
 guest = User.create!(
 username: "guest",
 password: "password",
-email: "guest@email.com"
+email: "guest@email.com",
+location: "San Francisco",
+about: "I'm a guest!!!"
 )

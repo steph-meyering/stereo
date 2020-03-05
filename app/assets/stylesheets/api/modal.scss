@@ -1,3 +1,5 @@
+@import "./style.scss";
+
 .modal-background {
   position: fixed;
   top: 0;
@@ -8,14 +10,36 @@
   z-index: 10;
 }
 
+.login-form-box * {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form-container h1 {
+  @include h1;
+}
+
+.login-form-container label {
+  @include h3;
+}
+
 .modal-child {
   position: absolute;
-  top: 50%;
+  width: 450px;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
+  
 }
 
 .login-form-box {
-    background-color: white;
-    padding: 50px;
+  background-color: white;
+  padding: 25px;
+}
+
+.session-submit {
+  background-color: $orange;
+  color: white;
+  align-items: center;
 }
