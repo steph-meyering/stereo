@@ -10,7 +10,7 @@ const App = () => (
     <div>
         <ModalContainer />
         <header>
-            <h2>test</h2>
+            <h2>Hello</h2>
             <h1>(((Stereo)))</h1>
             <GreetingContainer />
         </header>
