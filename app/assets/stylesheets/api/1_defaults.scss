@@ -1,0 +1,32 @@
+@import "./style";
+
+
+* {
+    font-family: interstatelight;
+}
+
+a {
+    color: $blue;
+}
+
+
+h1 {
+    font-size: 32px;
+    font-family: interstateregular;
+    text-align: center;
+}
+
+h3 {
+    font-size: 14px;
+    font-family: interstateregular;
+    font-weight: 400;
+
+}
+
+input {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 7px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc
+}

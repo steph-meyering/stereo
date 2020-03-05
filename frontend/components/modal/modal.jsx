@@ -27,3 +27,4 @@ function Modal({ modal, closeModal }) {
 }
 
 export default Modal;
+

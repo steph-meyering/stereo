@@ -1,45 +1,42 @@
-@import "./style.scss";
+@import "./style";
 
 .modal-background {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 10;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.7);
+	z-index: 10;
 }
 
 .login-form-box * {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-.login-form-container h1 {
-  @include h1;
-}
+// .login-form-container h1 {
+//   	@include h1;
+// }
 
-.login-form-container label {
-  @include h3;
-}
+// .login-form-container label {
+// 	@include h3;	
+// }
 
 .modal-child {
-  position: absolute;
-  width: 450px;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
+	position: absolute;
+	width: 450px;
+	top: 25%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .login-form-box {
-  background-color: white;
-  padding: 25px;
+	background-color: white;
+	padding: 25px;
 }
 
-.session-submit {
-  background-color: $orange;
-  color: white;
-  align-items: center;
+.login-form-box button {
+	@include button;
 }

@@ -1,0 +1,37 @@
+$orange: #f50;
+$blue: #38d;
+
+// @mixin h1 {
+//     font-size: 32px;
+//     font-family: interstateregular;
+// }
+
+// @mixin h3 {
+//     font-size: 14px;
+// }
+
+@mixin button {
+    background-color: $orange;
+    color: white;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 3px;
+}
+
+@font-face {
+    font-family: 'interstatelight';
+    src: url('./fonts/interstate_light_regular-webfont.woff2') format('woff2');
+    src: url('./fonts/interstate_light_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'interstateregular';
+    src: url("./fonts/interstateregular_regular-webfont.woff2") format('woff2');
+    src: url("./fonts/interstateregular_regular-webfont.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
