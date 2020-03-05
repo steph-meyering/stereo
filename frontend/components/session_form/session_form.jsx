@@ -72,7 +72,7 @@ class SessionForm extends React.Component {
                     Welcome to Stereo!
                 <br />
                     Please {this.props.formType}, or {this.props.otherForm}
-                    {this.renderErrors()}
+                    {/* {this.renderErrors()} */}
                     {this.guestUserLoginButton()}
                     <div className="login-form">
 
