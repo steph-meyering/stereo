@@ -21,16 +21,16 @@ $blue: #38d;
 
 @font-face {
     font-family: 'interstatelight';
-    src: url('./fonts/interstate_light_regular-webfont.woff2') format('woff2');
-    src: url('./fonts/interstate_light_regular-webfont.woff') format('woff');
+    src: font-url('./fonts/interstate_light_regular-webfont.woff2') format('woff2');
+    src: font-url('./fonts/interstate_light_regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'interstateregular';
-    src: url("./fonts/interstateregular_regular-webfont.woff2") format('woff2');
-    src: url("./fonts/interstateregular_regular-webfont.woff") format('woff');
+    src: font-url("./fonts/interstateregular_regular-webfont.woff2") format('woff2');
+    src: font-url("./fonts/interstateregular_regular-webfont.woff") format('woff');
     font-weight: normal;
     font-style: normal;
 
