@@ -58,7 +58,7 @@ class SessionForm extends React.Component {
             return (
                 <div>
                     <br/>
-                    <button onClick={() => this.props.guestLogin()}>Guest User Login
+                    <button type="button" onClick={() => this.props.guestLogin()}>Guest User Login
                     </button>
                 </div>
             );
@@ -73,7 +73,7 @@ class SessionForm extends React.Component {
                 <br />
                     Please {this.props.formType}, or {this.props.otherForm}
                     {this.renderErrors()}
-                    {this.guestUserLoginButton()}
+                {   this.guestUserLoginButton()}
                     <div className="login-form">
 
                         <br />
