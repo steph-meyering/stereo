@@ -1,4 +1,4 @@
-import * as SessionAPIutil from '../util/session_api_util';
+import * as SessionAPIUtil from '../util/session_api_util';
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
@@ -18,14 +18,14 @@ export const receiveErrors = (errors) => ({
     errors
 })
 
-export const login = user => dispatch => SessionAPIutil.login(user)
+export const login = user => dispatch => SessionAPIUtil.login(user)
     .then((user) => dispatch(receiveCurrentUser(user)), 
     err => (dispatch(receiveErrors(err.responseJSON))));
 
-export const signup = user => dispatch => SessionAPIutil.signup(user)
+export const signup = user => dispatch => SessionAPIUtil.signup(user)
     .then((user) => dispatch(receiveCurrentUser(user)), 
     err => (dispatch(receiveErrors(err.responseJSON))));
 
-export const logout = () => dispatch => SessionAPIutil.logout() 
+export const logout = () => dispatch => SessionAPIUtil.logout() 
     .then(() => dispatch(logoutCurrentUser()), 
     err => (dispatch(receiveErrors(err.responseJSON))));

@@ -7,6 +7,7 @@ const Greeting = ({ currentUser, logout, openModal}) => {
             <div>
                 <p>Hello, {currentUser.username}</p>
                 <button onClick={() => logout()}>Sign out</button>
+                <Link to='/songs/1'>SONG</Link>
             </div>
         )
     } else {

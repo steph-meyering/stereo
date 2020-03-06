@@ -4,6 +4,7 @@ import { signup, login, logout } from './actions/session_actions';
 import configureStore from './store/store';
 import Root from './components/root';
 import { openModal } from './actions/modal_actions';
+import { fetchSong } from './actions/song_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
     let store;
@@ -20,15 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
         store = configureStore();
     }
 
-    // testing start
-    // const store = configureStore();
-    // window.signup = signup;
-    // window.login = login;
-    // window.logout = logout;
-    // window.getState = store.getState;
-    // window.openModal = openModal;
-    // window.dispatch = store.dispatch; 
-    // testing end
+    // TESTING START
+    window.dispatch = store.dispatch
+    window.fetchSong = fetchSong;
+    window.signup = signup
+
+    // TESTING END
 
     const root = document.getElementById("root");
     ReactDOM.render(<Root store = {store}/>, root);
