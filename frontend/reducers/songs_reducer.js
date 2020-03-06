@@ -1,4 +1,4 @@
-import { RECEIVE_SONG } from "../actions/song_actions";
+import { RECEIVE_SONG, RECEIVE_SONGS } from "../actions/song_actions";
 
 
 const songsReducer = (state = {}, action) => {
@@ -6,6 +6,8 @@ const songsReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_SONG:
             return ({ [action.song.id]: action.song });
+        case RECEIVE_SONGS:
+            return action.songs;
         default:
             return state;
     }

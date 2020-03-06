@@ -3,7 +3,6 @@ import { fetchSong } from "../../actions/song_actions";
 import SongShow from "./song_show";
 
 const mSTP = (state, ownProps) => {
-    debugger;
     if (ownProps.match === "undefined"){
         return({song: undefined})
     };
