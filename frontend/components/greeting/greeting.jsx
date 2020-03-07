@@ -8,9 +8,9 @@ const Greeting = ({ currentUser, logout, openModal}) => {
                 <p>Hello, {currentUser.username}</p>
                 <button onClick={() => logout()}>Sign out</button>
                 <br />
-                <Link to='/songs/1'>SONG</Link>
+                <Link to='/songs/1'>SONG (hardcoded)</Link>
                 <br/>
-                <Link to='/songs'>AlL tHe SoNgSs</Link>
+                <Link to='/songs'>Song Index in greeting container</Link>
             </div>
         )
     } else {

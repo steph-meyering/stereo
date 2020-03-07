@@ -26,6 +26,17 @@ s1 = Song.create(
     title:"Apashe - Work (feat. Young Buck)", 
     genre: "bass")
 
-f1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/Apashe+-+Work+(feat.+Young+Buck).mp3")
-
+f1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/Apashe+-+Work+(feat.+Young+Buck).mp3")
 s1.file.attach(io: f1, filename: "s1")
+
+
+# ================================
+
+s2 = Song.create(
+    artist_id:1, 
+    title:"dontcry - redbone", 
+    genre: "lo-fi chill")
+
+f2 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/dontcry+-+redbone.mp3")
+
+s2.file.attach(io: f2, filename: "s2")
