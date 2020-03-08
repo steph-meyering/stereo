@@ -12,7 +12,6 @@ const App = () => (
     <div>
         <ModalContainer />
         <header>
-            <h1>(((Stereo)))</h1>
             <GreetingContainer />
             <Route exact path="/songs/:songId" component={SongShowContainer} />
             <Route exact path="/songs" component={SongIndexContainer} />

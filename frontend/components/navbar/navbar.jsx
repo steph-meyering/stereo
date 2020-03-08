@@ -4,22 +4,22 @@ import { Link } from 'react-router-dom';
 const Navbar = ({ currentUser, logout, openModal}) => {
     if (currentUser) {
         return (
-            <div>
+            <div className='navbar-div'>
+                <h1 className='stereo-icon'>(((Stereo)))</h1>
                 <p>Hello, {currentUser.username}</p>
-                <button onClick={() => logout()}>Sign out</button>
-                <br />
-                <Link to='/songs/1'>SONG (hardcoded)</Link>
-                <br/>
-                <Link to='/songs'>Song Index in navbar container</Link>
+                <Link to='/songs'>Songs</Link>
+                <button className='sign-out-button' onClick={() => logout()}>Sign out</button>
             </div>
         )
     } else {
         return (
-            <div>
+            <div className='navbar-div'>
+                <Link className='stereo-icon' to='/'>(((Stereo)))</Link>
                 <h3>You aren't logged in</h3>
-                <button onClick={()=> openModal('login')}>Login</button>
-                <br/>
-                <button onClick={() => openModal('signup')}>Signup</button>
+                <div className='navbar-buttons'>
+                    <button className='sign-in-button' onClick={()=> openModal('login')}>Sign in</button>
+                    <button className='create-account-button' onClick={() => openModal('signup')}>Create account</button>
+                </div>
             </div>
 
         )

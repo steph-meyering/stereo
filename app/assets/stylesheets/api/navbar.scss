@@ -1,0 +1,22 @@
+@import "./style";
+
+.navbar-div {
+    display: flex;
+    justify-content: space-between;;
+}
+
+.stereo-icon {
+    font-size: 30px;
+}
+
+.create-account-button{
+	@include small-orange-button;
+}
+
+.sign-in-button{
+	@include small-transparent-button;
+}
+
+.sign-out-button{
+	@include small-orange-button;
+}

@@ -10,7 +10,7 @@ $blue: #38d;
 //     font-size: 14px;
 // }
 
-@mixin orange-button {
+@mixin large-orange-button {
     background-color: $orange;
     color: white;
     align-items: center;
@@ -19,6 +19,30 @@ $blue: #38d;
     border-radius: 3px;
     border: none;
     margin: 10px 0px;
+
+}
+
+@mixin small-orange-button {
+    background-color: $orange;
+    color: white;
+    align-items: center;
+    font-size: 14px;
+    padding: 2px 16px;
+    border-radius: 3px;
+    border: none;
+    margin: 0px 0px 0px 6px;
+
+}
+
+@mixin small-transparent-button {
+    background-color: transparent;
+    color: $orange;
+    align-items: center;
+    font-size: 14px;
+    padding: 2px 16px;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+    margin: 0px 0px 0px 6px;
 
 }
 

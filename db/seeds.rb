@@ -21,22 +21,27 @@ guest = User.create!(
     about: "I'm a guest!!!"
 )
 
-s1 = Song.create(
+song1 = Song.create(
     artist_id:1, 
     title:"Apashe - Work (feat. Young Buck)", 
     genre: "bass")
 
-f1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/Apashe+-+Work+(feat.+Young+Buck).mp3")
-s1.file.attach(io: f1, filename: "s1")
+file1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/Apashe+-+Work+(feat.+Young+Buck).mp3")
+song1.file.attach(io: file1, filename: "file1")
+
+photo1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/photos/apashe_cover.jpg")
+song1.photo.attach(io: photo1, filename: "photo1")
 
 
 # ================================
 
-s2 = Song.create(
+song2 = Song.create(
     artist_id:1, 
     title:"dontcry - redbone", 
     genre: "lo-fi chill")
 
-f2 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/dontcry+-+redbone.mp3")
+file2 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/dontcry+-+redbone.mp3")
+song2.file.attach(io: file2, filename: "file2")
 
-s2.file.attach(io: f2, filename: "s2")
+photo2 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/photos/redbone.jpg")
+song2.photo.attach(io: photo2, filename: "photo2")
