@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Greeting = ({ currentUser, logout, openModal}) => {
+const Navbar = ({ currentUser, logout, openModal}) => {
     if (currentUser) {
         return (
             <div>
@@ -10,7 +10,7 @@ const Greeting = ({ currentUser, logout, openModal}) => {
                 <br />
                 <Link to='/songs/1'>SONG (hardcoded)</Link>
                 <br/>
-                <Link to='/songs'>Song Index in greeting container</Link>
+                <Link to='/songs'>Song Index in navbar container</Link>
             </div>
         )
     } else {
@@ -26,4 +26,4 @@ const Greeting = ({ currentUser, logout, openModal}) => {
     }
 }
 
-export default Greeting;
+export default Navbar;
