@@ -5,7 +5,8 @@ class Api::SongsController < ApplicationController
     end
 
     def index
-        @songs = Song.all
+        @songs = Song.with_attached_file.all
+        # @songs = Song.all
         render :index
     end
     
