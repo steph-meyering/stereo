@@ -1,5 +1,5 @@
 import React from "react";
-import GreetingContainer from "./navbar/navbar_container";
+import Navbar from "./navbar/navbar_container";
 import SignupFormContainer from "./session_form/signup_form_container";
 import LoginFormContainer from "./session_form/login_form_container";
 import { Switch, Route } from "react-router-dom";
@@ -12,7 +12,8 @@ const App = () => (
     <div>
         <ModalContainer />
         <header>
-            <GreetingContainer />
+            <Navbar />
+            
             <Route exact path="/songs/:songId" component={SongShowContainer} />
             <Route exact path="/songs" component={SongIndexContainer} />
         </header>

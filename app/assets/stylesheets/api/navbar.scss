@@ -2,11 +2,24 @@
 
 .navbar-div {
     display: flex;
-    justify-content: space-between;;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(51, 51, 51);
+    padding: 6px;
 }
 
 .stereo-icon {
     font-size: 30px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.6s;
+    &:hover{
+        color: $orange;
+    }
+}
+
+.stereo-icon :hover {
+    cursor: pointer;
 }
 
 .create-account-button{
@@ -20,3 +33,4 @@
 .sign-out-button{
 	@include small-orange-button;
 }
+
