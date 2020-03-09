@@ -5,11 +5,16 @@ const Navbar = ({ currentUser, logout, openModal}) => {
     if (currentUser) {
         return (
             <div className='navbar-div'>
-                <h1 className='stereo-icon'>(((Stereo)))</h1>
-                <h1 color='white'>Hello, {currentUser.username}</h1>
+                <Link to='/'><div className='stereo-icon-div'>
+                    <h1 className='stereo-icon'>(((Stereo)))</h1>
+                </div></Link>
+                <div>
+                    <h1 color='red'>Hello, {currentUser.username}</h1>
+
+                </div>
                 <div>
                     <button className='sign-out-button' onClick={() => logout()}>Sign out</button>
-                    <Link to={`users/${currentUser.id}`}> my profile</Link>
+                    <Link to={`/users/${currentUser.id}`}> my profile</Link>
                 </div>
             </div>
         )

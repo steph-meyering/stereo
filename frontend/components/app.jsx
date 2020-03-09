@@ -13,9 +13,9 @@ import UserShowContainer from "./users/user_show_container";
 const App = () => (
     <div>
         <ModalContainer />
-        <header>
+        <header >
             <Navbar />
-            <TestContainer/>
+            <Route exact path="/" component={TestContainer} />
             <Route exact path="/users/:userId" component={UserShowContainer} />
             <Route exact path="/songs/:songId" component={SongShowContainer} />
             <Route exact path="/songs" component={SongIndexContainer} />

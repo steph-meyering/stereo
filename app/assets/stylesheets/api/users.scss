@@ -2,32 +2,48 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.user-show-page {
+    margin: 0% 3%;
+    padding-left: 14px;
+    height: 100vh;
+
+}
 
 .user-show-div {
+    background-image: url("https://i.pinimg.com/originals/4d/5b/33/4d5b33e66d3ba776e4aa339f914998d8.jpg") ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     height: 260px;
     max-height: 260px;
-    padding-left: 14px;
+    min-width: 960px;
     padding-top: 30px;
     align-items: flex-start;
+    background-color: lightgray;
 }
 
 .profile-pic {
+    background-color: blueviolet;
     height: 200px;
     width: 200px;
     border-radius: 50%;
-    background-color: blueviolet;
+    &:img {
+        object-fit: contain;
+    }
 }
 
 .name-location {
     margin-left: 35px;
     flex-direction: column;
-    & h2 {
-        color: white;
-        padding: 7px 4px;
-        background-color: rgba(0,0,0,.8);
-        margin-bottom: 8px;
-    }
+}
+.username {
+    color: white;
+    padding: 7px 4px;
+    background-color: rgba(0,0,0,.8);
+    margin-bottom: 8px;
+    max-width: max-content;
+
 }
 
 .location {
@@ -35,4 +51,23 @@
     color: white;
     padding: 7px 4px;
     background-color: rgba(0,0,0,.8);
+}
+
+// USER SIDEBAR:
+
+.songs-and-sidebar {
+    display: flex;
+}
+
+.song-index {
+    position: relative;
+    flex-basis: 71%;
+}
+
+.sidebar {
+    margin-left: 1%;
+    flex-basis: 28%;
+    & div{
+        height: 150px;
+    }
 }
