@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // TESTING START
     window.dispatch = store.dispatch;
-    window.requestUsers = requestUsers;
     window.requestUser = requestUser;
     window.signup = signup;
 

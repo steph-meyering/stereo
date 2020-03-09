@@ -17,13 +17,21 @@ guest = User.create!(
     username: "Demo User",
     password: "password",
     email: "guest@email.com",
-    location: "San Francisco",
+    location: "Somewhere in the Active Storage Blob",
     about: "I'm a guest!!!"
+)
+
+steph = User.create!(
+    username: "Steph Meyering",
+    password: "password",
+    email: "stephane.meyering@gmail.com",
+    location: "San Francisco",
+    about: "I built this"
 )
 
 # create a Song instance
 song1 = Song.create(
-    artist_id:1, 
+    artist_id: steph.id, 
     title:"Apashe - Work (feat. Young Buck)", 
     genre: "bass")
 
@@ -41,7 +49,7 @@ song1.photo.attach(io: photo1, filename: "photo1")
 # ================================
 
 song2 = Song.create(
-    artist_id:1, 
+    artist_id: guest.id, 
     title:"dontcry - redbone", 
     genre: "lo-fi chill")
 
