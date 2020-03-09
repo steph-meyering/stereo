@@ -5,6 +5,7 @@ import configureStore from './store/store';
 import Root from './components/root';
 import { openModal } from './actions/modal_actions';
 import { fetchSongs } from './actions/song_actions';
+import { requestUsers, requestUser } from './actions/user_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
     let store;
@@ -23,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // TESTING START
     window.dispatch = store.dispatch;
-    window.fetchSongs = fetchSongs;
+    window.requestUsers = requestUsers;
+    window.requestUser = requestUser;
     window.signup = signup;
 
     // TESTING END

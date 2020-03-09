@@ -21,13 +21,18 @@ guest = User.create!(
     about: "I'm a guest!!!"
 )
 
+# create a Song instance
 song1 = Song.create(
     artist_id:1, 
     title:"Apashe - Work (feat. Young Buck)", 
     genre: "bass")
 
+# open the corresponding audio file from S3
 file1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/songs/Apashe+-+Work+(feat.+Young+Buck).mp3")
+
+# attach the audio file to the Song instance
 song1.file.attach(io: file1, filename: "file1")
+
 
 photo1 = open("https://stereo-dev.s3-us-west-1.amazonaws.com/photos/apashe_cover.jpg")
 song1.photo.attach(io: photo1, filename: "photo1")

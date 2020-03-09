@@ -9,8 +9,15 @@ class Api::SongsController < ApplicationController
         # @songs = Song.all
         render :index
     end
+
+    def create
+        @song = Song.new(song_params)
+        if @song.save
+            render '/api/songs/'
+        end
+    end
     
-    # def song_params
-    #     params.require(:song).permit(:title)???
-    # end
+    def song_params
+        params.require(:song).permit(:title, :genre)
+    end
 end

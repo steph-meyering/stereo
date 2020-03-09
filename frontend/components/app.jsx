@@ -7,13 +7,16 @@ import { AuthRoute } from '../util/route_util'
 import ModalContainer from "./modal/modal_container";
 import SongShowContainer from "./songs/song_show_container";
 import SongIndexContainer from "./songs/song_index_container";
+import TestContainer from "./dev_test/testing_temp";
+import UserShowContainer from "./users/user_show_container";
 
 const App = () => (
     <div>
         <ModalContainer />
         <header>
             <Navbar />
-            
+            <TestContainer/>
+            <Route exact path="/users/:userId" component={UserShowContainer} />
             <Route exact path="/songs/:songId" component={SongShowContainer} />
             <Route exact path="/songs" component={SongIndexContainer} />
         </header>

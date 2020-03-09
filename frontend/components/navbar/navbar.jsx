@@ -6,9 +6,11 @@ const Navbar = ({ currentUser, logout, openModal}) => {
         return (
             <div className='navbar-div'>
                 <h1 className='stereo-icon'>(((Stereo)))</h1>
-                <p>Hello, {currentUser.username}</p>
-                <Link to='/songs'>Songs</Link>
-                <button className='sign-out-button' onClick={() => logout()}>Sign out</button>
+                <h1 color='white'>Hello, {currentUser.username}</h1>
+                <div>
+                    <button className='sign-out-button' onClick={() => logout()}>Sign out</button>
+                    <Link to={`users/${currentUser.id}`}> my profile</Link>
+                </div>
             </div>
         )
     } else {
