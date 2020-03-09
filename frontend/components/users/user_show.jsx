@@ -8,12 +8,13 @@ class UserShowContainer extends React.Component {
         if (this.props.user === undefined) return null
         return(
             <div className='user-show-div'>
-                <ul>
-                    <h1>Username: {this.props.user.username}</h1>
-                    <li>Email: {this.props.user.email}</li>
-                    <li>Location: {this.props.user.location}</li>
-                    <li>Bio: {this.props.user.about} </li>
-                </ul>
+                <div className='profile-pic'></div>
+                <div className='name-location'>
+                    <h2 className='username'>{this.props.user.username}</h2>
+                    <h3 className='location'>Location: {this.props.user.location}</h3>
+                </div>
+
+                <h3>Bio: {this.props.user.about} </h3>
             </div>
         )
     }

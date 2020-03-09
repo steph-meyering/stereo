@@ -14,7 +14,7 @@ User.destroy_all
 Song.destroy_all
 
 guest = User.create!(
-    username: "guest",
+    username: "Demo User",
     password: "password",
     email: "guest@email.com",
     location: "San Francisco",
