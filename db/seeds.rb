@@ -17,7 +17,7 @@ guest = User.create!(
     username: "Demo User",
     password: "password",
     email: "guest@email.com",
-    location: "Somewhere in the Active Storage Blob",
+    location: "Somewhere in the ActiveStorage Blob",
     about: "I'm a guest!!!"
 )
 
