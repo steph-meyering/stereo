@@ -9,7 +9,7 @@ const Navbar = ({ currentUser, logout, openModal}) => {
                     <h1 className='stereo-icon'>(((Stereo)))</h1>
                 </div></Link>
                 <div>
-                    <h1 color='red'>Hello, {currentUser.username}</h1>
+                    {/* <h1 color='red'>Hello, {currentUser.username}</h1> */}
 
                 </div>
                 <div>
