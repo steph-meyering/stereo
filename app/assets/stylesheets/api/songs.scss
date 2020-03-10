@@ -14,3 +14,44 @@
     height: 160px;
     padding-right: 10px;
 }
+
+// song form style:
+// background-image: linear-gradient(135deg,#846170,#70929c);
+
+.song-upload-form-container {
+    margin: 0% 3%;
+    padding-left: 14px;
+}
+
+.song-upload-form {
+    display: flex;
+}
+
+.audio-upload {
+    width: 100%;
+}
+
+.cover-photo-div {
+    position: relative;
+    flex-basis: 30%;
+}
+
+.cover-preview img {
+    height: 260px;
+    width: 260px;
+    background: linear-gradient(135deg,#846170,#70929c);
+}
+
+.place-holder-cover {
+    height: 260px;
+    width: 260px;
+    background: linear-gradient(135deg,#846170,#70929c);
+}
+
+.fields-div {
+    margin-left: 1%;
+    flex-basis: 70%;
+    & div{
+        height: 150px;
+    }
+}

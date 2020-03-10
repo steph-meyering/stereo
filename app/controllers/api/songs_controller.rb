@@ -6,6 +6,7 @@ class Api::SongsController < ApplicationController
 
     def index
         @songs = Song.with_attached_file.all
+        # add includes artist
         # @songs = Song.all
         render :index
     end
@@ -13,7 +14,7 @@ class Api::SongsController < ApplicationController
     def create
         @song = Song.new(song_params)
         if @song.save
-            render json: ['upload successful']
+            render json: {message: 'upload successful'}
         else
             render json: @song.errors.full_messages, status: 422
         end

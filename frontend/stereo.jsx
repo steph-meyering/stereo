@@ -4,7 +4,7 @@ import { signup, login, logout } from './actions/session_actions';
 import configureStore from './store/store';
 import Root from './components/root';
 import { openModal } from './actions/modal_actions';
-import { fetchSongs } from './actions/song_actions';
+import { fetchSongs } from './util/song_api_util';
 import { requestUsers, requestUser } from './actions/user_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // TESTING START
     window.dispatch = store.dispatch;
     window.requestUser = requestUser;
-    window.signup = signup;
+    window.fetchSongs = fetchSongs;
 
     // TESTING END
 

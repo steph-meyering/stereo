@@ -16,7 +16,7 @@ class UserShowContainer extends React.Component {
                     </div>
                     <div className='name-location'>
                         <h2 className='username'>{this.props.user.username}</h2>
-                        <h3 className='location'>Location: {this.props.user.location}</h3>
+                        <h3 className='location'>{this.props.user.location}</h3>
                     </div>
 
                     {/* <h3>Bio: {this.props.user.about} </h3> */}

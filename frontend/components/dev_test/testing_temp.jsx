@@ -6,6 +6,8 @@ const TestContainer = () => {
         <div>
             <Link to='/songs'>Songs Index</Link>
             <br/>
+            <Link to='/upload'>Upload Song</Link>
+            <br/>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import SongIndexContainer from "./songs/song_index_container";
 import TestContainer from "./dev_test/testing_temp";
 import UserShowContainer from "./users/user_show_container";
 import NotFound from "./errors/404";
-import SongForm from "./songs/song_form";
+import SongFormContainer from "./songs/song_form_container";
 
 const App = () => (
     <div>
@@ -22,7 +22,7 @@ const App = () => (
                 <Route exact path="/users/:userId" component={UserShowContainer} />
                 <Route exact path="/songs/:songId" component={SongShowContainer} />
                 <Route exact path="/songs" component={SongIndexContainer} />
-                <Route exact path="/upload" component={SongForm} />
+                <Route exact path="/upload" component={SongFormContainer} />
                 <Route exact path="/404" component={NotFound} />
                 <Redirect path='*' to='/404'/>
             </Switch>

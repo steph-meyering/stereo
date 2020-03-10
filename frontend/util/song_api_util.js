@@ -8,13 +8,16 @@ export const fetchSong = songId => (
 export const fetchSongs = () => (
     $.ajax({
         method: 'GET',
-        url: `/api/songs/`
+        url: `/api/songs`
     })
 )
 
 export const uploadSong = song => (
     $.ajax({
         method: 'POST',
-        url: `/api/songs`
+        url: `/api/songs`,
+        data: song ,
+        contentType: false,
+        processData: false
     })
 )
