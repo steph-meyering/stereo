@@ -9,7 +9,6 @@ export const receiveSong = song => ({
 })
 
 export const receiveSongs = songs => {    
-    debugger
     return ({
         type: RECEIVE_SONGS,
         songs

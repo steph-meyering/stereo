@@ -3,7 +3,6 @@ import SongIndexItem from './song_index_item';
 
 class SongIndex extends React.Component {
     componentDidMount(){
-        debugger
         this.props.fetchSongs()
     }
 

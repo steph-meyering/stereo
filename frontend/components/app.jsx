@@ -11,6 +11,7 @@ import TestContainer from "./dev_test/testing_temp";
 import UserShowContainer from "./users/user_show_container";
 import NotFound from "./errors/404";
 import SongFormContainer from "./songs/song_form_container";
+import PlayControls from "./play_controls/play_controls";
 
 const App = () => (
     <div>
@@ -27,6 +28,9 @@ const App = () => (
                 <Redirect path='*' to='/404'/>
             </Switch>
         </header>
+        <footer>
+            <PlayControls/>
+        </footer>
     </div>
 );
 

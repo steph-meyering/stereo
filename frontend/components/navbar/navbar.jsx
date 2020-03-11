@@ -21,7 +21,9 @@ const Navbar = ({ currentUser, logout, openModal}) => {
     } else {
         return (
             <div className='navbar-div'>
-                <Link className='stereo-icon' to='/'>(((Stereo)))</Link>
+                <Link to='/'><div className='stereo-icon-div'>
+                    <h1 className='stereo-icon'>(((Stereo)))</h1>
+                </div></Link>
                 <h3>You aren't logged in</h3>
                 <div className='navbar-buttons'>
                     <button className='sign-in-button' onClick={()=> openModal('login')}>Sign in</button>
