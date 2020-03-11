@@ -11,7 +11,7 @@ import TestContainer from "./dev_test/testing_temp";
 import UserShowContainer from "./users/user_show_container";
 import NotFound from "./errors/404";
 import SongFormContainer from "./songs/song_form_container";
-import PlayControls from "./play_controls/play_controls";
+import PlayControlsContainer from "./play_controls/play_controls_container";
 
 const App = () => (
     <div>
@@ -29,7 +29,7 @@ const App = () => (
             </Switch>
         </header>
         <footer>
-            <PlayControls/>
+            <PlayControlsContainer/>
         </footer>
     </div>
 );

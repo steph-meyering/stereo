@@ -15,6 +15,9 @@ class SongIndexItem extends React.Component {
                     />
                 <div>
                     <p>uploader ID: {this.props.song.artistId}</p>
+                    <button onClick={() => this.props.selectSong(this.props.song)}>
+                        SEND TO PLAY CONTROLS
+                    </button>
                     <h3>{this.props.song.title}</h3>
                     <audio controls src={this.props.song.fileUrl}></audio>
                 </div>

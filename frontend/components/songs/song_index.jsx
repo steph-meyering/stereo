@@ -10,6 +10,7 @@ class SongIndex extends React.Component {
         if (this.props.songs.length === 0) return null;
         let songItems = this.props.songs.map((song) => <SongIndexItem
                                                             song = {song}
+                                                            selectSong = {this.props.selectSong}
                                                             key = {song.id}
                                                         />)
         return(
