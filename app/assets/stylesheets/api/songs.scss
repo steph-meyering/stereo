@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "./style";
+
 
 .song-index-item {
     display: flex;
@@ -18,9 +20,20 @@
 // song form style:
 // background-image: linear-gradient(135deg,#846170,#70929c);
 
-.song-upload-form-container {
+.upload-background{
     margin: 0% 3%;
     padding-left: 14px;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+
+}
+
+.song-upload-form-container {
+    width: 800px;
+    padding: 25px;
+
 }
 
 .song-upload-form {
@@ -51,7 +64,11 @@
 .fields-div {
     margin-left: 1%;
     flex-basis: 70%;
-    & div{
-        height: 150px;
+    & input {
+        width: 90%;
     }
+}
+
+.save-upload{
+    @include small-orange-button;
 }

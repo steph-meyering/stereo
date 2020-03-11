@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
 
 class SongIndexItem extends React.Component {
     render() {

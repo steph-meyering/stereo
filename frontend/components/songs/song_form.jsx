@@ -54,53 +54,56 @@ class SongForm extends React.Component {
         console.log(this.state);
         const preview = this.state.photoUrl ? <img src={this.state.photoUrl} /> : <div className='place-holder-cover'></div>;
         return (
-            <div className='song-upload-form-container'>
-                <form
-                    onSubmit={this.handleSubmit}
-                >
-                    <input
-                        className='audio-upload'
-                        type="file"
-                        onChange={this.handleFile}
-                    />
-                    <div className='song-upload-form'>
-                        <div className='cover-photo-div'>                    
-                            <div className='cover-preview'>
-                                {preview}
-                                <input
-                                    className='photo-upload'
-                                    type="file"
-                                    onChange={this.handlePhoto}
+            <div className='upload-background'>
+                <div className='song-upload-form-container'>
+                    <form
+                        onSubmit={this.handleSubmit}
+                    >
+                        <input
+                            className='audio-upload'
+                            type="file"
+                            onChange={this.handleFile}
+                        />
+                        <div className='song-upload-form'>
+                            <div className='cover-photo-div'>                    
+                                <div className='cover-preview'>
+                                    {preview}
+                                    <input
+                                        className='photo-upload'
+                                        type="file"
+                                        onChange={this.handlePhoto}
+                                    />
+                                </div>
+                            </div>
+                            <br/>
+                            <div className='fields-div'>
+                                <h3>Title *</h3>
+                                <input 
+                                    type="text"
+                                    value={this.state.title}
+                                    onChange={this.update('title')}
                                 />
+                                <br/>
+                                <h3>Genre </h3>
+                                <input
+                                    type="text"
+                                    value={this.state.genre}
+                                    onChange={this.update('genre')}
+                                />
+                                <br />
+                                {/* <h3>Artist ID </h3>
+                                <input
+                                    type="text"
+                                    value={this.state.artistId}
+                                    onChange={this.update('artistId')}
+                                />
+                                <br/> */}
                             </div>
                         </div>
-                        <br/>
-                        <div className='fields-div'>
-                            <h3>Title *</h3>
-                            <input 
-                                type="text"
-                                value={this.state.title}
-                                onChange={this.update('title')}
-                            />
-                            <br/>
-                            <h3>Genre </h3>
-                            <input
-                                type="text"
-                                value={this.state.genre}
-                                onChange={this.update('genre')}
-                            />
-                            <br />
-                            {/* <h3>Artist ID </h3>
-                            <input
-                                type="text"
-                                value={this.state.artistId}
-                                onChange={this.update('artistId')}
-                            />
-                            <br/> */}
-                        </div>
-                    </div>
-                    <button type="submit" >Upload</button>
-                </form>
+                        <button className='cancel-upload' >Cancel</button>
+                        <button className='save-upload' type="submit" >Save</button>
+                    </form>
+                </div>
             </div>
         )
     }
