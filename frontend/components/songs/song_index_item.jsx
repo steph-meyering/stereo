@@ -13,13 +13,20 @@ class SongIndexItem extends React.Component {
                     src={this.props.song.photoUrl} 
                     alt={this.props.song.title}
                     />
-                <div>
-                    <p>uploader ID: {this.props.song.artistId}</p>
-                    <button onClick={() => this.props.selectSong(this.props.song)}>
-                        SEND TO PLAY CONTROLS
-                    </button>
-                    <h3>{this.props.song.title}</h3>
-                    <audio controls src={this.props.song.fileUrl}></audio>
+                <div className='info-and-wave'>
+                    <div className='song-index-info'>
+                        <div 
+                            className='play-button' 
+                            onClick={() => this.props.selectSong(this.props.song)} 
+                        >
+                        </div>
+                        <div>
+                            <p>uploader ID: {this.props.song.artistId}</p>
+                            <h3>{this.props.song.title}</h3>
+                        </div>
+                    </div>
+                    <div className='tester'>
+                    </div>
                 </div>
             </div>
         )

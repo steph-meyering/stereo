@@ -7,7 +7,7 @@
 
 .song-index-item {
     display: flex;
-    align-items: center;
+    // align-items: center;
     padding: 15px;
 }
 
@@ -15,6 +15,41 @@
     width: 160px;
     height: 160px;
     padding-right: 10px;
+}
+
+.info-and-wave {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-index-info {
+    display: inline-flex;
+    height: min-content;
+    padding-top: 10px;
+}
+
+
+.play-button {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-right: 8px;
+    // background-image: url("https://www.seoclerk.com/pics/201040-1BWel91523999779.png");
+    background-image: image-url("play-button.png");
+    background-color: $orange;
+    background-size: contain;
+    &:hover {
+        -webkit-filter: brightness(70%);
+        transition: all 0.1s;
+    }
+}
+
+.tester {
+    height: 70px;
+    width: max-content;;
+    min-width: 550px;
+    background: image-url("waveform.png");
+    
 }
 
 // song form style:
@@ -33,7 +68,6 @@
 .song-upload-form-container {
     width: 800px;
     padding: 25px;
-
 }
 
 .song-upload-form {

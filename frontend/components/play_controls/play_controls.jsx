@@ -2,7 +2,6 @@ import React from 'react';
 
 class PlayControls extends React.Component {
     render(){
-        debugger
         if (this.props.currentSong === null) {
             return (
                 <span id='footer'> Play controls go here
@@ -12,7 +11,7 @@ class PlayControls extends React.Component {
         } else {
             return (
                 <span id='footer'> Play controls go here 
-                <audio controls src={this.props.currentSong.fileUrl}></audio>
+                <audio controls autoPlay src={this.props.currentSong.fileUrl}></audio>
                 </span>
             )
         }
