@@ -59,6 +59,7 @@ class SongForm extends React.Component {
                     <form
                         onSubmit={this.handleSubmit}
                     >
+                        <h3>Please select an audio file to upload </h3>
                         <input
                             className='audio-upload'
                             type="file"

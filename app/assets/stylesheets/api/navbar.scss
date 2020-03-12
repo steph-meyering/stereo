@@ -1,23 +1,36 @@
 @import "./style";
 
 .navbar-div {
+    z-index: 9;
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 46px;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(51, 51, 51);
-    padding: 6px 3%;
+    // padding: 0% 4% 0% 4%;
 }
+
+.navbar-div a {
+    margin-left: 3%;
+}
+.navbar-buttons {
+    display: flex;
+    width: 220px;
+}
+
 .stereo-icon-div {
-    // margin-left: 14px;
-    height: 60px;
+    height: 46px;
     display: flex;
     align-items: center;
     background-color: $orange;
     transition: background-color 0.6s;
     &:hover{
         background-color:rgb(51, 51, 51);
-    }
+    } 
 }
 .stereo-icon {
     font-size: 30px;
@@ -25,12 +38,11 @@
     transition: color 0.6s;
     &:hover{
         color: $orange;
+        cursor: pointer;
     }
 }
 
-.stereo-icon :hover {
-    cursor: pointer;
-}
+
 
 .create-account-button{
 	@include small-orange-button;

@@ -41,6 +41,7 @@
     &:hover {
         -webkit-filter: brightness(70%);
         transition: all 0.1s;
+        cursor: pointer;
     }
 }
 
@@ -106,3 +107,5 @@
 .save-upload{
     @include small-orange-button;
 }
+
+
