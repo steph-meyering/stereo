@@ -4,6 +4,10 @@
 
 @import "./style";
 
+.song-index {
+    height: 100vh;
+    background-color: white;
+}
 
 .song-index-item {
     display: flex;
@@ -45,7 +49,7 @@
     }
 }
 
-.tester {
+.waveform {
     height: 70px;
     width: max-content;;
     min-width: 550px;

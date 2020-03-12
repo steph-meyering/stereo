@@ -25,7 +25,7 @@ class SongIndexItem extends React.Component {
                             <h3>{this.props.song.title}</h3>
                         </div>
                     </div>
-                    <div className='tester'>
+                    <div className='waveform'>
                     </div>
                 </div>
             </div>

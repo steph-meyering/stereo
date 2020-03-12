@@ -21,6 +21,7 @@ $blue: #38d;
     margin: 10px 0px;
     &:hover {
         cursor: pointer;
+        -webkit-filter: brightness(70%);
     }
 
 
@@ -37,6 +38,7 @@ $blue: #38d;
     margin: 0px 0px 0px 6px;
     &:hover {
         cursor: pointer;
+        -webkit-filter: brightness(70%);
     }
 
 }
