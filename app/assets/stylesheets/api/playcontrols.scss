@@ -11,12 +11,12 @@
 audio {
     width: 800px;
     height: 30px;
-    background-color: grey;
+    background-color: transparent;
 
 }
 
 audio::-webkit-media-controls-panel {
-    background-color: red;
+    background-color: yellow;
 }
 
 /* Chromium default media controls */
