@@ -38,6 +38,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
 gem 'bcrypt'
 gem 'aws-sdk-s3'
+gem 'seed_dump'
 
 
 group :development, :test do
