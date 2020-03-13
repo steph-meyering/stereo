@@ -11,6 +11,7 @@
     background-color: white;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     padding: 0px 3% 3% 3%;
 }
 
@@ -35,15 +36,20 @@
         left: 31%;
         z-index: -1;
         &:hover {
-            z-index: 100;
+            z-index: 10;
         }
     }
 }
 
 .song-splash-item {
     & .album-cover:hover + .play-button{
-        z-index: 100;
+        z-index: 10;
     }
+}
+
+.splash-filler-item {
+    width: 232px;
+    height: 10px;
 }
 
 .splash-song-info {
@@ -106,7 +112,7 @@
     background-size: contain;
     &:hover {
         -webkit-filter: brightness(70%);
-        transition: all 0.1s;
+        transition: all 0.2s;
         cursor: pointer;
     }
 }

@@ -21,6 +21,14 @@ class SongIndex extends React.Component {
         let className = (this.props.match.path === '/') ? "splash-index" : "song-index"
         return className
     }
+
+    addFiller(){
+        if (this.props.match.path === '/') {
+            return(
+                <li className='splash-filler-item'></li>
+            )
+        }
+    }
     
     render(){
         if (this.props.songs.length === 0) return null;
@@ -35,6 +43,10 @@ class SongIndex extends React.Component {
             <div>
                 <ul className={this.isSplash()}>
                     {songItems}
+                    {this.addFiller()}
+                    {this.addFiller()}
+                    {this.addFiller()}
+                    {this.addFiller()}
                 </ul>
             </div>
         )
