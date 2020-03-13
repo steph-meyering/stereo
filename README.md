@@ -8,16 +8,18 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 ## Technologies Used:
 
 - PostgreSQL: database
-- Heroku: hosting
+- Heroku: app/db hosting
 - Rails: backend management
 - React: build all components and rendering logic 
 - Redux: manage front-end state
+- AWS S3: music and photo storage
 
 ---
 
 ## Project Highlights:
 
-### First Highlight
+### SongControls React Component
+
 ### Second Highlight
 
 ---
