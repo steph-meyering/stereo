@@ -1,11 +1,20 @@
 .splash-header-main{
-    display: flex
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    & h1{
+        padding-top: 30px;
+        color: #333;
+        font-family: interstatelight;
+    }
 }
 .splash-header-picture{
-
+    justify-content: center;
+    align-items: center;
     background-image: image-url("stereo-splash.jpg");
     background-size: cover;
-    background-position: top;
+    background-position: top center;
+
     background-repeat: no-repeat;
     width: 100%;
     height: 300px;

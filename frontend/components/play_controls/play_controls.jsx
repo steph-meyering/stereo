@@ -12,8 +12,14 @@ class PlayControls extends React.Component {
             return (
                 <span id='play-controls'> 
                     <audio controls autoPlay src={this.props.currentSong.fileUrl}></audio>
-                    <div>
-                        
+                    <div className='currently-playing-song-data'>
+                        <div>
+                            <img src={this.props.currentSong.photoUrl} alt={this.props.currentSong.title} />
+                        </div>
+                        <div>
+                            <p>{this.props.currentSong.title}</p>
+                            <p>Uploader ID: {this.props.currentSong.artistId}</p>
+                        </div>
                     </div>
                 </span>
             )

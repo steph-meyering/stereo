@@ -67,8 +67,12 @@
 .sidebar {
     margin-left: 1%;
     flex-basis: 28%;
+    margin-left: 10%;
+    border-left: 1px solid #cecece;
     & div{
-        height: 150px;
+        height: 200px;
+        border-bottom: 1px solid #cecece;
+        justify-content: center;
     }
 }
 

@@ -11,6 +11,18 @@
     z-index: 100;
 }
 
+.currently-playing-song-data {
+    font-family: interstateregular;
+    display: flex;
+    align-items: center;
+    & img {
+        margin: 0px 20px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #cecece;
+    }
+}
+
 audio {
     width: 64%;
     height: 30px;
