@@ -4,6 +4,22 @@
 
 @import "./style";
 
+// SONG SPLASH INDEX STYLE (SPLASH ONLY):
+
+.song-splash-item{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    & .play-button {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        z-index: 10;
+    }
+}
+
+// SONG INDEX STYLE (STREAM AND USER SHOW):
+
 .song-index {
     height: 100%;
     background-color: white;
@@ -58,8 +74,7 @@
     
 }
 
-// song form style:
-// background-image: linear-gradient(135deg,#846170,#70929c);
+// SONG FORM STYLE:
 
 .upload-background{
     // margin: 0% 3%;

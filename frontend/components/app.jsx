@@ -19,7 +19,8 @@ const App = () => (
         <header >
             <Navbar />
             <Switch>
-                <Route exact path="/" component={TestContainer} />
+                {/* <Route exact path="/" component={TestContainer} /> */}
+                <Route exact path="/" component={SongIndexContainer} />
                 <Route exact path="/users/:userId" component={UserShowContainer} />
                 <Route exact path="/songs/:songId" component={SongShowContainer} />
                 <Route exact path="/songs" component={SongIndexContainer} />

@@ -1,7 +1,7 @@
 import { fetchSongs, selectSong } from "../../actions/song_actions";
 import { connect } from "react-redux";
 import SongIndex from "./song_index";
-
+import { withRouter } from "react-router-dom";
 
 const mSTP = state => {
     return({
@@ -14,4 +14,4 @@ const mDTP = dispatch => ({
     selectSong: (song) => dispatch(selectSong(song))
 })
 
-export default connect(mSTP, mDTP)(SongIndex);
+export default withRouter(connect(mSTP, mDTP)(SongIndex));
