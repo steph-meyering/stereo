@@ -16,12 +16,14 @@ class SongIndex extends React.Component {
         let component = (this.props.match.path === '/') ? SongSplashItem : SongIndexItem;
         return component;
     }
+
+    isSplash(){
+        let className = (this.props.match.path === '/') ? "splash-index" : "song-index"
+        return className
+    }
     
     render(){
         if (this.props.songs.length === 0) return null;
-        // let songItems = null;
-        debugger;
-        
         let SongComponent = this.withWaveForm()
 
         let songItems = this.props.songs.map((song) => <SongComponent
@@ -30,8 +32,8 @@ class SongIndex extends React.Component {
             key={song.id}
         />)
         return(
-            <div className="song-index">
-                <ul>
+            <div>
+                <ul className={this.isSplash()}>
                     {songItems}
                 </ul>
             </div>

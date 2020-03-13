@@ -12,12 +12,14 @@ import UserShowContainer from "./users/user_show_container";
 import NotFound from "./errors/404";
 import SongFormContainer from "./songs/song_form_container";
 import PlayControlsContainer from "./play_controls/play_controls_container";
+import SplashHeader from "./splash/splash_header";
 
 const App = () => (
     <div>
         <ModalContainer />
         <header >
             <Navbar />
+            <Route exact path="/" component={SplashHeader} />
             <Switch>
                 {/* <Route exact path="/" component={TestContainer} /> */}
                 <Route exact path="/" component={SongIndexContainer} />

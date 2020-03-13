@@ -6,23 +6,64 @@
 
 // SONG SPLASH INDEX STYLE (SPLASH ONLY):
 
+
+.splash-index {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 3% 3% 3%;
+}
+
 .song-splash-item{
     display: flex;
     flex-direction: column;
     width: fit-content;
-    & .play-button {
+    position: relative;
+    & .album-cover{
         position: relative;
-        top: 50%;
-        left: 50%;
-        z-index: 10;
+        width: 200px;
+        height: 200px;
+        margin: 40px 15px 20px 15px;
+        border: 1px solid #cecece;
+    }
+    
+    & .play-button {
+        width: 72px;
+        height: 72px;
+        position: absolute;        
+        bottom: 39%;
+        left: 31%;
+        z-index: -1;
+        &:hover {
+            z-index: 100;
+        }
+    }
+}
+
+.song-splash-item {
+    & .album-cover:hover + .play-button{
+        z-index: 100;
+    }
+}
+
+.splash-song-info {
+    padding-left: 20px;
+    & h3 {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: 'interstateregular'
     }
 }
 
 // SONG INDEX STYLE (STREAM AND USER SHOW):
+.songs-and-sidebar{
+    background-color: white;
+}   
 
 .song-index {
     height: 100%;
-    background-color: white;
     padding-bottom: 60px;
 }
 
@@ -35,18 +76,22 @@
 .album-cover {
     width: 160px;
     height: 160px;
-    padding-right: 10px;
+    // padding-right: 10px;
 }
 
 .info-and-wave {
     display: flex;
     flex-direction: column;
+    height: max-content;
+    justify-self: center;
+    margin-left: 10px;
+
 }
 
 .song-index-info {
     display: inline-flex;
     height: min-content;
-    padding-top: 10px;
+    padding: 10px 0px;
 }
 
 
@@ -54,7 +99,7 @@
     height: 35px;
     width: 35px;
     border-radius: 50%;
-    margin-right: 8px;
+    margin: 0px 8px;
     // background-image: url("https://www.seoclerk.com/pics/201040-1BWel91523999779.png");
     background-image: image-url("play-button.png");
     background-color: $orange;

@@ -1,0 +1,13 @@
+.splash-header-main{
+    display: flex
+}
+.splash-header-picture{
+
+    background-image: image-url("stereo-splash.jpg");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 300px;
+
+}

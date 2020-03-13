@@ -18,7 +18,7 @@ class SongSplashItem extends React.Component {
                     onClick={() => this.props.selectSong(this.props.song)}
                 >
                 </div>
-                <div>
+                <div className='splash-song-info'>
                     <h3>{this.props.song.title}</h3>
                     <h3>uploader ID: {this.props.song.artistId}</h3>
                 </div>
