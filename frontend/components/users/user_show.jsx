@@ -21,6 +21,7 @@ class UserShowContainer extends React.Component {
 
                     {/* <h3>Bio: {this.props.user.about} </h3> */}
                 </div>
+                <h1>Recent Activity</h1>
                 <div className='songs-and-sidebar'>
                     <SongIndexContainer/>
                     <UserSidebar/>
