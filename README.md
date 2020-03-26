@@ -1,6 +1,6 @@
 # README
 
-Stereo is an online music sharing and streaming application, heavily inspire by Soundcloud. 
+Stereo is an online music sharing and streaming application, heavily inspired by Soundcloud. 
 The goal of this project was to build an app from scratch in a 2 week timeframe, without using any external libraries.
 
 [See it live!](https://stereocloud.herokuapp.com/#/)
