@@ -20,7 +20,7 @@ class SongSplashItem extends React.Component {
                 </div>
                 <div className='splash-song-info'>
                     <h3>{this.props.song.title}</h3>
-                    <h3>uploader ID: {this.props.song.artistId}</h3>
+                    <h3>{this.props.song.artist}</h3>
                 </div>
             </div>
         );

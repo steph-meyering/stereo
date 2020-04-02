@@ -1,9 +1,28 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  username        :string           not null
+#  email           :string           not null
+#  location        :string
+#  artist          :boolean
+#  about           :text
+#  password_digest :string           not null
+#  session_token   :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class User < ApplicationRecord
     validates :username, presence: true, uniqueness: true
     validates :password_digest, presence: true
     validates :session_token, presence: true, uniqueness: true
     validates :password, length: { minimum: 6, allow_nil: true }
     after_initialize :ensure_session_token
+
+    has_many :songs,
+    foreign_key: :artist_id,
+    class_name: 'Song'
 
     attr_reader :password
 

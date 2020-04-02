@@ -21,7 +21,7 @@ class SongIndexItem extends React.Component {
                         >
                         </div>
                         <div>
-                            <p>uploader ID: {this.props.song.artistId}</p>
+                            <p>{this.props.song.artist}</p>
                             <h3>{this.props.song.title}</h3>
                         </div>
                     </div>

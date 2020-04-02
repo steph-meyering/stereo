@@ -147,7 +147,7 @@ song9.photo.attach(io: photo9, filename: "photo9")
 song10 = Song.create(
     artist_id: guest.id, 
     title:"tails - Misted", 
-    genre: "chilout")
+    genre: "chillout")
 
 file10 = open("https://stereo-seeds.s3-us-west-1.amazonaws.com/music/tails-Misted.mp3")
 song10.file.attach(io: file10, filename: "file10")
