@@ -3,8 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .user-show-page {
-    // margin: 0% 3%;
-    height: 100vh;
+    min-width: 960px;
     background-color: white;
     & h1{
         padding: 30px 10px 10px 15px;
@@ -73,7 +72,7 @@
 .sidebar {
     margin-left: 1%;
     flex-basis: 28%;
-    margin-left: 10%;
+    margin-left: 1%;
     border-left: 1px solid #cecece;
     & div{
         height: 200px;

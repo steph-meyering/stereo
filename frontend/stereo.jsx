@@ -23,9 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // TESTING START
-    window.dispatch = store.dispatch;
-    window.requestUser = requestUser;
-    window.fetchSongs = fetchSongs;
+
 
     // TESTING END
 

@@ -15,10 +15,11 @@ import PlayControlsContainer from "./play_controls/play_controls_container";
 import SplashHeader from "./splash/splash_header";
 
 const App = () => (
-    <div>
+    <div >
         <ModalContainer />
-        <header >
+        <body className="main" >
             <Navbar />
+            <div className="main-content">            
             <Route exact path="/" component={SplashHeader} />
             <Switch>
                 {/* <Route exact path="/" component={TestContainer} /> */}
@@ -30,7 +31,8 @@ const App = () => (
                 <Route exact path="/404" component={NotFound} />
                 <Redirect path='*' to='/404'/>
             </Switch>
-        </header>
+            </div>
+        </body>
         <footer>
             <PlayControlsContainer/>
         </footer>

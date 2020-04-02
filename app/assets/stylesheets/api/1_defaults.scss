@@ -6,12 +6,18 @@
     color: #333;
 }
 
-
-body {
-    margin: 0% 6%;
-    padding-top: 46px;
-    padding-bottom: 120px;
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #f2f2f2;
+}
+
+.main-content {
+    padding-top: 46px;
+    padding-bottom: 50px;
+    width: 88%;
+    min-height: 100vh;
 }
 
 a {
