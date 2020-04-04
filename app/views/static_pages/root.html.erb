@@ -1,11 +1,16 @@
 <% if logged_in? %>
-    <script type="text/javascript">
-    window.currentUser =  <%= render(
-        'api/users/user.json.jbuilder',
-        user: current_user
-        ).html_safe
-        %>
-    </script>
+    <div id="bootstrap-current-user">
+        <script type="text/javascript">
+        window.currentUser =  <%= render(
+            'api/users/user.json.jbuilder',
+            user: current_user
+            ).html_safe
+            %>
+        </script>
+    </div>
+    
 <% end %>
 
-<div id="root"></div>
+<main id="root">
+  React is not working
+</main>

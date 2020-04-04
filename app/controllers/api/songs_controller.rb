@@ -5,7 +5,7 @@ class Api::SongsController < ApplicationController
     end
 
     def index
-        @songs = Song.all.with_attached_file.with_attached_photo.includes(:artist)
+        @songs = Song.with_attached_file.with_attached_photo.includes(:artist).all
         render :index
     end
 
@@ -18,6 +18,8 @@ class Api::SongsController < ApplicationController
             render json: @song.errors.full_messages, status: 422
         end
     end
+    
+    private
     
     def song_params
         params.require(:song).permit(:artist_id, :genre, :title, :updated_at, :file, :photo)

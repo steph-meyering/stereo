@@ -40,7 +40,7 @@ class SongIndex extends React.Component {
             key={song.id}
         />)
         return(
-            <div>
+            <div className={this.isSplash().concat('-main')}>
                 <ul className={this.isSplash()}>
                     {songItems}
                     {this.addFiller()}

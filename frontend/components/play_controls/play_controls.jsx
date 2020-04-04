@@ -17,8 +17,8 @@ class PlayControls extends React.Component {
                             <img src={this.props.currentSong.photoUrl} alt={this.props.currentSong.title} />
                         </div>
                         <div>
-                            <p>{this.props.currentSong.title}</p>
-                            <p>Uploader ID: {this.props.currentSong.artistId}</p>
+                            <p className='uploader'>{this.props.currentSong.artist}</p>
+                            <p className='song-title'>{this.props.currentSong.title}</p>
                         </div>
                     </div>
                 </span>

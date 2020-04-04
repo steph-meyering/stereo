@@ -1,3 +1,5 @@
+@import "./style";
+
 #play-controls {
     position: fixed;
     display: flex;
@@ -7,7 +9,7 @@
     height: 50px;
     width: 100%;
     background-color: #f2f2f2;
-    border-top: 1px solid #cecece ;
+    border-top: 1px solid $light-grey ;
     z-index: 100;
 }
 
@@ -19,7 +21,7 @@
         margin: 0px 20px;
         width: 40px;
         height: 40px;
-        border: 1px solid #cecece;
+        border: 1px solid $light-grey;
     }
 }
 
@@ -28,10 +30,24 @@ audio {
     height: 30px;
     background-color: transparent;
     margin-left: 6%;
-    border-right: 1px solid #cecece ;
+    border-right: 1px solid $light-grey ;
 
 }
+.uploader {
+    font-size: 12px;
+    color: $light-grey;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
+.song-title{
+    font-size: 14px;
+    color: $dark-grey;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 // audio::-webkit-media-controls-panel {
 //     background-color: yellow;
 // }
