@@ -21,7 +21,7 @@
   position: relative;
   & .album-cover {
     position: relative;
-    width: 200px;
+    width: auto;
     height: 200px;
     margin: 40px 15px 20px 15px;
     border: 1px solid $light-grey;
@@ -64,7 +64,7 @@
 
 // SONG INDEX STYLE (STREAM AND USER SHOW):
 .song-index-main{
-  width: 70%;
+  width: 75%;
 }
 
 .song-index-item {
@@ -73,7 +73,7 @@
 }
 
 .album-cover {
-  width: 160px;
+  width: auto;
   height: 160px;
 }
 
@@ -110,9 +110,9 @@
 
 .waveform {
   height: 70px;
-  width: max-content;
-  width: 100%;
-  display: block;
+  // width: max-content;
+  // width: 100%;
+  // display: block;
   background: image-url("waveform.png");
 }
 
@@ -179,12 +179,12 @@
   background: -webkit-linear-gradient(336deg, rgba(171,171,171,1) 0%, rgba(0,0,0,1) 100%); /* safari5.1+,chrome10+ */
   & .album-cover {
     padding: 15px;
-    width: 300px;
+    width: auto;
     height: 300px;
   }
 }
 .song-show-left {
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
