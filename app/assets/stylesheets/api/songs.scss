@@ -174,7 +174,9 @@
 .song-show-top {
   display: flex;
   justify-content: space-between;
-  background-color: lightblue;
+  background: -moz-linear-gradient(336deg, rgba(171,171,171,1) 0%, rgba(0,0,0,1) 100%); /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(171,171,171,1)), color-stop(100%, rgba(0,0,0,1))); /* safari4+,chrome */
+  background: -webkit-linear-gradient(336deg, rgba(171,171,171,1) 0%, rgba(0,0,0,1) 100%); /* safari5.1+,chrome10+ */
   & .album-cover {
     padding: 15px;
     width: 300px;
@@ -183,4 +185,35 @@
 }
 .song-show-left {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.name-artist-play{
+  display: flex;
+  align-items: center;
+  & .play-button {
+    height: 60px;
+    width: 60px;
+  }
+  & .username {
+    margin-bottom: 4px;
+    padding: 6px;
+    // margin-bottom: 0px;
+
+  }
+  & .song-show-title {
+    font-size: 20px ;
+    color: white;
+    padding: 6px 4px;
+    background-color: rgba(0,0,0,.8);
+    max-width: max-content;
+
+  }
+}
+
+.name-artist {
+
 }

@@ -13,12 +13,16 @@ class SongShow extends React.Component {
       <div className="song-show-page">
         <div className="song-show-top">
           <div className='song-show-left'>
-            <div
-              className="play-button"
-              onClick={() => this.props.selectSong(this.props.song)}
-            ></div>
-            <p>{this.props.song.artist}</p>
-            <h1>{this.props.song.title}</h1>
+            <div className='name-artist-play'>
+              <div
+                className="play-button"
+                onClick={() => this.props.selectSong(this.props.song)}
+              ></div>
+              <div className='name-artist'>
+                <h3 className='username'>{this.props.song.artist}</h3>
+                <h2 className='song-show-title'>{this.props.song.title}</h2>
+              </div>
+            </div>
             <div className="waveform"></div>
           </div>
           <img
