@@ -2,25 +2,20 @@
 
 .navbar-div {
     z-index: 9;
-    display: flex;
+    // display: flex;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 46px;
-    justify-content: space-between;
-    align-items: center;
     background-color: rgb(51, 51, 51);
-    // padding: 0% 4% 0% 4%;
 }
 
-.navbar-div a {
-    margin-left: 6%;
-}
-.navbar-buttons {
+.navbar-content{
     display: flex;
-    width: 220px;
-    margin-right: 6%;
+    margin: 0px 6%;
+    justify-content: space-between;
+    align-items: center;
 
 }
 
