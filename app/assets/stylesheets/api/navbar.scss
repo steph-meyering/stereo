@@ -20,7 +20,8 @@
 }
 
 .navbar-buttons {
-    display: inline-flex;
+    display: flex;
+    align-items: center;
 }
 
 .stereo-icon-div {
@@ -54,7 +55,12 @@
 }
 
 .sign-out-button{
-	@include small-orange-button;
+	@include small-transparent-button;
+}
+
+.upload-button {
+    @include small-orange-button;
+    padding: 4px 16px;
 }
 
 .profile-pic-thumbnail {
