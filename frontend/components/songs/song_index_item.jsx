@@ -9,11 +9,13 @@ class SongIndexItem extends React.Component {
     if (this.props.song === undefined) return null;
     return (
       <div className="song-index-item">
-        <img
-          className="album-cover"
-          src={this.props.song.photoUrl}
-          alt={this.props.song.title}
-        />
+        <Link to={`/songs/${this.props.song.id}`}>
+          <img
+            className="album-cover"
+            src={this.props.song.photoUrl}
+            alt={this.props.song.title}
+          />
+        </Link>
         <div className="info-and-wave">
           <div className="song-index-info">
             <div

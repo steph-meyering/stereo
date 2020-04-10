@@ -3,7 +3,13 @@ import UserSidebar from "./user_sidebar";
 import SongIndexContainer from "../songs/song_index_container";
 class UserShowContainer extends React.Component {
     componentDidMount(){
-        this.props.requestUser(this.props.match.params.userId)
+        this.props.requestUser(this.props.match.params.userId);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId){
+            this.props.requestUser(this.props.match.params.userId);
+        }
     }
 
     render(){

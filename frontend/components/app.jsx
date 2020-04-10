@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "./navbar/navbar_container";
 import SignupFormContainer from "./session_form/signup_form_container";
 import LoginFormContainer from "./session_form/login_form_container";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, Router } from "react-router-dom";
 import { AuthRoute } from "../util/route_util";
 import ModalContainer from "./modal/modal_container";
 import SongShowContainer from "./songs/song_show_container";
