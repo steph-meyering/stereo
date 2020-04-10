@@ -63,7 +63,7 @@
 }
 
 // SONG INDEX STYLE (STREAM AND USER SHOW):
-.song-index-main{
+.song-index-main {
   width: 75%;
 }
 
@@ -119,10 +119,8 @@
 // SONG FORM STYLE:
 
 .upload-background {
-  // margin: 0% 3%;
   padding-left: 14px;
   height: 100vh;
-  // background-color: white;
   display: flex;
   justify-content: center;
 }
@@ -169,14 +167,49 @@
   @include small-orange-button;
 }
 
+.image-upload-button {
+  position: absolute;
+  bottom: 20px;
+  left: 77px;
+  background-color: #e3e7e9;
+  color: black;
+  align-items: center;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin: 10px 0px;
+  &:hover {
+    cursor: pointer;
+    -webkit-filter: brightness(70%);
+  }
+}
+
+.hide {
+  display: none;
+}
+
 // SONG SHOW PAGE
 
 .song-show-top {
   display: flex;
   justify-content: space-between;
-  background: -moz-linear-gradient(336deg, rgba(171,171,171,1) 0%, rgba(0,0,0,1) 100%); /* ff3.6+ */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(171,171,171,1)), color-stop(100%, rgba(0,0,0,1))); /* safari4+,chrome */
-  background: -webkit-linear-gradient(336deg, rgba(171,171,171,1) 0%, rgba(0,0,0,1) 100%); /* safari5.1+,chrome10+ */
+  background: -moz-linear-gradient(
+    336deg,
+    rgba(171, 171, 171, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  ); /* ff3.6+ */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    color-stop(0%, rgba(171, 171, 171, 1)),
+    color-stop(100%, rgba(0, 0, 0, 1))
+  ); /* safari4+,chrome */
+  background: -webkit-linear-gradient(
+    336deg,
+    rgba(171, 171, 171, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  ); /* safari5.1+,chrome10+ */
   & .album-cover {
     padding: 15px;
     width: auto;
@@ -191,7 +224,7 @@
   padding: 15px;
 }
 
-.name-artist-play{
+.name-artist-play {
   display: flex;
   align-items: center;
   & .play-button {
@@ -202,18 +235,15 @@
     margin-bottom: 4px;
     padding: 6px;
     // margin-bottom: 0px;
-
   }
   & .song-show-title {
-    font-size: 20px ;
+    font-size: 20px;
     color: white;
     padding: 6px 4px;
-    background-color: rgba(0,0,0,.8);
+    background-color: rgba(0, 0, 0, 0.8);
     max-width: max-content;
-
   }
 }
 
 .name-artist {
-
 }
