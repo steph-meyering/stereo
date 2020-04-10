@@ -14,26 +14,28 @@ class UserShowContainer extends React.Component {
 
     render(){
         if (this.props.user === undefined) return null
-        return(
-            <div className='user-show-page'>
-                <div className='user-show-div'>
-                    <div>
-                        <img className='profile-pic' src="https://i.pinimg.com/originals/8f/15/5c/8f155c9323941657c157c3ce8e4df589.jpg" alt=""/>
-                    </div>
-                    <div className='name-location'>
-                        <h2 className='username'>{this.props.user.username}</h2>
-                        <h3 className='location'>{this.props.user.location}</h3>
-                    </div>
+        return (
+          <div className="user-show-page">
+            <div className="user-show-div">
+              <img
+                  className="profile-pic"
+                  src="https://i.pinimg.com/originals/8f/15/5c/8f155c9323941657c157c3ce8e4df589.jpg"
+                  alt="profile-picture"
+              />
+              <div className="name-location">
+                <h2 className="username">{this.props.user.username}</h2>
+                <h3 className="location">{this.props.user.location}</h3>
+              </div>
 
-                    {/* <h3>Bio: {this.props.user.about} </h3> */}
-                </div>
-                <h1>Recent Activity</h1>
-                <div className='songs-and-sidebar'>
-                    <SongIndexContainer/>
-                    <UserSidebar/>
-                </div>
+              {/* <h3>Bio: {this.props.user.about} </h3> */}
             </div>
-        )
+            <h1>Recent Activity</h1>
+            <div className="songs-and-sidebar">
+              <SongIndexContainer />
+              <UserSidebar />
+            </div>
+          </div>
+        );
     }
 }
 

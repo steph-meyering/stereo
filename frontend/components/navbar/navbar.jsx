@@ -5,7 +5,7 @@ const Navbar = ({ currentUser, logout, openModal}) => {
     if (currentUser) {
         return (
           <div className="navbar-div">
-            <div className='navbar-content'>
+            <div className="navbar-content">
               <Link to="/">
                 <div className="stereo-icon-div">
                   <h1 className="stereo-icon">(((Stereo)))</h1>
@@ -15,7 +15,15 @@ const Navbar = ({ currentUser, logout, openModal}) => {
                 <button className="sign-out-button" onClick={() => logout()}>
                   Sign out
                 </button>
-                <Link to={`/users/${currentUser.id}`}> my profile</Link>
+                <Link to={`/users/${currentUser.id}`}>
+                  <div>
+                    <img
+                      className="profile-pic-thumbnail"
+                      src="https://i.pinimg.com/originals/8f/15/5c/8f155c9323941657c157c3ce8e4df589.jpg"
+                      alt="profile-picture"
+                    />
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
