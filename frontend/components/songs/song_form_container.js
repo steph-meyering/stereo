@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import SongForm from "./song_form";
 
 const mSTP = state => ({
+    errors: state.errors.song,
     currentUserId: state.session.id
 })
 
