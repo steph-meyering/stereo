@@ -1,5 +1,6 @@
 import React from "react";
 import { uploadSong } from "../../actions/song_actions";
+import WaveForm from "./waveform_generator";
 
 class SongForm extends React.Component {
   constructor(props) {
@@ -26,7 +27,14 @@ class SongForm extends React.Component {
   }
 
   handleFile(e) {
-    this.setState({ file: e.currentTarget.files[0] });
+    const audioFile = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => {
+      this.setState({ file: audioFile, audioUrl: fileReader.result });
+    };
+    if (audioFile) {
+      fileReader.readAsDataURL(audioFile);
+    }
   }
 
   handlePhoto(e) {
@@ -70,12 +78,17 @@ class SongForm extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(this.state)
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
     ) : (
       <div className="place-holder-cover"></div>
     );
+
+    const waveform = this.state.file ? (
+      <WaveForm url={this.state.audioUrl} /> 
+      ) : null;
+    
     return (
       <div className="upload-background">
         <div className="song-upload-form-container">
@@ -136,6 +149,9 @@ class SongForm extends React.Component {
             </button>
           </form>
           {this.renderErrors()}
+          <canvas id='waveform-canvas'></canvas>
+          {waveform}
+          {/* <WaveForm url={url}/> */}
         </div>
       </div>
     );
