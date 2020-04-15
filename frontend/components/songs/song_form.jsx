@@ -1,6 +1,7 @@
 import React from "react";
 import { uploadSong } from "../../actions/song_actions";
 import WaveForm from "./waveform_generator";
+import WaveSurfer from "wavesurfer.js";
 
 class SongForm extends React.Component {
   constructor(props) {
@@ -17,6 +18,15 @@ class SongForm extends React.Component {
     this.handleFile = this.handleFile.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.wave = WaveSurfer.create({
+      container: "#waveform-container",
+      barWidth: 2,
+      barHeight: 1, // the height of the wave
+      barGap: null,
+    });
   }
 
   update(field) {
@@ -77,8 +87,14 @@ class SongForm extends React.Component {
     );
   }
 
+  generateWave() {
+    this.wave.load(this.state.audioUrl)
+    // console.log(this.state.audioUrl)
+  }
+  
   render() {
     console.log(this.state)
+    
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
     ) : (
@@ -149,9 +165,10 @@ class SongForm extends React.Component {
             </button>
           </form>
           {this.renderErrors()}
-          <canvas id='waveform-canvas'></canvas>
-          {waveform}
+          <div id='waveform-container'></div>
+          {/* {waveform} */}
           {/* <WaveForm url={url}/> */}
+          <button type='button' onClick={()=> this.generateWave()}>gen waveform</button>
         </div>
       </div>
     );
