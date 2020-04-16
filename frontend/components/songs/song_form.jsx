@@ -1,6 +1,5 @@
 import React from "react";
 import { uploadSong } from "../../actions/song_actions";
-import WaveForm from "./waveform_generator";
 import WaveSurfer from "wavesurfer.js";
 
 class SongForm extends React.Component {
@@ -11,6 +10,7 @@ class SongForm extends React.Component {
       genre: "",
       artistId: this.props.currentUserId,
       file: null,
+      wave: null,
       photo: null,
       photoUrl: null,
       uploading: false,
@@ -18,15 +18,7 @@ class SongForm extends React.Component {
     this.handleFile = this.handleFile.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.wave = WaveSurfer.create({
-      container: "#waveform-container",
-      barWidth: 2,
-      barHeight: 1, // the height of the wave
-      barGap: null,
-    });
+    // this.generateWave = this.generateWave.bind(this);
   }
 
   update(field) {
@@ -40,7 +32,9 @@ class SongForm extends React.Component {
     const audioFile = e.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
-      this.setState({ file: audioFile, audioUrl: fileReader.result });
+      // generate waveform once a file is loaded
+      this.generateWave(fileReader.result);
+      this.setState({waveUrl: fileReader.result})
     };
     if (audioFile) {
       fileReader.readAsDataURL(audioFile);
@@ -64,17 +58,17 @@ class SongForm extends React.Component {
     formData.append("song[title]", this.state.title);
     formData.append("song[genre]", this.state.genre);
     formData.append("song[artist_id]", this.state.artistId);
-    if (this.state.file){
+    if (this.state.file) {
       formData.append("song[file]", this.state.file);
     }
-    if (this.state.photo){
+    if (this.state.photo) {
       formData.append("song[photo]", this.state.photo);
     }
     this.setState({
       uploading: true,
     });
-    console.log('starting upload')
-    this.props.uploadSong(formData).then(() => console.log('done'));
+    console.log("starting upload");
+    this.props.uploadSong(formData).then(() => console.log("done"));
   }
 
   renderErrors() {
@@ -87,24 +81,51 @@ class SongForm extends React.Component {
     );
   }
 
-  generateWave() {
-    this.wave.load(this.state.audioUrl)
-    // console.log(this.state.audioUrl)
+  generateWave(url) {
+    this.state.wave.load(url);
   }
-  
+
+  componentDidMount() {
+    // initialize the waveform component
+    let wave = WaveSurfer.create({
+      container: "#waveform-container",
+      barWidth: 2,
+      barHeight: 1, // the height of the wave
+      barGap: null,
+    });
+    this.setState({
+      wave: wave,
+    });
+  }
+
+  saveWaveData() {
+    // this.state.wave
+    //   .exportPCM(1024, 1, true)
+    //   .then((res) => this.setState({ waveData: res }));
+    const waveData = this.state.wave.exportImage()
+    this.setState({ waveData });
+  }
+  useWaveData() {
+    // this.state.wave.load(this.state.waveUrl, this.state.waveData, true)
+    // console.log(this.state.waveData);
+    // console.log(this.state.waveUrl);
+    let img = document.getElementById('yoyoyo')
+    img.src = this.state.waveData;
+  }
+
+  // generateWaveFromBlob(blob) {
+  //   // console.time("draw from blob");
+  //   this.state.wave.loadBlob(blob);
+  //   // console.timeEnd("draw from blob");
+  // }
+
   render() {
-    console.log(this.state)
-    
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
     ) : (
       <div className="place-holder-cover"></div>
     );
 
-    const waveform = this.state.file ? (
-      <WaveForm url={this.state.audioUrl} /> 
-      ) : null;
-    
     return (
       <div className="upload-background">
         <div className="song-upload-form-container">
@@ -165,10 +186,15 @@ class SongForm extends React.Component {
             </button>
           </form>
           {this.renderErrors()}
-          <div id='waveform-container'></div>
-          {/* {waveform} */}
-          {/* <WaveForm url={url}/> */}
-          <button type='button' onClick={()=> this.generateWave()}>gen waveform</button>
+          <div id="waveform-container"></div>
+          <div id="stored-waveform"></div>
+          <button type="button" onClick={() => this.saveWaveData()}>
+            save waveform data
+          </button>
+          <button type="button" onClick={() => this.useWaveData()}>
+            use data
+          </button>
+          <img src="not-found.png" alt="" className="test" id="yoyoyo" />
         </div>
       </div>
     );
