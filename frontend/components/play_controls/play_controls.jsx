@@ -5,7 +5,7 @@ class PlayControls extends React.Component {
         if (this.props.currentSong === null) {
             return (
                 <span id='play-controls'>
-                    <audio controls src="null"></audio>
+                    <audio controls src="#"></audio>
                 </span>
             )    
         } else {

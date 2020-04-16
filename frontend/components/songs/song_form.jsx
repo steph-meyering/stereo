@@ -34,7 +34,7 @@ class SongForm extends React.Component {
     fileReader.onloadend = () => {
       // generate waveform once a file is loaded
       this.generateWave(fileReader.result);
-      this.setState({waveUrl: fileReader.result})
+      this.setState({ waveUrl: fileReader.result });
     };
     if (audioFile) {
       fileReader.readAsDataURL(audioFile);
@@ -89,6 +89,7 @@ class SongForm extends React.Component {
     // initialize the waveform component
     let wave = WaveSurfer.create({
       container: "#waveform-container",
+      backend: 'MediaElement',
       barWidth: 2,
       barHeight: 1, // the height of the wave
       barGap: null,
@@ -98,19 +99,34 @@ class SongForm extends React.Component {
     });
   }
 
-  saveWaveData() {
+  saveWaveImage() {
     // this.state.wave
     //   .exportPCM(1024, 1, true)
     //   .then((res) => this.setState({ waveData: res }));
-    const waveData = this.state.wave.exportImage()
+    const waveData = this.state.wave.exportImage();
     this.setState({ waveData });
   }
-  useWaveData() {
+
+  savePeakData() {
+    this.state.wave
+      .exportPCM()
+      .then((res) => this.setState({ waveData: res }));
+  }
+
+  useSavedWaveImage() {
     // this.state.wave.load(this.state.waveUrl, this.state.waveData, true)
     // console.log(this.state.waveData);
     // console.log(this.state.waveUrl);
-    let img = document.getElementById('yoyoyo')
+    let img = document.getElementById("yoyoyo");
     img.src = this.state.waveData;
+  }
+
+  useSavedPeakData() {
+    this.state.wave.load(this.state.waveUrl, this.state.waveData, true)
+    console.log(this.state.waveData);
+    // console.log(this.state.waveUrl);
+    // let img = document.getElementById("yoyoyo");
+    // img.src = this.state.waveData;
   }
 
   // generateWaveFromBlob(blob) {
@@ -188,13 +204,19 @@ class SongForm extends React.Component {
           {this.renderErrors()}
           <div id="waveform-container"></div>
           <div id="stored-waveform"></div>
-          <button type="button" onClick={() => this.saveWaveData()}>
-            save waveform data
+          <button type="button" onClick={() => this.saveWaveImage()}>
+            save waveform IMAGE
           </button>
-          <button type="button" onClick={() => this.useWaveData()}>
-            use data
+          <button type="button" onClick={() => this.useSavedWaveImage()}>
+            useSavedWaveImage
           </button>
-          <img src="not-found.png" alt="" className="test" id="yoyoyo" />
+          <button type="button" onClick={() => this.savePeakData()}>
+            save PEAK DATA
+          </button>
+          <button type="button" onClick={() => this.useSavedPeakData()}>
+            useSavedPeakData
+          </button>
+          <img src="#" alt="" className="test" id="yoyoyo" />
         </div>
       </div>
     );
