@@ -192,6 +192,11 @@
   // width: 800px;
 }
 
+wave :hover {
+  cursor: pointer;
+  -webkit-filter: brightness(70%);
+}
+
 .hide {
   display: none;
 }

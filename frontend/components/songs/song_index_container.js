@@ -6,7 +6,8 @@ import { requestUser } from "../../actions/user_actions";
 
 const mSTP = state => {
     return({
-        songs: Object.values(state.entities.songs)
+        songs: Object.values(state.entities.songs),
+        currentUser: state.session.id
     })
 }
 

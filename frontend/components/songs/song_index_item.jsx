@@ -6,6 +6,7 @@ class SongIndexItem extends React.Component {
   render() {
     // // causes an error without this if statement
     if (this.props.song === undefined) return null;
+    let editButton = this.props.ownSong ? <button>edit</button> : null;
     return (
       <div className="song-index-item">
         <Link to={`/songs/${this.props.song.id}`}>
@@ -29,6 +30,7 @@ class SongIndexItem extends React.Component {
             </div>
           </div>
           <div className="waveform"></div>
+          {editButton}
         </div>
       </div>
     );

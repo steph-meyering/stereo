@@ -14,7 +14,8 @@ class SongForm extends React.Component {
       photo: null,
       photoUrl: null,
       uploading: false,
-      seekPos: 0.00
+      seekStep: 0.00,
+      seekPos: 0.00,
     };
     this.handleFile = this.handleFile.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
@@ -39,6 +40,8 @@ class SongForm extends React.Component {
       barWidth: 2,
       barHeight: 1, // the height of the wave
       barGap: null,
+      progressColor: "#f50",
+      cursorColor: "rgba(255, 0, 0, 0.0)",
     });
 
     // add wave to local state
@@ -46,10 +49,9 @@ class SongForm extends React.Component {
     const audioFile = e.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
-
       // TEST: store audio file as dataURL in local state
       this.setState({ waveUrl: fileReader.result, waveData: null });
-
+      
       // draw waveform once file is loaded
       this.state.wave.load(fileReader.result);
     };
@@ -101,6 +103,8 @@ class SongForm extends React.Component {
   saveWaveImage() {
     const waveData = this.state.wave.exportImage();
     this.setState({ waveData });
+    this.calcSeekStep();
+
   }
 
   savePeakData() {
@@ -108,7 +112,6 @@ class SongForm extends React.Component {
       .exportPCM()
       .then((res) => {
         this.setState({ waveData: res })
-        console.log(JSON.parse(this.state.waveData).length);
       });
   }
 
@@ -123,10 +126,21 @@ class SongForm extends React.Component {
   }
 
   incrementWave() {
-    if (this.state.seekPos < 1.00){
+    if (this.state.seekPos <= 1.00){
       this.state.wave.seekTo(this.state.seekPos);
-      this.setState({seekPos: this.state.seekPos + 0.01})
+      this.setState({seekPos: this.state.seekPos + this.state.seekStep})
     } else {clearInterval()}
+  }
+  
+  calcSeekStep() {
+    let container = document.getElementById("waveform-container");
+    let numBars = container.offsetWidth / 3 // 2px per bar and 1px spacing
+    let duration = this.state.wave.getDuration()
+    let barsPerSec = numBars / this.state.wave.getDuration();
+    console.log(barsPerSec);
+    let seekStep = 1/(numBars*2);
+    let timeStep = 1000/(barsPerSec*2);
+    this.setState({seekStep, timeStep})
   }
   
   render() {
@@ -210,11 +224,19 @@ class SongForm extends React.Component {
           <button type="button" onClick={() => this.useSavedPeakData()}>
             useSavedPeakData
           </button>
-          <button onClick={() => this.state.wave.playPause()}>
+          <button onClick={() => {
+            this.state.wave.setMute(true)
+            this.state.wave.playPause()}
+            }>
             Play/Pause
           </button>
-          <button onClick={() => setInterval(this.incrementWave,1000)}>
-            seek to 0.5
+          <button onClick={() => {
+                  this.setState({
+                    seekPos: 0,
+                  });
+            setInterval(this.incrementWave, this.state.timeStep)
+          }}>
+            play / seek
           </button>
           <img src="#" alt="" className="test" id="yoyoyo" />
         </div>
