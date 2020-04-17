@@ -14,11 +14,12 @@ class SongForm extends React.Component {
       photo: null,
       photoUrl: null,
       uploading: false,
+      seekPos: 0.00
     };
     this.handleFile = this.handleFile.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.generateWave = this.generateWave.bind(this);
+    this.incrementWave = this.incrementWave.bind(this);
   }
 
   update(field) {
@@ -29,12 +30,28 @@ class SongForm extends React.Component {
   }
 
   handleFile(e) {
+    // Destroy existing wave element if a different audio file is selected
+    if (this.state.wave) {this.state.wave.destroy()}
+
+    // Create a blank wave element when an audio file is selected
+    let wave = WaveSurfer.create({
+      container: "#waveform-container",
+      barWidth: 2,
+      barHeight: 1, // the height of the wave
+      barGap: null,
+    });
+
+    // add wave to local state
+    this.setState({wave})
     const audioFile = e.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
-      // generate waveform once a file is loaded
-      this.generateWave(fileReader.result);
-      this.setState({ waveUrl: fileReader.result });
+
+      // TEST: store audio file as dataURL in local state
+      this.setState({ waveUrl: fileReader.result, waveData: null });
+
+      // draw waveform once file is loaded
+      this.state.wave.load(fileReader.result);
     };
     if (audioFile) {
       fileReader.readAsDataURL(audioFile);
@@ -81,28 +98,7 @@ class SongForm extends React.Component {
     );
   }
 
-  generateWave(url) {
-    this.state.wave.load(url);
-  }
-
-  componentDidMount() {
-    // initialize the waveform component
-    let wave = WaveSurfer.create({
-      container: "#waveform-container",
-      backend: 'MediaElement',
-      barWidth: 2,
-      barHeight: 1, // the height of the wave
-      barGap: null,
-    });
-    this.setState({
-      wave: wave,
-    });
-  }
-
   saveWaveImage() {
-    // this.state.wave
-    //   .exportPCM(1024, 1, true)
-    //   .then((res) => this.setState({ waveData: res }));
     const waveData = this.state.wave.exportImage();
     this.setState({ waveData });
   }
@@ -110,31 +106,29 @@ class SongForm extends React.Component {
   savePeakData() {
     this.state.wave
       .exportPCM()
-      .then((res) => this.setState({ waveData: res }));
+      .then((res) => {
+        this.setState({ waveData: res })
+        console.log(JSON.parse(this.state.waveData).length);
+      });
   }
 
   useSavedWaveImage() {
-    // this.state.wave.load(this.state.waveUrl, this.state.waveData, true)
-    // console.log(this.state.waveData);
-    // console.log(this.state.waveUrl);
     let img = document.getElementById("yoyoyo");
     img.src = this.state.waveData;
   }
 
   useSavedPeakData() {
-    this.state.wave.load(this.state.waveUrl, this.state.waveData, true)
+    this.state.wave.load(this.state.waveUrl, JSON.parse(this.state.waveData))
     console.log(this.state.waveData);
-    // console.log(this.state.waveUrl);
-    // let img = document.getElementById("yoyoyo");
-    // img.src = this.state.waveData;
   }
 
-  // generateWaveFromBlob(blob) {
-  //   // console.time("draw from blob");
-  //   this.state.wave.loadBlob(blob);
-  //   // console.timeEnd("draw from blob");
-  // }
-
+  incrementWave() {
+    if (this.state.seekPos < 1.00){
+      this.state.wave.seekTo(this.state.seekPos);
+      this.setState({seekPos: this.state.seekPos + 0.01})
+    } else {clearInterval()}
+  }
+  
   render() {
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
@@ -215,6 +209,12 @@ class SongForm extends React.Component {
           </button>
           <button type="button" onClick={() => this.useSavedPeakData()}>
             useSavedPeakData
+          </button>
+          <button onClick={() => this.state.wave.playPause()}>
+            Play/Pause
+          </button>
+          <button onClick={() => setInterval(this.incrementWave,1000)}>
+            seek to 0.5
           </button>
           <img src="#" alt="" className="test" id="yoyoyo" />
         </div>
