@@ -1,6 +1,9 @@
 @import "./style";
 
 .modal-background {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -11,13 +14,12 @@
 }
 
 .modal-child {
-	position: fixed;
-	width: 450px;
-	top: 300px;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	background-color: white;
 }
 
+.login-form-container {
+	width: 450px;
+}
 
 .login-form-box * {
 	display: flex;
@@ -27,11 +29,14 @@
 
 
 .login-form-box {
-	background-color: white;
 	padding: 25px;
 	border-radius: 3px;
 }
 
 .login-form-box button {
 	@include large-orange-button;
+}
+
+.song-edit-modal {
+  width: 900px;
 }

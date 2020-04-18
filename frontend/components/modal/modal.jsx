@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginFormContainer from "../session_form/login_form_container";
 import SignupFormContainer from "../session_form/signup_form_container";
+import SongEdit from '../songs/song_edit';
 
 function Modal({ modal, closeModal }) {
     if (!modal) {
@@ -13,6 +14,9 @@ function Modal({ modal, closeModal }) {
             break;
         case 'signup':
             component = <SignupFormContainer />;
+            break;
+        case 'edit-song':
+            component = <SongEdit />;
             break;
         default:
             return null;

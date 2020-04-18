@@ -2,7 +2,7 @@ import { fetchSongs, selectSong } from "../../actions/song_actions";
 import { connect } from "react-redux";
 import SongIndex from "./song_index";
 import { withRouter } from "react-router-dom";
-import { requestUser } from "../../actions/user_actions";
+import { openModal } from "../../actions/modal_actions";
 
 const mSTP = state => {
     return({
@@ -14,6 +14,7 @@ const mSTP = state => {
 const mDTP = dispatch => ({
     fetchSongs: () => dispatch(fetchSongs()),
     selectSong: (song) => dispatch(selectSong(song)),
+    openModal: (modal) => dispatch(openModal(modal))
 })
 
 export default withRouter(connect(mSTP, mDTP)(SongIndex));

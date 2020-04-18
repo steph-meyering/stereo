@@ -3,10 +3,17 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 class SongIndexItem extends React.Component {
+  edit() {
+    this.props.openModal("edit-song");
+    window.localStorage.setItem('editTarget', this.props.song.id)
+  }
+  
   render() {
-    // // causes an error without this if statement
+    // causes an error without this if statement
     if (this.props.song === undefined) return null;
-    let editButton = this.props.ownSong ? <button>edit</button> : null;
+
+    let editButton = this.props.ownSong ? <button onClick={() => this.edit()}>edit</button> : null;
+    
     return (
       <div className="song-index-item">
         <Link to={`/songs/${this.props.song.id}`}>

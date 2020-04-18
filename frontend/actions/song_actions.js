@@ -6,7 +6,7 @@ export const SELECT_SONG = "SELECT_SONG";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 
 // this action will update the currentSong slice of state
-// affect the currentSong reducer (NOT song reducer)
+// affects the currentSong reducer (NOT song reducer)
 export const selectSong = song => ({
     type: SELECT_SONG,
     song

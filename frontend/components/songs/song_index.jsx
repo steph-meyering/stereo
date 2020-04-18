@@ -41,6 +41,7 @@ class SongIndex extends React.Component {
         key={song.id}
         // boolean to represent if current user is song uploader to allow editing
         ownSong={this.props.currentUser === song.artistId}
+        openModal={this.props.openModal}
       />
     ));
     return (
