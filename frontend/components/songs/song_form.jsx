@@ -109,7 +109,7 @@ class SongForm extends React.Component {
 
   savePeakData() {
     this.state.wave
-      .exportPCM()
+      .exportPCM(1024, 10000, true)
       .then((res) => {
         this.setState({ waveData: res })
       });

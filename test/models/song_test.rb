@@ -8,6 +8,7 @@
 #  genre      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  waveform   :json
 #
 require 'test_helper'
 

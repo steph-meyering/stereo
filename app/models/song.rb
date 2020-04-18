@@ -8,6 +8,7 @@
 #  genre      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  waveform   :json
 #
 class Song < ApplicationRecord
     validates :artist_id, :title, :genre , presence: true
