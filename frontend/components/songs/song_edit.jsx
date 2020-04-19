@@ -70,17 +70,17 @@ class SongEdit extends React.Component {
       cursorColor: "rgba(255, 0, 0, 0.0)",
     });
     if (this.state.waveform === "undefined") {
-      this.setState({waveform: null})
+      this.setState({waveform: ""})
       console.log("corrupt waveform has been reset");
     }
-    // if (this.state.waveform) {
-    //   debugger
-    //   wave.load(this.state.fileUrl, JSON.parse(this.state.waveform));
-    // } else {
-    //   debugger
-    //   wave.load(this.state.fileUrl);
-    //   wave.on("ready", () => wave.exportPCM(1024, 10000, true).then((res) => this.setState({wave: res})))
-    // }
+    if (this.state.waveform) {
+      wave.load(this.state.fileUrl, JSON.parse(this.state.waveform));
+      console.log('use saved waveform data');
+    } else {
+      wave.load(this.state.fileUrl);
+      wave.on("ready", () => wave.exportPCM(1024, 10000, true).then((res) => this.setState({waveData: res})))
+      console.log("load song and calc waveform data");
+    }
   }
 
   render() {

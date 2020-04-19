@@ -6,7 +6,6 @@ const songsReducer = (state = {}, action) => {
     let nextState = Object.assign({}, state);
     switch (action.type) {
         case RECEIVE_SONG:
-            debugger
             nextState[action.song.id] = action.song;
             return nextState;
         case RECEIVE_SONGS:

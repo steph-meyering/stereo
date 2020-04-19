@@ -11,6 +11,7 @@ class Api::SongsController < ApplicationController
 
     
     def create
+        debugger
         @song = Song.new(song_params)
         if @song.save
             render json: {message: 'upload successful'}
@@ -20,12 +21,10 @@ class Api::SongsController < ApplicationController
     end
     
     def update
-        debugger
         @song = Song.find_by(id: params[:id])
         if @song && @song.update_attributes(song_params)
-            render json: {message: 'update successful'}
+            render :show
         else
-            debugger
             render json: @song.errors.full_messages, status: 422
         end
     end
