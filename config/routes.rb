@@ -6,6 +6,9 @@
 #                 api_songs GET    /api/songs(.:format)                                                                     api/songs#index {:format=>:json}
 #                           POST   /api/songs(.:format)                                                                     api/songs#create {:format=>:json}
 #                  api_song GET    /api/songs/:id(.:format)                                                                 api/songs#show {:format=>:json}
+#                           PATCH  /api/songs/:id(.:format)                                                                 api/songs#update {:format=>:json}
+#                           PUT    /api/songs/:id(.:format)                                                                 api/songs#update {:format=>:json}
+#                           DELETE /api/songs/:id(.:format)                                                                 api/songs#destroy {:format=>:json}
 #               api_session DELETE /api/session(.:format)                                                                   api/sessions#destroy {:format=>:json}
 #                           POST   /api/session(.:format)                                                                   api/sessions#create {:format=>:json}
 #                      root GET    /                                                                                        static_pages#root
@@ -20,7 +23,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :create]
-    resources :songs, only: [:show, :index, :create]
+    resources :songs, only: [:show, :update, :destroy, :index, :create]
     resource :session, only: [:create, :destroy]
     # get '/', to: proc { [200, {}, ['']] } 
   end

@@ -12,7 +12,20 @@ export const fetchSongs = () => {
             url: `/api/songs`
         })
     )  
-} 
+}
+
+export const updateSong = (id, song) => {
+    debugger
+    return(
+        $.ajax({
+            method: 'PATCH',
+            url: `/api/songs/${id}`,
+            data: song,
+            contentType: false,
+            processData: false
+        })
+    )
+}
 
 export const uploadSong = song => (
     $.ajax({

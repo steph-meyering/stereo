@@ -6,7 +6,7 @@ export const SELECT_SONG = "SELECT_SONG";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 
 // this action will update the currentSong slice of state
-// affects the currentSong reducer (NOT song reducer)
+// affects the currentSong reducer (not song reducer)
 export const selectSong = song => ({
     type: SELECT_SONG,
     song
@@ -38,3 +38,6 @@ export const fetchSongs = () => dispatch => SongAPIUtil.fetchSongs()
 export const uploadSong = (song) => dispatch => SongAPIUtil.uploadSong(song)
     .then (() => dispatch(receiveSong(song)),
     err => (dispatch(receiveSongErrors(err.responseJSON))));
+
+export const updateSong = ({id, song}) => dispatch => SongAPIUtil.updateSong(id, song)
+    .then((song) => dispatch(receiveSong(song)));

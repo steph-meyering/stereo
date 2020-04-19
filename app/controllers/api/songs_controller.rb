@@ -19,6 +19,17 @@ class Api::SongsController < ApplicationController
         end
     end
     
+    def update
+        debugger
+        @song = Song.find_by(id: params[:id])
+        if @song && @song.update_attributes(song_params)
+            render json: {message: 'update successful'}
+        else
+            debugger
+            render json: @song.errors.full_messages, status: 422
+        end
+    end
+    
     private
     
     def song_params

@@ -1,6 +1,4 @@
 import React from "react";
-import { uploadSong } from "../../actions/song_actions";
-import WaveSurfer from "wavesurfer.js";
 
 class SongForm extends React.Component {
   constructor(props) {
@@ -88,7 +86,7 @@ class SongForm extends React.Component {
       uploading: true,
     });
     console.log("starting upload");
-    this.props.uploadSong(formData).then(() => console.log("done"));
+    this.props.uploadSong(formData).then(() => console.log("upload success"));
   }
 
   renderErrors() {
@@ -114,7 +112,6 @@ class SongForm extends React.Component {
       .then((res) => {
         this.setState({ waveData: res })
       });
-      console.log('peak data saved' , this.state.waveData)
   }
 
   useSavedWaveImage() {
@@ -124,7 +121,6 @@ class SongForm extends React.Component {
 
   useSavedPeakData() {
     this.state.wave.load(this.state.waveUrl, JSON.parse(this.state.waveData))
-    console.log(this.state.waveData);
   }
 
   incrementWave() {
@@ -139,14 +135,12 @@ class SongForm extends React.Component {
     let numBars = container.offsetWidth / 3 // 2px per bar and 1px spacing
     let duration = this.state.wave.getDuration()
     let barsPerSec = numBars / this.state.wave.getDuration();
-    console.log(barsPerSec);
     let seekStep = 1/(numBars*2);
     let timeStep = 1000/(barsPerSec*2);
     this.setState({seekStep, timeStep})
   }
   
   render() {
-    console.log(this.state)
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
     ) : (

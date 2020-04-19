@@ -1,22 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
+import WaveSurfer from "wavesurfer.js";
+import { updateSong } from "../../actions/song_actions";
 
 class SongEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = props.song;
-    // title: "",
-    // genre: "",
-    // artistId: this.props.currentUserId,
-    // file: null,
-    // wave: null,
-    // photo: null,
-    // photoUrl: null,
-    // }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
+  componentDidMount(){
+    this.renderWave()
+  }
+  
   handleSubmit(e) {
     e.preventDefault();
+    const formData = new FormData();
+    // formData.append("song[id]", this.state.id);
+    formData.append("song[title]", this.state.title);
+    formData.append("song[genre]", this.state.genre);
+    formData.append("song[artist_id]", this.state.artistId);
+    formData.append("song[waveform]", this.state.waveData);
+    if (this.state.file) {
+      formData.append("song[file]", this.state.file);
+    }
+    if (this.state.photo) {
+      formData.append("song[photo]", this.state.photo);
+    };
+    this.props.updateSong({id: this.state.id, song: formData}).then(() => console.log('update success'))
   }
 
   update(field) {
@@ -47,10 +60,33 @@ class SongEdit extends React.Component {
     );
   }
 
+  renderWave() {
+    let wave = WaveSurfer.create({
+      container: "#waveform-container",
+      barWidth: 2,
+      barHeight: 1,
+      barGap: null,
+      progressColor: "#f50",
+      cursorColor: "rgba(255, 0, 0, 0.0)",
+    });
+    if (this.state.waveform === "undefined") {
+      this.setState({waveform: null})
+      console.log("corrupt waveform has been reset");
+    }
+    // if (this.state.waveform) {
+    //   debugger
+    //   wave.load(this.state.fileUrl, JSON.parse(this.state.waveform));
+    // } else {
+    //   debugger
+    //   wave.load(this.state.fileUrl);
+    //   wave.on("ready", () => wave.exportPCM(1024, 10000, true).then((res) => this.setState({wave: res})))
+    // }
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div className="song-edit-modal">
-        <h1>Hello, this is the Song Edit Component</h1>
         <h1>{window.localStorage.getItem("editTarget")}</h1>
         <div className="song-upload-form-container">
           <form onSubmit={this.handleSubmit}>
@@ -92,14 +128,15 @@ class SongEdit extends React.Component {
                 <br />
               </div>
             </div>
-            <button className="cancel-upload">Cancel</button>
+            <div id="waveform-container"></div>
+            <button className="cancel-upload" type="button">
+              Cancel
+            </button>
             <button className="save-upload" type="submit">
               Save
             </button>
           </form>
           {/* {this.renderErrors()} */}
-          <div id="waveform-container"></div>
-          <div id="stored-waveform"></div>
         </div>
       </div>
     );
@@ -110,7 +147,9 @@ const mSTP = (state) => ({
   song: state.entities.songs[window.localStorage.getItem("editTarget")],
 });
 
-// const mDTP = dispatch
+const mDTP = dispatch => ({
+  updateSong: (song) => dispatch(updateSong(song))
+})
 
-export default connect(mSTP, null)(SongEdit)
+export default connect(mSTP, mDTP)(SongEdit);
 
