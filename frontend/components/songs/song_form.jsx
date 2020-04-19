@@ -21,6 +21,7 @@ class SongForm extends React.Component {
     this.handlePhoto = this.handlePhoto.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.incrementWave = this.incrementWave.bind(this);
+    this.savePeakData = this.savePeakData.bind(this);
   }
 
   update(field) {
@@ -31,6 +32,8 @@ class SongForm extends React.Component {
   }
 
   handleFile(e) {
+    const audioFile = e.currentTarget.files[0];
+
     // Destroy existing wave element if a different audio file is selected
     if (this.state.wave) {this.state.wave.destroy()}
 
@@ -38,22 +41,19 @@ class SongForm extends React.Component {
     let wave = WaveSurfer.create({
       container: "#waveform-container",
       barWidth: 2,
-      barHeight: 1, // the height of the wave
+      barHeight: 1,
       barGap: null,
       progressColor: "#f50",
       cursorColor: "rgba(255, 0, 0, 0.0)",
     });
 
     // add wave to local state
-    this.setState({wave})
-    const audioFile = e.currentTarget.files[0];
+    this.setState({ wave, file: audioFile });
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
-      // TEST: store audio file as dataURL in local state
-      this.setState({ waveUrl: fileReader.result, waveData: null });
-      
-      // draw waveform once file is loaded
+      // draw waveform once file is loaded and save peak data as JSON array
       this.state.wave.load(fileReader.result);
+      this.state.wave.on("ready", this.savePeakData);
     };
     if (audioFile) {
       fileReader.readAsDataURL(audioFile);
@@ -77,6 +77,7 @@ class SongForm extends React.Component {
     formData.append("song[title]", this.state.title);
     formData.append("song[genre]", this.state.genre);
     formData.append("song[artist_id]", this.state.artistId);
+    formData.append("song[waveform]", this.state.waveData);
     if (this.state.file) {
       formData.append("song[file]", this.state.file);
     }
@@ -113,6 +114,7 @@ class SongForm extends React.Component {
       .then((res) => {
         this.setState({ waveData: res })
       });
+      console.log('peak data saved' , this.state.waveData)
   }
 
   useSavedWaveImage() {
@@ -144,6 +146,7 @@ class SongForm extends React.Component {
   }
   
   render() {
+    console.log(this.state)
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
     ) : (
