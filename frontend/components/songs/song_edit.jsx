@@ -74,7 +74,7 @@ class SongEdit extends React.Component {
       console.log("corrupt waveform has been reset");
     }
     if (this.state.waveform) {
-      wave.load(this.state.fileUrl, JSON.parse(this.state.waveform));
+      wave.load("#", JSON.parse(this.state.waveform));
       console.log('use saved waveform data');
     } else {
       wave.load(this.state.fileUrl);
