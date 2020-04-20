@@ -6,6 +6,7 @@ import WaveSurfer from "wavesurfer.js";
 
 class SongIndexItem extends React.Component {
   constructor(props) {
+    debugger
     super(props);
     this.state = {
       songId: this.props.song.id,
@@ -14,12 +15,12 @@ class SongIndexItem extends React.Component {
   }
   
   componentDidMount() {
-    console.log("component did mount")
+    console.log("component did mount");
     this.renderWave();
   }
 
   responsiveWave(){
-    console.log('resize event')
+    console.log("resize event");
     this.state.wave.drawBuffer();
   } 
 
@@ -45,13 +46,14 @@ class SongIndexItem extends React.Component {
       window.addEventListener("resize", wave.util.debounce(this.responsiveWave), 2000);
     } else {
       return null;
-      // wave.load(this.state.fileUrl);
-      // wave.on("ready", () =>
-      //   wave
-      //     .exportPCM(1024, 10000, true)
-      //     .then((res) => this.setState({ waveData: res }))
-      // );
-      // console.log("load song and calc waveform data");
+    //   wave.load(this.props.song.fileUrl);
+    //   wave.on("ready", () =>
+    //     wave
+    //       .exportPCM(1024, 10000, true)
+    //       .then((res) => this.setState({ waveData: res }))
+    //       .then(() => console.log('hello jello'))
+    //   );
+    //   console.log("load song and calc waveform data");
     }
   }
 
@@ -61,6 +63,7 @@ class SongIndexItem extends React.Component {
   }
 
   render() {
+    debugger
     console.log(this.state)
     // causes an error without this if statement
     if (this.props.song === undefined) return null;
