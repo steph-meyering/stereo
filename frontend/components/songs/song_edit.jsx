@@ -18,7 +18,7 @@ class SongEdit extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
-    // formData.append("song[title]", this.state.title);
+    formData.append("song[title]", this.state.title);
     formData.append("song[genre]", this.state.genre);
     formData.append("song[artist_id]", this.state.artistId);
     formData.append("song[waveform]", this.state.waveform);

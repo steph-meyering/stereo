@@ -14,7 +14,6 @@ class SongIndexItem extends React.Component {
   }
   
   componentDidMount() {
-    console.log("component did mount");
     this.renderWave();
   }
 
