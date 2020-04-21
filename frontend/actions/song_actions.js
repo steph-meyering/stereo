@@ -40,4 +40,5 @@ export const uploadSong = (song) => dispatch => SongAPIUtil.uploadSong(song)
     err => (dispatch(receiveSongErrors(err.responseJSON))));
 
 export const updateSong = ({id, song}) => dispatch => SongAPIUtil.updateSong(id, song)
-    .then((song) => dispatch(receiveSong(song)));
+    .then((song) => dispatch(receiveSong(song)),
+    err => console.log(err));

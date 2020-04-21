@@ -6,7 +6,6 @@ import WaveSurfer from "wavesurfer.js";
 
 class SongIndexItem extends React.Component {
   constructor(props) {
-    debugger
     super(props);
     this.state = {
       songId: this.props.song.id,
@@ -25,6 +24,10 @@ class SongIndexItem extends React.Component {
   } 
 
   renderWave() {
+    if(this.props.song.waveform === "undefined") {
+      console.warn("Waveform data has been corrupted")
+      return null
+    }
     let wave = WaveSurfer.create({
       container: `#wave-${this.state.songId}`,
       height: 100,
@@ -50,7 +53,7 @@ class SongIndexItem extends React.Component {
     //   wave.on("ready", () =>
     //     wave
     //       .exportPCM(1024, 10000, true)
-    //       .then((res) => this.setState({ waveData: res }))
+    //       .then((res) => this.setState({ waveform: res }))
     //       .then(() => console.log('hello jello'))
     //   );
     //   console.log("load song and calc waveform data");
@@ -59,13 +62,12 @@ class SongIndexItem extends React.Component {
 
   edit() {
     this.props.openModal("edit-song");
+    // Store the target song's id in localStorage in order to access from a different component
     window.localStorage.setItem("editTarget", this.props.song.id);
   }
 
   render() {
-    debugger
-    console.log(this.state)
-    // causes an error without this if statement
+    // Render null if props don't contain song data
     if (this.props.song === undefined) return null;
 
     let editButton = this.props.ownSong ? (

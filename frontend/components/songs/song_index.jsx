@@ -1,10 +1,13 @@
 import React from "react";
 import SongIndexItem from "./song_index_item";
 import SongSplashItem from "./song_splash_item";
+import WaveSurfer from "wavesurfer.js";
+import { defaultWaveParams } from "../../util/waveform_util";
 
 class SongIndex extends React.Component {
   constructor(props) {
     super(props);
+    this.songItems = null;
     this.withWaveForm = this.withWaveForm.bind(this);
   }
 
@@ -18,6 +21,23 @@ class SongIndex extends React.Component {
     return component;
   }
 
+  // Generate waveform data for each song, then save to database
+  generateAllWaveforms(songs) {
+    songs.forEach(song => {
+      let formData = new FormData();
+      let wave = WaveSurfer.create(defaultWaveParams)
+      wave.load(song.props.song.fileUrl)
+      wave.on("ready", () =>
+        wave
+          .exportPCM(1024, 10000, true)
+          .then((res) => formData.append("song[waveform]", res))
+          .then(() =>
+            this.props.updateSong({ id: song.props.song.id, song: formData })
+          )
+      );
+    })
+  }
+  
   isSplash() {
     let className =
       this.props.match.path === "/" ? "splash-index" : "song-index";
@@ -32,6 +52,7 @@ class SongIndex extends React.Component {
 
   render() {
     if (this.props.songs.length === 0) return null;
+
     let SongComponent = this.withWaveForm();
 
     let songItems = this.props.songs.map((song) => (
@@ -53,6 +74,10 @@ class SongIndex extends React.Component {
           {this.addFiller()}
           {this.addFiller()}
         </ul>
+        <button onClick={() => this.generateAllWaveforms(songItems)}>
+          Calc all waves 🛠
+        </button>
+        <div id="waveform-container"></div>
       </div>
     );
   }

@@ -75,7 +75,7 @@ class SongForm extends React.Component {
     formData.append("song[title]", this.state.title);
     formData.append("song[genre]", this.state.genre);
     formData.append("song[artist_id]", this.state.artistId);
-    formData.append("song[waveform]", this.state.waveData);
+    formData.append("song[waveform]", this.state.waveform);
     if (this.state.file) {
       formData.append("song[file]", this.state.file);
     }
@@ -100,8 +100,8 @@ class SongForm extends React.Component {
   }
 
   saveWaveImage() {
-    const waveData = this.state.wave.exportImage();
-    this.setState({ waveData });
+    const waveform = this.state.wave.exportImage();
+    this.setState({ waveform });
     this.calcSeekStep();
 
   }
@@ -110,17 +110,17 @@ class SongForm extends React.Component {
     this.state.wave
       .exportPCM(1024, 10000, true)
       .then((res) => {
-        this.setState({ waveData: res })
+        this.setState({ waveform: res })
       });
   }
 
   useSavedWaveImage() {
     let img = document.getElementById("yoyoyo");
-    img.src = this.state.waveData;
+    img.src = this.state.waveform;
   }
 
   useSavedPeakData() {
-    this.state.wave.load(this.state.waveUrl, JSON.parse(this.state.waveData))
+    this.state.wave.load(this.state.waveUrl, JSON.parse(this.state.waveform))
   }
 
   incrementWave() {

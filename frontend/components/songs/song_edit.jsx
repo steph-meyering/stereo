@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import WaveSurfer from "wavesurfer.js";
 import { updateSong } from "../../actions/song_actions";
+import { closeModal } from "../../actions/modal_actions";
 
 class SongEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = props.song;
     this.handleSubmit = this.handleSubmit.bind(this);
-    
   }
 
   componentDidMount(){
@@ -18,18 +18,17 @@ class SongEdit extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
-    // formData.append("song[id]", this.state.id);
-    formData.append("song[title]", this.state.title);
+    // formData.append("song[title]", this.state.title);
     formData.append("song[genre]", this.state.genre);
     formData.append("song[artist_id]", this.state.artistId);
-    formData.append("song[waveform]", this.state.waveData);
+    formData.append("song[waveform]", this.state.waveform);
     if (this.state.file) {
       formData.append("song[file]", this.state.file);
     }
     if (this.state.photo) {
       formData.append("song[photo]", this.state.photo);
     };
-    this.props.updateSong({id: this.state.id, song: formData}).then(() => console.log('update success'))
+    this.props.updateSong({id: this.state.id, song: formData}).then(this.props.closeModal)
   }
 
   update(field) {
@@ -69,16 +68,20 @@ class SongEdit extends React.Component {
       progressColor: "#f50",
       cursorColor: "rgba(255, 0, 0, 0.0)",
     });
-    if (this.state.waveform === "undefined") {
-      this.setState({waveform: ""})
-      console.log("corrupt waveform has been reset");
-    }
-    if (this.state.waveform) {
+
+    // Check if waveform peak data exists, and use it to render waveform 
+    // immediately
+    if (this.state.waveform && this.state.waveform !== "undefined") {
       wave.load("#", JSON.parse(this.state.waveform));
-      console.log('use saved waveform data');
-    } else {
+      console.log("use saved waveform data");
+    // Otherwise, load the file, calculate peak data and add it to local state 
+    } else { 
       wave.load(this.state.fileUrl);
-      wave.on("ready", () => wave.exportPCM(1024, 10000, true).then((res) => this.setState({waveData: res})))
+      wave.on("ready", () =>
+        wave
+          .exportPCM(1024, 10000, true)
+          .then((res) => this.setState({ waveform: res }))
+      );
       console.log("load song and calc waveform data");
     }
   }
@@ -129,7 +132,7 @@ class SongEdit extends React.Component {
               </div>
             </div>
             <div id="waveform-container"></div>
-            <button className="cancel-upload" type="button">
+            <button className="cancel-upload" type="button" onClick={this.props.closeModal}>
               Cancel
             </button>
             <button className="save-upload" type="submit">
@@ -148,7 +151,8 @@ const mSTP = (state) => ({
 });
 
 const mDTP = dispatch => ({
-  updateSong: (song) => dispatch(updateSong(song))
+  updateSong: (song) => dispatch(updateSong(song)),
+  closeModal: () => dispatch(closeModal())
 })
 
 export default connect(mSTP, mDTP)(SongEdit);
