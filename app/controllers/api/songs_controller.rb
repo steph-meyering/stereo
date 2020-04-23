@@ -11,7 +11,6 @@ class Api::SongsController < ApplicationController
 
     
     def create
-        debugger
         @song = Song.new(song_params)
         if @song.save
             render json: {message: 'upload successful'}
