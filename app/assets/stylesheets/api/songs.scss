@@ -41,7 +41,7 @@
 }
 
 .song-splash-item {
-  & .album-cover:hover + .play-button {
+  & a:hover + .play-button {
     z-index: 10;
   }
 }
