@@ -3,6 +3,12 @@ import WaveSurfer from "wavesurfer.js";
 
 
 class SongShow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.responsiveWave = this.responsiveWave.bind(this);
+  }
+
   componentDidMount() {
     this.props
       .fetchSong(this.props.match.params.songId)
@@ -20,7 +26,7 @@ class SongShow extends React.Component {
       cursorColor: "rgba(255, 0, 0, 0.0)",
       fillParent: true,
       minPxPerSec: 10,
-      barMinHeight: 1
+      barMinHeight: 1,
     });
 
     if (this.props.song.waveform) {

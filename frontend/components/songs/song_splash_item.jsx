@@ -3,9 +3,6 @@ import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 class SongSplashItem extends React.Component {
-  navigateToSongShow() {
-
-  }
   
   render() {
     // // causes an error without this if statement
