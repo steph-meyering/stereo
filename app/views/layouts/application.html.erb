@@ -5,6 +5,13 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    <meta charset="utf-8">
+    <meta property="og:title" content="StereoCloud">
+    <meta property="og:description" content="A music streaming and sharing application inspired by Soundcloud.">
+    <meta property="og:image" content="https://i.imgur.com/u1h07HM.png?1">
+    <meta property="og:url" content="https://stereocloud.herokuapp.com/#/">
+
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
