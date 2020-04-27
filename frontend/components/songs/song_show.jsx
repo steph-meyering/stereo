@@ -28,9 +28,9 @@ class SongShow extends React.Component {
       minPxPerSec: 10,
       barMinHeight: 1,
     });
-
     if (this.props.song.waveform) {
-      wave.load("#", JSON.parse(this.props.song.waveform));
+      wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
+      wave.on('interaction', (e) => {debugger})
       console.log("use saved waveform data");
       this.setState({ wave });
       window.addEventListener(
@@ -72,6 +72,16 @@ class SongShow extends React.Component {
             alt={this.props.song.title}
           />
         </div>
+        <button
+          onClick={this.state.wave ? () => this.state.wave.playPause() : null}
+        >
+          play/pause
+        </button>
+        <button
+          onClick={this.state.wave ? () => this.state.wave.setSinkId("playa") : null}
+        >
+          set sink id
+        </button>
       </div>
     );
   }

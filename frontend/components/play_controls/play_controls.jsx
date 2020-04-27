@@ -5,7 +5,9 @@ import Slide from "react-reveal/Slide";
 class PlayControls extends React.Component {
     render(){
         if (this.props.currentSong === null) {
-            return null
+            return (
+                null
+            );
         } else {
             return (
                 <Slide bottom>

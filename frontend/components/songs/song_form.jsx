@@ -1,4 +1,5 @@
 import React from "react";
+import WaveSurfer from "wavesurfer.js";
 
 class SongForm extends React.Component {
   constructor(props) {
@@ -222,7 +223,7 @@ class SongForm extends React.Component {
             useSavedPeakData
           </button>
           <button onClick={() => {
-            this.state.wave.setMute(true)
+            this.state.wave.setMute(false)
             this.state.wave.playPause()}
             }>
             Play/Pause
