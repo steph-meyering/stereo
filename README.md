@@ -26,7 +26,6 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 
 ## Futures for future development:
 
-- Waveform progress bar
 - Song sharing
 - Song likes
 - Google OAuth and Facebook Login
