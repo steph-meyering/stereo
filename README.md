@@ -18,9 +18,13 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 
 ## Project Highlights:
 
+
 ### SongControls React Component
 
-### Second Highlight
+
+### Waveform peak data calculation and storage on upload
+
+
 
 ---
 
