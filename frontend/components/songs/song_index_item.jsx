@@ -20,7 +20,7 @@ class SongIndexItem extends React.Component {
   responsiveWave(){
     console.log("resize event");
     this.state.wave.drawBuffer();
-  } 
+  }
 
   renderWave() {
     if(this.props.song.waveform === "undefined") {

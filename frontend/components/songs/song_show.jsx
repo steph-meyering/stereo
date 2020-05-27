@@ -30,8 +30,6 @@ class SongShow extends React.Component {
     });
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
-      wave.on('interaction', (e) => {debugger})
-      console.log("use saved waveform data");
       this.setState({ wave });
       window.addEventListener(
         "resize",
