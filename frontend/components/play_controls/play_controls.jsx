@@ -1,5 +1,6 @@
 import React from 'react';
 import Slide from "react-reveal/Slide";
+import Player from './player';
 
 
 class PlayControls extends React.Component {
@@ -13,6 +14,7 @@ class PlayControls extends React.Component {
                 <Slide bottom>
                     <span id='play-controls'> 
                         <audio controls autoPlay src={this.props.currentSong.fileUrl}></audio>
+                        <Player/>
                         <div className='currently-playing-song-data'>
                             <div>
                                 <img src={this.props.currentSong.photoUrl} alt={this.props.currentSong.title} />
