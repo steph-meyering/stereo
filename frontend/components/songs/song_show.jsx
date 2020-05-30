@@ -42,7 +42,7 @@ class SongShow extends React.Component {
   }
 
   responsiveWave() {
-    console.log("resize event");
+    // console.log("resize event");
     this.state.wave.drawBuffer();
   }
 
