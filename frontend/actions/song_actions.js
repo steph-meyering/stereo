@@ -2,15 +2,8 @@ import * as SongAPIUtil from '../util/song_api_util';
 
 export const RECEIVE_SONG = "RECEIVE_SONG";
 export const RECEIVE_SONGS = "RECEIVE_SONGS";
-export const SELECT_SONG = "SELECT_SONG";
 export const RECEIVE_SONG_ERRORS = "RECEIVE_SONG_ERRORS";
 
-// this action will update the currentSong slice of state
-// affects the currentSong reducer (not song reducer)
-export const selectSong = song => ({
-    type: SELECT_SONG,
-    song
-})
 
 export const receiveSong = song => ({
     type: RECEIVE_SONG,

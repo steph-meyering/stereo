@@ -1,9 +1,10 @@
-import { fetchSongs, selectSong } from "../../actions/song_actions";
+import { fetchSongs} from "../../actions/song_actions";
 import { updateSong } from "../../actions/song_actions";
 import { connect } from "react-redux";
 import SongIndex from "./song_index";
 import { withRouter } from "react-router-dom";
 import { openModal } from "../../actions/modal_actions";
+import { selectSong } from "../../actions/current_song_actions";
 
 
 const mSTP = state => {

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
-import { fetchSong, selectSong } from "../../actions/song_actions";
+import { fetchSong } from "../../actions/song_actions";
 import SongShow from "./song_show";
+import { selectSong } from "../../actions/current_song_actions";
 
 const mSTP = (state, ownProps) => {
     if (ownProps.match === "undefined"){

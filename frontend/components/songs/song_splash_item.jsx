@@ -1,12 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 
 class SongSplashItem extends React.Component {
   
   render() {
-    // // causes an error without this if statement
-    // if (this.props.song === undefined) return null;
     return (
       <div className="song-splash-item">
         <Link to={`/songs/${this.props.song.id}`}>

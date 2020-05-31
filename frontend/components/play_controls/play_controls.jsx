@@ -2,24 +2,29 @@ import React from "react";
 import Slide from "react-reveal/Slide";
 
 class PlayControls extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.play = this.play.bind(this)
+    this.play = this.play.bind(this);
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.audio = document.getElementById("audio-element");
+    // this.waveform = document.getElementById("song-show-waveform").firstChild;
   }
-  
+
   play() {
-    console.log(this.audio)
+    this.audio.play();
+  }
+
+  playWave() {
+    debugger
+    this.waveform.play()
   }
 
   render() {
     if (this.props.currentSong === null) {
       return null;
     } else {
-    debugger
       return (
         <Slide bottom>
           <span id="play-controls">
@@ -31,11 +36,18 @@ class PlayControls extends React.Component {
             ></audio>
             <div>
               <div
-                class="play-button"
+                // class="play-button"
                 id="play-pause"
                 onClick={() => this.play()}
               >
-                PLAY/PAUSE
+                PLAY
+              </div>
+              <div
+                // class="play-button"
+                id="play-pause"
+                onClick={() => this.playWave()}
+              >
+                PLAY WAVE
               </div>
               <progress></progress>
             </div>

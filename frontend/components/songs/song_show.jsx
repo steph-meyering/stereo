@@ -1,7 +1,6 @@
 import React from "react";
 import WaveSurfer from "wavesurfer.js";
 
-
 class SongShow extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +29,7 @@ class SongShow extends React.Component {
     });
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
+      wave.setMute(true)
       this.setState({ wave });
       window.addEventListener(
         "resize",
@@ -42,7 +42,6 @@ class SongShow extends React.Component {
   }
 
   responsiveWave() {
-    // console.log("resize event");
     this.state.wave.drawBuffer();
   }
 
@@ -71,7 +70,11 @@ class SongShow extends React.Component {
           />
         </div>
         <button
-          onClick={this.state.wave ? () => this.state.wave.playPause() : null}
+          onClick={() => {
+            this.state.wave.playPause();
+            this.props.selectSong(this.props.song);
+          }
+        }
         >
           play/pause
         </button>
