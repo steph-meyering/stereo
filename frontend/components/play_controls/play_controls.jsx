@@ -17,7 +17,6 @@ class PlayControls extends React.Component {
   }
 
   playWave() {
-    debugger
     this.waveform.play()
   }
 
