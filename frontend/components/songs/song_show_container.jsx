@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { fetchSong } from "../../actions/song_actions";
 import SongShow from "./song_show";
-import { selectSong } from "../../actions/current_song_actions";
+import { selectSong, playPauseSong } from "../../actions/current_song_actions";
 
 const mSTP = (state, ownProps) => {
     if (ownProps.match === "undefined"){
@@ -12,9 +12,10 @@ const mSTP = (state, ownProps) => {
     })
 }
 
-const mDTP = dispatch => ({
-    fetchSong: (songId) => dispatch(fetchSong(songId)),
-    selectSong: (song) => dispatch(selectSong(song))
-})
+const mDTP = (dispatch) => ({
+  fetchSong: (songId) => dispatch(fetchSong(songId)),
+  selectSong: (song) => dispatch(selectSong(song)),
+  playPauseSong: () => dispatch(playPauseSong())
+});
 
 export default connect(mSTP, mDTP)(SongShow);

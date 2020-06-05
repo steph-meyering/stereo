@@ -4,16 +4,29 @@ import Slide from "react-reveal/Slide";
 class PlayControls extends React.Component {
   constructor(props) {
     super(props);
-    this.play = this.play.bind(this);
+    this.playPause = this.playPause.bind(this);
+    this.initProgress = this.initProgress.bind(this)
   }
 
-  componentDidUpdate() {
+  initProgress() {
     this.audio = document.getElementById("audio-element");
+    this.progress = document.getElementById("progress-bar");
+    this.progress.addEventListener("click", this.seek)
+    this.progress.value = (this.audio.currentTime / this.audio.duration);
     // this.waveform = document.getElementById("song-show-waveform").firstChild;
   }
 
-  play() {
-    this.audio.play();
+  playPause() {
+    if (this.audio.paused){
+      this.audio.play();
+    } else {
+      this.audio.pause();
+    }
+    
+  }
+
+  seek(e) {
+    let percent = e.offsetX // TODO
   }
 
   playWave() {
@@ -29,26 +42,18 @@ class PlayControls extends React.Component {
           <span id="play-controls">
             <audio
               id="audio-element"
-              controls
+              onTimeUpdate={this.initProgress}
               autoPlay
               src={this.props.currentSong.fileUrl}
             ></audio>
-            <div>
-              <div
-                // class="play-button"
+            <div id="player">
+              <button
                 id="play-pause"
-                onClick={() => this.play()}
+                onClick={() => this.playPause()}
               >
-                PLAY
-              </div>
-              <div
-                // class="play-button"
-                id="play-pause"
-                onClick={() => this.playWave()}
-              >
-                PLAY WAVE
-              </div>
-              <progress></progress>
+                PLAY/PAUSE
+              </button>
+              <progress value="0" max="1" id="progress-bar"></progress>
             </div>
             <div className="currently-playing-song-data">
               <div>

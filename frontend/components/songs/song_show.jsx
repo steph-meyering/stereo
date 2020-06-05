@@ -73,15 +73,11 @@ class SongShow extends React.Component {
           onClick={() => {
             this.state.wave.playPause();
             this.props.selectSong(this.props.song);
+            // this.props.playPauseSong();
           }
         }
         >
           play/pause
-        </button>
-        <button
-          onClick={this.state.wave ? () => this.state.wave.setSinkId("playa") : null}
-        >
-          set sink id
         </button>
       </div>
     );

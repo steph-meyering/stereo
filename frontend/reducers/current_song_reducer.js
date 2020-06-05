@@ -13,7 +13,6 @@ const currentSongReducer = (state = null, action) => {
       nextState["playing"] = true;
       return nextState;
     case PLAY_PAUSE_SONG:
-      
       nextState["playing"] = (nextState["playing"] === true ? false : true)
       return nextState;
     default:
