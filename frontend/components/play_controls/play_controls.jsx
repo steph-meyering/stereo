@@ -8,6 +8,10 @@ class PlayControls extends React.Component {
     this.initProgress = this.initProgress.bind(this)
   }
 
+  componentDidUpdate(){
+    this.playPauseButton = document.getElementById("play-pause");
+  }
+  
   initProgress() {
     this.audio = document.getElementById("audio-element");
     this.progress = document.getElementById("progress-bar");
@@ -19,8 +23,11 @@ class PlayControls extends React.Component {
   playPause() {
     if (this.audio.paused){
       this.audio.play();
+      this.playPauseButton.className = "player-pause";
     } else {
       this.audio.pause();
+      this.playPauseButton.className = "player-play";
+
     }
     
   }
@@ -49,9 +56,9 @@ class PlayControls extends React.Component {
             <div id="player">
               <button
                 id="play-pause"
+                className="player-pause"
                 onClick={() => this.playPause()}
               >
-                PLAY/PAUSE
               </button>
               <progress value="0" max="1" id="progress-bar"></progress>
             </div>

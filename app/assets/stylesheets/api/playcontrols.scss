@@ -1,53 +1,75 @@
 @import "./style";
 
 #play-controls {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    bottom: 0;
-    left: 0;
-    height: 50px;
-    width: 88%;
-    background-color: #f2f2f2;
-    border-top: 1px solid $light-grey ;
-    z-index: 100;
-    padding-left: 6%;
-    padding-right: 6%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 88%;
+  background-color: #f2f2f2;
+  border-top: 1px solid $light-grey;
+  z-index: 100;
+  padding-left: 6%;
+  padding-right: 6%;
 }
 
 .currently-playing-song-data {
-    font-family: interstateregular;
-    display: flex;
-    align-items: center;
-    & img {
-        margin: 0px 20px;
-        width: 40px;
-        height: 40px;
-        border: 1px solid $light-grey;
-    }
+  font-family: interstateregular;
+  display: flex;
+  align-items: center;
+  & img {
+    margin: 0px 20px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid $light-grey;
+  }
 }
 
 #player {
-    width: 73%;
-    height: 30px;
-    background-color: transparent;
-    border-right: 1px solid $light-grey ;
+  width: 73%;
+  height: 30px;
+  background-color: transparent;
+  border-right: 1px solid $light-grey;
+  & button {
+    width: 24px;
+    height: 100%;
+    border: none;
+    margin-left: 12px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.player-play {
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTggNXYxNGwxMS03eiIvPjwvc3ZnPgo=) no-repeat 55%;
+}
+
+.player-pause {
+  background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTYgMTloNFY1SDZ2MTR6bTgtMTR2MTRoNFY1aC00eiIvPjwvc3ZnPgo=) no-repeat 55%;
+}
+
+
+#progress-bar {
+  width: inherit;
 }
 
 .uploader {
-    font-size: 12px;
-    color: $light-grey;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  font-size: 12px;
+  color: $light-grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.song-title{
-    font-size: 14px;
-    color: $dark-grey;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+.song-title {
+  font-size: 14px;
+  color: $dark-grey;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 // audio::-webkit-media-controls-panel {
 //     background-color: yellow;
@@ -101,7 +123,7 @@
 //     display: flex;
 //     flex-direction: column;
 //     justify-content: flex-end;
-   
+
 //  align-items: center;
 // }
 // audio::-webkit-media-controls-enclosure, video::-webkit-media-controls-enclosure {
