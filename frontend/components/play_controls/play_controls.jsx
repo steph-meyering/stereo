@@ -6,6 +6,7 @@ class PlayControls extends React.Component {
     super(props);
     this.playPause = this.playPause.bind(this);
     this.initProgress = this.initProgress.bind(this)
+    this.seek = this.seek.bind(this)
   }
 
   componentDidUpdate(){
@@ -33,7 +34,8 @@ class PlayControls extends React.Component {
   }
 
   seek(e) {
-    let percent = e.offsetX // TODO
+    let percent = e.offsetX / this.progress.offsetWidth;
+    this.audio.currentTime = percent * this.audio.duration;
   }
 
   playWave() {
@@ -58,9 +60,12 @@ class PlayControls extends React.Component {
                 id="play-pause"
                 className="player-pause"
                 onClick={() => this.playPause()}
-              >
-              </button>
+              ></button>
               <progress value="0" max="1" id="progress-bar"></progress>
+              <button
+                id="play-volume"
+                className="player-volume-high"
+              ></button>
             </div>
             <div className="currently-playing-song-data">
               <div>

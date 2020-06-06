@@ -32,6 +32,8 @@
   height: 30px;
   background-color: transparent;
   border-right: 1px solid $light-grey;
+  display: flex;
+  align-items: center;
   & button {
     width: 24px;
     height: 100%;
