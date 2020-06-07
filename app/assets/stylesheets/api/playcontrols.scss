@@ -45,6 +45,14 @@
   }
 }
 
+progress {
+  -webkit-appearance: none;
+}
+
+::-webkit-progress-value {
+  background-color: orange;
+}
+
 .player-play {
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZmlsbD0iIzMzMyIgZD0iTTggNXYxNGwxMS03eiIvPjwvc3ZnPgo=) no-repeat 55%;
 }
