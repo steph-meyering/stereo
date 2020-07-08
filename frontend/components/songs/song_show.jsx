@@ -73,7 +73,7 @@ class SongShow extends React.Component {
           onClick={() => {
             this.state.wave.playPause();
             this.props.selectSong(this.props.song);
-            // this.props.playPauseSong();
+            this.props.playPauseSong();
           }
         }
         >

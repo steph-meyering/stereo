@@ -42,7 +42,7 @@ progress[value] {
   &:hover progress{ // Chrome and Firefox transition
     height: 6px; 
   }
-  & button {
+  & div {
     width: 24px;
     height: 100%;
     border: none;
@@ -54,7 +54,7 @@ progress[value] {
     border-radius: 5px;
     width: 90%;
     height: 2px;
-    transition: all 0.3s;
+    transition: all 0.2s;
   }
 }
 

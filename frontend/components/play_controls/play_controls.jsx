@@ -11,6 +11,9 @@ class PlayControls extends React.Component {
 
   componentDidUpdate(){
     this.playPauseButton = document.getElementById("play-pause");
+    if (this.audio !== undefined && this.props.currentSong.playing) {
+      this.audio.play()
+    }
   }
   
   initProgress() {
@@ -28,9 +31,8 @@ class PlayControls extends React.Component {
     } else {
       this.audio.pause();
       this.playPauseButton.className = "player-play";
-
     }
-    
+    this.props.playPauseSong()
   }
 
   seek(e) {
@@ -56,16 +58,13 @@ class PlayControls extends React.Component {
               src={this.props.currentSong.fileUrl}
             ></audio>
             <div id="player">
-              <button
+              <div
                 id="play-pause"
                 className="player-pause"
                 onClick={() => this.playPause()}
-              ></button>
+              ></div>
               <progress value="0" max="1" id="progress-bar"></progress>
-              <button
-                id="play-volume"
-                className="player-volume-high"
-              ></button>
+              <div id="play-volume" className="player-volume-high"></div>
             </div>
             <div className="currently-playing-song-data">
               <div>
