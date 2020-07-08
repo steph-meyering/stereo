@@ -45,7 +45,9 @@ photo1 = open("https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/apashe_
 song1.photo.attach(io: photo1, filename: "photo1")
 
 # persist song to database
-song1.save!
+
+# removing this specific song from production seed data
+# song1.save!
 
 # ================================ 
 song2 = Song.new(
