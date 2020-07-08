@@ -39,6 +39,9 @@ progress[value] {
   border-right: 1px solid $light-grey;
   display: flex;
   align-items: center;
+  &:hover progress{ // Chrome and Firefox transition
+    height: 6px; 
+  }
   & button {
     width: 24px;
     height: 100%;
@@ -48,30 +51,27 @@ progress[value] {
     }
   }
   & progress {
+    border-radius: 5px;
     width: 90%;
     height: 2px;
-    transition: all 0.2s;
-    &:hover {
-      height: 6px; // works in Chrome but not Firefox
-    }
+    transition: all 0.3s;
   }
 }
 
-progress::-moz-progress-bar { // for FF ::progress-bar is the value bar
+progress[value] {
+  &::-webkit-progress-value { // for Chrome
+    background-color: $orange;
+    border-radius: 3px;
+  }
+  &::-webkit-progress-bar {
+    background-color: #e6e6e6;
+    border-radius: 3px;
+  }
+}
+
+progress::-moz-progress-bar { // for Firefox 
   background-color: $orange ;
-  transition: all 0.2s;
-  &:hover {
-    height: 6px;
-  }
-}
-
-
-progress[value]::-webkit-progress-bar {
-  background-color: $light-grey;
-}
-
-progress[value]::-webkit-progress-value {
-  background-color: $orange;
+  border-radius: 3px;
 }
 
 .player-play {
