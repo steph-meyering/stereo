@@ -4,15 +4,22 @@ import Slide from "react-reveal/Slide";
 class PlayControls extends React.Component {
   constructor(props) {
     super(props);
-    this.playPause = this.playPause.bind(this);
-    this.initProgress = this.initProgress.bind(this)
-    this.seek = this.seek.bind(this)
+    this.initProgress = this.initProgress.bind(this);
+    this.seek = this.seek.bind(this);
   }
 
   componentDidUpdate(){
     this.playPauseButton = document.getElementById("play-pause");
-    if (this.audio !== undefined && this.props.currentSong.playing) {
-      this.audio.play()
+    if (this.audio !== undefined) {
+      if (this.props.currentSong.playing){
+        console.log("played by component update");
+        this.audio.play();
+        this.playPauseButton.className = "player-pause";
+      } else {
+        console.log("paused by component update");
+        this.audio.pause();
+        this.playPauseButton.className = "player-play";
+      }
     }
   }
   
@@ -24,16 +31,16 @@ class PlayControls extends React.Component {
     // this.waveform = document.getElementById("song-show-waveform").firstChild;
   }
 
-  playPause() {
-    if (this.audio.paused){
-      this.audio.play();
-      this.playPauseButton.className = "player-pause";
-    } else {
-      this.audio.pause();
-      this.playPauseButton.className = "player-play";
-    }
-    this.props.playPauseSong()
-  }
+  // playPause() {
+    // if (this.audio.paused){
+    //   this.audio.play();
+    //   this.playPauseButton.className = "player-pause";
+    // } else {
+    //   this.audio.pause();
+    //   this.playPauseButton.className = "player-play";
+    // }
+    // this.props.playPauseSong();
+  // }
 
   seek(e) {
     let percent = e.offsetX / this.progress.offsetWidth;
@@ -61,7 +68,7 @@ class PlayControls extends React.Component {
               <div
                 id="play-pause"
                 className="player-pause"
-                onClick={() => this.playPause()}
+                onClick={() => this.props.playPauseSong()}
               ></div>
               <progress value="0" max="1" id="progress-bar"></progress>
               <div id="play-volume" className="player-volume-high"></div>

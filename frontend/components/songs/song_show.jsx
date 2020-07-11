@@ -54,7 +54,10 @@ class SongShow extends React.Component {
             <div className="name-artist-play">
               <div
                 className="play-button"
-                onClick={() => this.props.selectSong(this.props.song)}
+                onClick={() => {
+                  this.props.selectSong(this.props.song);
+                } 
+              }
               ></div>
               <div className="name-artist">
                 <h3 className="username">{this.props.song.artist}</h3>
@@ -73,7 +76,6 @@ class SongShow extends React.Component {
           onClick={() => {
             this.state.wave.playPause();
             this.props.selectSong(this.props.song);
-            this.props.playPauseSong();
           }
         }
         >
