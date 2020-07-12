@@ -8,7 +8,8 @@ const mSTP = (state, ownProps) => {
         return({song: undefined})
     };
     return({
-        song: state.entities.songs[ownProps.match.params.songId]
+        song: state.entities.songs[ownProps.match.params.songId],
+        playing: state.playControls.currentSong
     })
 }
 

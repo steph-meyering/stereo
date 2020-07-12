@@ -14,6 +14,10 @@ class SongShow extends React.Component {
       .then(() => this.renderWave());
   }
 
+  componentDidUpdate() {
+
+  }
+  
   renderWave() {
     let wave = WaveSurfer.create({
       container: "#song-show-waveform",
@@ -47,6 +51,12 @@ class SongShow extends React.Component {
 
   render() {
     if (this.props.song === undefined) return null;
+    let selected = false;
+    if (this.props.playing) {
+      // set flag specifying if current song is already active in player
+      selected = this.props.song.id === this.props.playing.id;
+    }
+    console.log(this.state.selected);
     return (
       <div className="song-show-page">
         <div className="song-show-top">
@@ -55,8 +65,13 @@ class SongShow extends React.Component {
               <div
                 className="play-button"
                 onClick={() => {
-                  this.props.selectSong(this.props.song);
-                } 
+                  // if song has already been selected, button will play/pause instead
+                  if (selected){
+                    this.props.playPauseSong()
+                  } else {
+                    this.props.selectSong(this.props.song);
+                  }
+                }
               }
               ></div>
               <div className="name-artist">
