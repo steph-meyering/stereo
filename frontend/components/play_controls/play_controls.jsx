@@ -12,11 +12,9 @@ class PlayControls extends React.Component {
     this.playPauseButton = document.getElementById("play-pause");
     if (this.audio !== undefined) {
       if (this.props.currentSong.playing){
-        console.log("played by component update");
         this.audio.play();
         this.playPauseButton.className = "player-pause";
       } else {
-        console.log("paused by component update");
         this.audio.pause();
         this.playPauseButton.className = "player-play";
       }

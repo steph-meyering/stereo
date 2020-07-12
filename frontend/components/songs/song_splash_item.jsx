@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 class SongSplashItem extends React.Component {
   
   render() {
-    console.log(this.props.song.title, this.props.isSelected)
+    let selected = this.props.isSelected;
+    let playing = this.props.isPlaying;
     return (
       <div className="song-splash-item">
         <Link to={`/songs/${this.props.song.id}`}>
@@ -15,8 +16,15 @@ class SongSplashItem extends React.Component {
           />
         </Link>
         <div
-          className="play-button"
-          onClick={() => this.props.selectSong(this.props.song)}
+          className={selected && playing ? "pause-button" : "play-button"}
+          onClick={() => {
+            if (selected){
+              this.props.playPauseSong();
+            } else {
+              this.props.selectSong(this.props.song);
+            }
+          } 
+        }
         ></div>
         <div className="splash-song-info">
           <Link to={`/songs/${this.props.song.id}`}>
