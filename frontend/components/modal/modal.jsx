@@ -24,7 +24,7 @@ function Modal({ modal, closeModal }) {
   }
   return (
     <div className="modal-background" onClick={closeModal}>
-      <Bounce top exit='true'>
+      <Bounce top exit={true}>
         <div className="modal-child" onClick={(e) => e.stopPropagation()}>
           {component}
         </div>
