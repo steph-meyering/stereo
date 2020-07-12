@@ -52,27 +52,28 @@ class SongShow extends React.Component {
   render() {
     if (this.props.song === undefined) return null;
     let selected = false;
-    if (this.props.playing) {
+    let playing = false;
+    if (this.props.currentlyPlaying) {
       // set flag specifying if current song is already active in player
-      selected = this.props.song.id === this.props.playing.id;
+      selected = this.props.song.id === this.props.currentlyPlaying.id;
+      // flag to determine if button appearance
+      playing = this.props.currentlyPlaying.playing
     }
-    console.log(this.state.selected);
     return (
       <div className="song-show-page">
         <div className="song-show-top">
           <div className="song-show-left">
             <div className="name-artist-play">
               <div
-                className="play-button"
+                className={playing ? "pause-button" : "play-button"}
                 onClick={() => {
                   // if song has already been selected, button will play/pause instead
-                  if (selected){
-                    this.props.playPauseSong()
+                  if (selected) {
+                    this.props.playPauseSong();
                   } else {
                     this.props.selectSong(this.props.song);
                   }
-                }
-              }
+                }}
               ></div>
               <div className="name-artist">
                 <h3 className="username">{this.props.song.artist}</h3>
@@ -91,8 +92,7 @@ class SongShow extends React.Component {
           onClick={() => {
             this.state.wave.playPause();
             this.props.selectSong(this.props.song);
-          }
-        }
+          }}
         >
           play/pause
         </button>
