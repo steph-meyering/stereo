@@ -65,7 +65,7 @@ class SongShow extends React.Component {
           <div className="song-show-left">
             <div className="name-artist-play">
               <div
-                className={playing ? "pause-button" : "play-button"}
+                className={selected && playing ? "pause-button" : "play-button"}
                 onClick={() => {
                   // if song has already been selected, button will play/pause instead
                   if (selected) {

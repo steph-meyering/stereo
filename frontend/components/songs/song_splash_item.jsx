@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 class SongSplashItem extends React.Component {
   
   render() {
+    console.log(this.props.song.title, this.props.isSelected)
     return (
       <div className="song-splash-item">
         <Link to={`/songs/${this.props.song.id}`}>

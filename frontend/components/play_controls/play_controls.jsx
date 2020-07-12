@@ -27,7 +27,10 @@ class PlayControls extends React.Component {
     this.audio = document.getElementById("audio-element");
     this.progress = document.getElementById("progress-bar");
     this.progress.addEventListener("click", this.seek)
-    this.progress.value = (this.audio.currentTime / this.audio.duration);
+    let nextValue = (this.audio.currentTime / this.audio.duration);
+    if (!!nextValue){ // fixes bug where switching songs causes audio duration to briefly be 0
+      this.progress.value = nextValue;
+    }
     // this.waveform = document.getElementById("song-show-waveform").firstChild;
   }
 
