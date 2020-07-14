@@ -73,6 +73,9 @@ class SongIndexItem extends React.Component {
       <button onClick={() => this.edit()}>edit</button>
     ) : null;
 
+    let selected = this.props.isSelected;
+    let playing = this.props.isPlaying;
+    
     return (
       <div className="song-index-item">
         <Link to={`/songs/${this.state.songId}`}>
@@ -85,8 +88,14 @@ class SongIndexItem extends React.Component {
         <div className="info-and-wave">
           <div className="song-index-info">
             <div
-              className="play-button"
-              onClick={() => this.props.selectSong(this.props.song)}
+              className={selected && playing ? "pause-button" : "play-button"}
+              onClick={() => {
+                if (selected) {
+                  this.props.playPauseSong();
+                } else {
+                  this.props.selectSong(this.props.song);
+                }
+              }}
             ></div>
             <div>
               <Link to={`/users/${this.props.song.artistId}`}>
