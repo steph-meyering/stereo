@@ -6,16 +6,13 @@ class SongShow extends React.Component {
     super(props);
     this.state = {};
     this.responsiveWave = this.responsiveWave.bind(this);
+    this.syncWave = this.syncWave.bind(this);
   }
 
   componentDidMount() {
     this.props
       .fetchSong(this.props.match.params.songId)
       .then(() => this.renderWave());
-  }
-
-  componentDidUpdate() {
-
   }
   
   renderWave() {
@@ -49,6 +46,24 @@ class SongShow extends React.Component {
     this.state.wave.drawBuffer();
   }
 
+  syncWave() {
+    if (!this.state.wave){
+      return
+    }
+    // get the progress element so we can obtain it's value
+    let progress = document.getElementById("progress-bar");
+    if (progress){
+      // seek waveform to same percentage as progress element
+      this.state.wave.seekTo(progress.value);
+    }
+    // check state and initialize waveform playback if song is playing
+    if (this.props.currentlyPlaying.playing){
+      this.state.wave.play();
+    } else {
+      this.state.wave.pause();
+    }
+  }
+
   render() {
     if (this.props.song === undefined) return null;
     let selected = false;
@@ -58,6 +73,9 @@ class SongShow extends React.Component {
       selected = this.props.song.id === this.props.currentlyPlaying.id;
       // flag to determine if button appearance
       playing = this.props.currentlyPlaying.playing
+    }
+    if (selected){
+      this.syncWave();
     }
     return (
       <div className="song-show-page">
