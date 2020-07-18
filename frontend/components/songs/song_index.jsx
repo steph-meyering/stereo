@@ -34,6 +34,11 @@ class SongIndex extends React.Component {
           .then(() =>
             this.props.updateSong({ id: song.props.song.id, song: formData })
           )
+          .then(() =>
+            console.log(
+              `processed and saved waveform for ${song.props.song.id}`
+            )
+          )
       );
     })
   }
