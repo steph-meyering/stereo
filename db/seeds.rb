@@ -63,7 +63,7 @@ song2.photo.attach(io: photo2, filename: "photo2")
 
 song2.save!
 
-================================
+# ================================
 song3 = Song.new(
     artist_id: guest.id, 
     title:"B l o m s t - Chill Rain", 
