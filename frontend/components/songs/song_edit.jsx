@@ -90,7 +90,6 @@ class SongEdit extends React.Component {
     console.log(this.state)
     return (
       <div className="song-edit-modal">
-        <h1>{window.localStorage.getItem("editTarget")}</h1>
         <div className="song-upload-form-container">
           <form onSubmit={this.handleSubmit}>
             <h3></h3>

@@ -24,7 +24,7 @@
     width: 200px;
     height: 200px;
     margin: 40px 15px 20px 15px;
-    border: 1px solid $light-grey;
+    border: 1px solid rgba(0,0,0,.1);
   }
 
   & .play-button {
@@ -90,6 +90,8 @@
 .album-cover {
   width: auto;
   height: 160px;
+  border: 1px solid #999999;
+
 }
 
 .info-and-wave {
@@ -152,12 +154,13 @@
 }
 
 .song-upload-form-container {
-  width: 800px;
+  width: 850px;
   padding: 25px;
 }
 
 .song-upload-form {
   display: flex;
+  margin-bottom: 30px;
 }
 
 .audio-upload {
@@ -196,7 +199,7 @@
 .image-upload-button {
   position: absolute;
   bottom: 20px;
-  left: 77px;
+  left: 108px;
   background-color: #e3e7e9;
   color: black;
   align-items: center;
