@@ -46,6 +46,7 @@ class PlayControls extends React.Component {
   seek(e) {
     let percent = e.offsetX / this.progress.offsetWidth;
     this.audio.currentTime = percent * this.audio.duration;
+    this.props.seek();
   }
 
   playWave() {

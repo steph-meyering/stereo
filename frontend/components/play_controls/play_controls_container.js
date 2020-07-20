@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import PlayControls from "./play_controls";
-import { playPauseSong } from "../../actions/current_song_actions";
+import { playPauseSong, seek } from "../../actions/current_song_actions";
 
 const mSTP = state => ({
     currentSong: state.playControls.currentSong
@@ -8,6 +8,7 @@ const mSTP = state => ({
 
 const mDTP = (dispatch) => ({
   playPauseSong: () => dispatch(playPauseSong()),
+  seek: () => dispatch(seek()),
 });
 
 export default connect(mSTP,mDTP)(PlayControls)
