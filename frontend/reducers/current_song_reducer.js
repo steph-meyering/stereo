@@ -1,4 +1,4 @@
-import { SELECT_SONG, PLAY_PAUSE_SONG, SEEK } from "../actions/current_song_actions";
+import { SELECT_SONG, PLAY_PAUSE_SONG, SEEK, SEEK_CLEAR } from "../actions/current_song_actions";
 
 const currentSongReducer = (state = null, action) => {
   Object.freeze(state);
@@ -11,13 +11,20 @@ const currentSongReducer = (state = null, action) => {
       nextState["title"] = action.song.title;
       nextState["photoUrl"] = action.song.photoUrl;
       nextState["playing"] = true;
+      nextState["seek"] = false;
       return nextState;
     case PLAY_PAUSE_SONG:
-      nextState["playing"] = (nextState["playing"] === true ? false : true)
-      console.log("playing: ", nextState["playing"])
+      nextState["playing"] = nextState["playing"] === true ? false : true;
+      nextState["seek"] = false;
       return nextState;
-    case SEEK:
-      // will not modify current state but will trigger re-render to sync waveform and playControls component
+    case SEEK: 
+      nextState["seek"] = {
+        origin: action.origin,
+        position: action.position
+      };
+      return nextState;
+    case SEEK_CLEAR:
+      nextState["seek"] = false;
       return nextState;
     default:
       return state;

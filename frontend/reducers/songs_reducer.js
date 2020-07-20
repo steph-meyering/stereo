@@ -10,9 +10,6 @@ const songsReducer = (state = {}, action) => {
       return nextState;
     case RECEIVE_SONGS:
       return action.songs;
-    case SEEK:
-      // will not modify current state but will trigger re-render to sync waveform and playControls component
-      return nextState;
     default:
       return state;
   }

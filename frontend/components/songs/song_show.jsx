@@ -7,6 +7,7 @@ class SongShow extends React.Component {
     this.state = {};
     this.responsiveWave = this.responsiveWave.bind(this);
     this.syncWave = this.syncWave.bind(this);
+    this.seek = this.seek.bind(this);
   }
 
   componentDidMount() {
@@ -14,7 +15,12 @@ class SongShow extends React.Component {
       .fetchSong(this.props.match.params.songId)
       .then(() => this.renderWave());
   }
-  
+
+  seek(pos) {
+    console.log('seek event triggered')
+    this.props.seek('waveform', pos);
+  }
+
   renderWave() {
     let wave = WaveSurfer.create({
       container: "#song-show-waveform",
@@ -30,7 +36,8 @@ class SongShow extends React.Component {
     });
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
-      wave.setMute(true)
+      wave.setMute(true);
+      wave.on("seek", (pos) => this.seek(pos));
       this.setState({ wave });
       window.addEventListener(
         "resize",
@@ -47,18 +54,22 @@ class SongShow extends React.Component {
   }
 
   syncWave() {
-    if (!this.state.wave){
-      return
+    if (!this.state.wave) {
+      return;
     }
+    // let newPos = this.props.currentlyPlaying.seek;
+    // if (newPos){;
+    //   this.state.wave.seekTo(newPos);
+    // }
     // get the progress element so we can obtain it's value
-    let progress = document.getElementById("progress-bar");
-    if (progress){
-      // seek waveform to same percentage as progress element
-      this.state.wave.seekTo(progress.value);
-      console.log(`seek to ${progress.value}`)
-    }
+    // let progress = document.getElementById("progress-bar");
+    // if (progress) {
+    //   // seek waveform to same percentage as progress element
+    //   this.state.wave.seekTo(progress.value);
+    //   console.log(`seek to ${progress.value}`);
+    // }
     // check state and initialize waveform playback if song is playing
-    if (this.props.currentlyPlaying.playing){
+    if (this.props.currentlyPlaying.playing) {
       this.state.wave.play();
     } else {
       this.state.wave.pause();
@@ -73,11 +84,11 @@ class SongShow extends React.Component {
       // set flag specifying if current song is already active in player
       selected = this.props.song.id === this.props.currentlyPlaying.id;
       // flag to determine button appearance (play / pause)
-      playing = this.props.currentlyPlaying.playing
+      playing = this.props.currentlyPlaying.playing;
     }
     console.log("selected :", selected);
     console.log("playing :", playing);
-    if (selected){
+    if (selected) {
       // if song is in currentlyPlaying slice of state, sync waveform
       this.syncWave();
     }

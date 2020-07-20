@@ -19,12 +19,16 @@ class PlayControls extends React.Component {
         this.playPauseButton.className = "player-play";
       }
     }
+    let seek = this.props.currentSong.seek
+    if (seek && seek.origin === "waveform"){
+      this.audio.currentTime = seek.position * this.audio.duration;
+    }
   }
   
   initProgress() {
     this.audio = document.getElementById("audio-element");
     this.progress = document.getElementById("progress-bar");
-    this.progress.addEventListener("click", this.seek)
+    this.progress.addEventListener("click", this.seek);
     let nextValue = (this.audio.currentTime / this.audio.duration);
     if (!!nextValue){ // fixes bug where switching songs causes audio duration to briefly be 0
       this.progress.value = nextValue;
@@ -46,7 +50,7 @@ class PlayControls extends React.Component {
   seek(e) {
     let percent = e.offsetX / this.progress.offsetWidth;
     this.audio.currentTime = percent * this.audio.duration;
-    this.props.seek();
+    this.props.seek("playControls", percent);
   }
 
   playWave() {
