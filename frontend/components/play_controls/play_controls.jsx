@@ -11,7 +11,7 @@ class PlayControls extends React.Component {
   componentDidUpdate(){
     this.playPauseButton = document.getElementById("play-pause");
     if (this.audio !== undefined) {
-      if (this.props.currentSong.playing){
+      if (this.props.currentlyPlaying.playing){
         this.audio.play();
         this.playPauseButton.className = "player-pause";
       } else {
@@ -19,7 +19,7 @@ class PlayControls extends React.Component {
         this.playPauseButton.className = "player-play";
       }
     }
-    let seek = this.props.currentSong.seek
+    let seek = this.props.currentlyPlaying.seek
     if (seek && seek.origin === "waveform"){
       this.audio.currentTime = seek.position * this.audio.duration;
     }
@@ -58,7 +58,7 @@ class PlayControls extends React.Component {
   }
 
   render() {
-    if (this.props.currentSong === null) {
+    if (this.props.currentlyPlaying === null) {
       return null;
     } else {
       return (
@@ -68,7 +68,7 @@ class PlayControls extends React.Component {
               id="audio-element"
               onTimeUpdate={this.initProgress}
               autoPlay
-              src={this.props.currentSong.fileUrl}
+              src={this.props.currentlyPlaying.fileUrl}
             ></audio>
             <div id="player">
               <div
@@ -82,13 +82,13 @@ class PlayControls extends React.Component {
             <div className="currently-playing-song-data">
               <div>
                 <img
-                  src={this.props.currentSong.photoUrl}
-                  alt={this.props.currentSong.title}
+                  src={this.props.currentlyPlaying.photoUrl}
+                  alt={this.props.currentlyPlaying.title}
                 />
               </div>
               <div>
-                <p className="uploader">{this.props.currentSong.artist}</p>
-                <p className="song-title">{this.props.currentSong.title}</p>
+                <p className="uploader">{this.props.currentlyPlaying.artist}</p>
+                <p className="song-title">{this.props.currentlyPlaying.title}</p>
               </div>
             </div>
           </span>

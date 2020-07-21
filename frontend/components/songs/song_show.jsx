@@ -16,6 +16,19 @@ class SongShow extends React.Component {
       .then(() => this.renderWave());
   }
 
+  componentDidUpdate(){
+    let seekPos = this.state.seekPos;
+    if (seekPos){
+      this.seek(seekPos);
+      this.setState({seekPos: null});
+    }
+    if (!this.props.currentlyPlaying) return
+    let seek = this.props.currentlyPlaying.seek;
+    if (seek && seek.origin === "playControls") {
+      this.state.wave.seekTo(seek.position);
+    }
+  }
+
   seek(pos) {
     console.log('seek event triggered')
     this.props.seek('waveform', pos);
@@ -37,7 +50,7 @@ class SongShow extends React.Component {
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
       wave.setMute(true);
-      wave.on("seek", (pos) => this.seek(pos));
+      wave.on("seek", (pos) => this.setState({seekPos: pos}));
       this.setState({ wave });
       window.addEventListener(
         "resize",
