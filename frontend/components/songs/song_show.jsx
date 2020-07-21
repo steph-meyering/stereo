@@ -5,6 +5,7 @@ class SongShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.localSeek = false;
     this.responsiveWave = this.responsiveWave.bind(this);
     this.syncWave = this.syncWave.bind(this);
     this.seek = this.seek.bind(this);
@@ -17,11 +18,11 @@ class SongShow extends React.Component {
   }
 
   componentDidUpdate(){
-    let seekPos = this.state.seekPos;
-    if (seekPos){
-      this.seek(seekPos);
-      this.setState({seekPos: null});
-    }
+    // let seekPos = this.state.seekPos;
+    // if (seekPos){
+    //   this.seek(seekPos);
+    //   this.setState({seekPos: null});
+    // }
     if (!this.props.currentlyPlaying) return
     let seek = this.props.currentlyPlaying.seek;
     if (seek && seek.origin === "playControls") {
@@ -30,8 +31,13 @@ class SongShow extends React.Component {
   }
 
   seek(pos) {
-    console.log('seek event triggered')
-    this.props.seek('waveform', pos);
+    let seekAction = this.props.currentlyPlaying.seek;
+    if (this.localSeek){
+      this.localSeek = false
+      this.props.seek("waveform", pos);
+    // } else if (seekAction && seekAction.origin === "playControls"){
+    //   this.state.wave.seekTo(pos);
+    }
   }
 
   renderWave() {
@@ -50,7 +56,8 @@ class SongShow extends React.Component {
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
       wave.setMute(true);
-      wave.on("seek", (pos) => this.setState({seekPos: pos}));
+      // wave.on("seek", (pos) => this.setState({seekPos: pos}));
+      wave.on("seek", (pos) => this.seek(pos))
       this.setState({ wave });
       window.addEventListener(
         "resize",
@@ -66,6 +73,13 @@ class SongShow extends React.Component {
     this.state.wave.drawBuffer();
   }
 
+  // seekProgBar(){
+  //   let duration = this.state.wave.getDuration();
+  //   let currentTime = this.state.wave.getCurrentTime();
+  //   let percentage = currentTime / duration;
+  //   this.seek(percentage);
+  // }
+  
   syncWave() {
     if (!this.state.wave) {
       return;
@@ -99,8 +113,6 @@ class SongShow extends React.Component {
       // flag to determine button appearance (play / pause)
       playing = this.props.currentlyPlaying.playing;
     }
-    console.log("selected :", selected);
-    console.log("playing :", playing);
     if (selected) {
       // if song is in currentlyPlaying slice of state, sync waveform
       this.syncWave();
@@ -132,7 +144,7 @@ class SongShow extends React.Component {
                 <h2 className="song-show-title">{this.props.song.title}</h2>
               </div>
             </div>
-            <div id="song-show-waveform"></div>
+            <div id="song-show-waveform" onClick={() => this.localSeek = true}></div>
           </div>
           <img
             className="album-cover"
