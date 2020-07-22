@@ -63,7 +63,7 @@ class SongShow extends React.Component {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
       wave.setMute(true);
       wave.on("seek", (pos) => this.seek(pos));
-      wave.on("ready", () => console.log("reaaaady"));
+      wave.on("ready", () => this.syncWave());
       this.setState({ wave });
       window.addEventListener(
         "resize",
@@ -80,22 +80,17 @@ class SongShow extends React.Component {
   }
 
   syncWave() {
-    if (!this.state.wave) {
+    console.log("waveform ready event");
+    // nothing to sync if song isn't selected
+    if (!this.selected || !this.state.wave) {
       return;
     }
-    console.log("syncWave called");
     // get the progress element so we can obtain it's value
-    // let progress = document.getElementById("progress-bar");
-    // if (progress) {
-    //   // seek waveform to same percentage as progress element
-    //   this.state.wave.seekTo(progress.value);
-    //   console.log(`seek to ${progress.value}`);
-    // }
-    // check state and initialize waveform playback if song is playing
-    if (this.props.currentlyPlaying.playing) {
-      this.state.wave.play();
-    } else {
-      this.state.wave.pause();
+    let progress = document.getElementById("progress-bar");
+    if (progress) {
+      // seek waveform to same percentage as progress element
+      this.state.wave.seekTo(progress.value);
+      console.log(`seek to ${progress.value}`);
     }
   }
 
@@ -107,10 +102,13 @@ class SongShow extends React.Component {
       // flag to determine button appearance (play / pause)
       this.playing = this.props.currentlyPlaying.playing;
     }
-    if (this.selected) {
-      console.log("RENDER");
-      // if song is in currentlyPlaying slice of state, sync waveform
-      this.syncWave();
+    if (this.selected && this.state.wave) {
+      // initialize waveform playback if song is playing
+      if (this.playing) {
+        this.state.wave.play();
+      } else {
+        this.state.wave.pause();
+      }
     }
     return (
       <div className="song-show-page">
