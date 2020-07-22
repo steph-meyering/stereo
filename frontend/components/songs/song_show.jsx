@@ -6,6 +6,8 @@ class SongShow extends React.Component {
     super(props);
     this.state = {};
     this.localSeek = false;
+    this.selected = false;
+    this.playing = false;
     this.responsiveWave = this.responsiveWave.bind(this);
     this.syncWave = this.syncWave.bind(this);
     this.seek = this.seek.bind(this);
@@ -17,32 +19,36 @@ class SongShow extends React.Component {
       .then(() => this.renderWave());
   }
 
-  componentDidUpdate(){
-    // let seekPos = this.state.seekPos;
-    // if (seekPos){
-    //   this.seek(seekPos);
-    //   this.setState({seekPos: null});
-    // }
-    if (!this.props.currentlyPlaying) return
+  componentDidUpdate() {
+    if (!this.props.currentlyPlaying) {
+      return;
+    }
+    // seek waveform if incoming seek action originates from playControls
     let seek = this.props.currentlyPlaying.seek;
     if (seek && seek.origin === "playControls") {
-      this.state.wave.seekTo(seek.position);
+      return this.state.wave.seekTo(seek.position);
     }
   }
 
   seek(pos) {
-    let seekAction = this.props.currentlyPlaying.seek;
-    if (this.localSeek){
-      this.localSeek = false
+    // if song isn't currently select, first click will select song and seek to beginning
+    if (!this.selected){
+      this.props.selectSong(this.props.song);
+      this.state.wave.seekTo(0);
+      return
+    }
+
+    // only dispatch seek action if originating from waveform
+    if (this.localSeek) {
+      this.localSeek = false;
       this.props.seek("waveform", pos);
-    // } else if (seekAction && seekAction.origin === "playControls"){
-    //   this.state.wave.seekTo(pos);
     }
   }
 
   renderWave() {
     let wave = WaveSurfer.create({
       container: "#song-show-waveform",
+      backend: "MediaElement",
       height: 100,
       barWidth: 2,
       barHeight: 1,
@@ -56,8 +62,8 @@ class SongShow extends React.Component {
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
       wave.setMute(true);
-      // wave.on("seek", (pos) => this.setState({seekPos: pos}));
-      wave.on("seek", (pos) => this.seek(pos))
+      wave.on("seek", (pos) => this.seek(pos));
+      wave.on("ready", () => console.log("reaaaady"));
       this.setState({ wave });
       window.addEventListener(
         "resize",
@@ -73,21 +79,11 @@ class SongShow extends React.Component {
     this.state.wave.drawBuffer();
   }
 
-  // seekProgBar(){
-  //   let duration = this.state.wave.getDuration();
-  //   let currentTime = this.state.wave.getCurrentTime();
-  //   let percentage = currentTime / duration;
-  //   this.seek(percentage);
-  // }
-  
   syncWave() {
     if (!this.state.wave) {
       return;
     }
-    // let newPos = this.props.currentlyPlaying.seek;
-    // if (newPos){;
-    //   this.state.wave.seekTo(newPos);
-    // }
+    console.log("syncWave called");
     // get the progress element so we can obtain it's value
     // let progress = document.getElementById("progress-bar");
     // if (progress) {
@@ -105,15 +101,14 @@ class SongShow extends React.Component {
 
   render() {
     if (this.props.song === undefined) return null;
-    let selected = false;
-    let playing = false;
     if (this.props.currentlyPlaying) {
       // set flag specifying if current song is already active in player
-      selected = this.props.song.id === this.props.currentlyPlaying.id;
+      this.selected = this.props.song.id === this.props.currentlyPlaying.id;
       // flag to determine button appearance (play / pause)
-      playing = this.props.currentlyPlaying.playing;
+      this.playing = this.props.currentlyPlaying.playing;
     }
-    if (selected) {
+    if (this.selected) {
+      console.log("RENDER");
       // if song is in currentlyPlaying slice of state, sync waveform
       this.syncWave();
     }
@@ -123,10 +118,12 @@ class SongShow extends React.Component {
           <div className="song-show-left">
             <div className="name-artist-play">
               <div
-                className={selected && playing ? "pause-button" : "play-button"}
+                className={
+                  this.selected && this.playing ? "pause-button" : "play-button"
+                }
                 onClick={() => {
                   // if song has already been selected, button will play/pause instead
-                  if (selected) {
+                  if (this.selected) {
                     this.props.playPauseSong();
                   } else {
                     let progress = document.getElementById("progress-bar");
@@ -144,7 +141,10 @@ class SongShow extends React.Component {
                 <h2 className="song-show-title">{this.props.song.title}</h2>
               </div>
             </div>
-            <div id="song-show-waveform" onClick={() => this.localSeek = true}></div>
+            <div
+              id="song-show-waveform"
+              onClick={() => this.localSeek = true}
+            ></div>
           </div>
           <img
             className="album-cover"

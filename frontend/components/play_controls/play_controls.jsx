@@ -10,14 +10,15 @@ class PlayControls extends React.Component {
 
   componentDidUpdate(){
     this.playPauseButton = document.getElementById("play-pause");
-    if (this.audio !== undefined) {
-      if (this.props.currentlyPlaying.playing){
-        this.audio.play();
-        this.playPauseButton.className = "player-pause";
-      } else {
-        this.audio.pause();
-        this.playPauseButton.className = "player-play";
-      }
+    if (this.audio === undefined) {
+      return
+    }
+    if (this.props.currentlyPlaying.playing){
+      this.audio.play();
+      this.playPauseButton.className = "player-pause";
+    } else {
+      this.audio.pause();
+      this.playPauseButton.className = "player-play";
     }
     let seek = this.props.currentlyPlaying.seek
     if (seek && seek.origin === "waveform"){
@@ -33,19 +34,8 @@ class PlayControls extends React.Component {
     if (!!nextValue){ // fixes bug where switching songs causes audio duration to briefly be 0
       this.progress.value = nextValue;
     }
-    // this.waveform = document.getElementById("song-show-waveform").firstChild;
   }
 
-  // playPause() {
-    // if (this.audio.paused){
-    //   this.audio.play();
-    //   this.playPauseButton.className = "player-pause";
-    // } else {
-    //   this.audio.pause();
-    //   this.playPauseButton.className = "player-play";
-    // }
-    // this.props.playPauseSong();
-  // }
 
   seek(e) {
     let percent = e.offsetX / this.progress.offsetWidth;
