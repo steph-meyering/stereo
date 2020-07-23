@@ -8,6 +8,7 @@ class SongShow extends React.Component {
     this.localSeek = false;
     this.selected = false;
     this.playing = false;
+    this.interactiveWave = false;
     this.responsiveWave = this.responsiveWave.bind(this);
     this.syncWave = this.syncWave.bind(this);
     this.seek = this.seek.bind(this);
@@ -30,9 +31,21 @@ class SongShow extends React.Component {
     }
   }
 
+  makeWaveInteractive(){
+    // if waveform is displayed but not active, first click will play
+    if (!this.interactiveWave) {
+      this.state.wave.toggleInteraction();
+      this.interactiveWave = true;
+      this.props.selectSong(this.props.song);
+      this.selected = true;
+    }
+  }
+  
   seek(pos) {
-    // if song isn't currently select, first click will select song and seek to beginning
+    // if song isn't currently selected, first click will select song and seek to beginning
     if (!this.selected){
+      this.selected = true;
+      this.localSeek = false;
       this.props.selectSong(this.props.song);
       this.state.wave.seekTo(0);
       return
@@ -58,6 +71,7 @@ class SongShow extends React.Component {
       fillParent: true,
       minPxPerSec: 10,
       barMinHeight: 1,
+      interact: false
     });
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
@@ -141,7 +155,13 @@ class SongShow extends React.Component {
             </div>
             <div
               id="song-show-waveform"
-              onClick={() => this.localSeek = true}
+              onClick={() => {
+                if (!this.selected){
+                  this.makeWaveInteractive();
+                } else{
+                  this.localSeek = true;
+                }
+              }}
             ></div>
           </div>
           <img
