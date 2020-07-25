@@ -32,7 +32,7 @@ class SongShow extends React.Component {
   }
 
   makeWaveInteractive(){
-    // if waveform is displayed but not active, first click will play
+    // if waveform is displayed but not active, first click will play and make interactive
     if (!this.interactiveWave) {
       this.state.wave.toggleInteraction();
       this.interactiveWave = true;
@@ -104,6 +104,7 @@ class SongShow extends React.Component {
     if (progress) {
       // seek waveform to same percentage as progress element
       this.state.wave.seekTo(progress.value);
+      this.makeWaveInteractive();
       console.log(`seek to ${progress.value}`);
     }
   }
@@ -143,8 +144,10 @@ class SongShow extends React.Component {
                       // if another song is playing, reset progress bar to zero
                       progress.value = 0;
                     }
-                    // send selected song to play controls element
+                    // send selected song to play controls element...
                     this.props.selectSong(this.props.song);
+                    // ... and make wave interactive
+                    this.makeWaveInteractive();
                   }
                 }}
               ></div>
