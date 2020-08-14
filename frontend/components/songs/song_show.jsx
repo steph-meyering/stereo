@@ -1,6 +1,6 @@
 import React from "react";
 import { initWave } from "../../util/waveform_util";
-import WaveForm from "../waveform/waveform";
+import WaveFormContainer from "../waveform/waveform_container";
 
 class SongShow extends React.Component {
   constructor(props) {
@@ -43,7 +43,6 @@ class SongShow extends React.Component {
     if (!this.interactiveWave) {
       this.state.wave.toggleInteraction();
       this.interactiveWave = true;
-      this.props.selectSong(this.props.song);
       this.selected = true;
     }
   }
@@ -165,9 +164,9 @@ class SongShow extends React.Component {
             alt={this.props.song.title}
           />
         </div>
-        <WaveForm
-          fileUrl={this.props.song.fileUrl}
-          peakData={this.props.song.waveform}
+        <WaveFormContainer
+          song={this.props.song}
+          selected={this.selected}
         />
       </div>
     );
