@@ -60,9 +60,9 @@ class SongIndex extends React.Component {
 
     let currentSong = null;
     let isPlaying = false;
-    if (this.props.currentSong) {
-      currentSong = this.props.currentSong.id;
-      isPlaying = this.props.currentSong.playing;
+    if (this.props.currentlyPlaying) {
+      currentSong = this.props.currentlyPlaying.id;
+      isPlaying = this.props.currentlyPlaying.playing;
     }
     
     let SongComponent = this.withWaveForm();
@@ -72,9 +72,11 @@ class SongIndex extends React.Component {
         song={song}
         selectSong={this.props.selectSong}
         playPauseSong={this.props.playPauseSong}
+        seek={this.props.seek}
         key={song.id}
         isSelected={song.id === currentSong}
         isPlaying={isPlaying}
+        currentlyPlaying = {this.props.currentlyPlaying}
         // boolean to represent if current user is song uploader to allow editing
         ownSong={this.props.currentUser === song.artistId}
         openModal={this.props.openModal}

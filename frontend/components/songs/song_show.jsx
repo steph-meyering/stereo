@@ -1,10 +1,17 @@
 import React from "react";
-import WaveSurfer from "wavesurfer.js";
+import { initWave } from "../../util/waveform_util";
+import WaveForm from "../waveform/waveform";
 
 class SongShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.waveData = {
+      localSeek: false,
+      selected: false,
+      playing: false,
+      interactive: false,
+    }
     this.localSeek = false;
     this.selected = false;
     this.playing = false;
@@ -44,11 +51,12 @@ class SongShow extends React.Component {
   seek(pos) {
     // if song isn't currently selected, first click will select song and seek to beginning
     if (!this.selected){
-      this.selected = true;
-      this.localSeek = false;
-      this.props.selectSong(this.props.song);
-      this.state.wave.seekTo(0);
-      return
+      debugger
+      // this.selected = true;
+      // this.localSeek = false;
+      // this.props.selectSong(this.props.song);
+      // this.state.wave.seekTo(0);
+      // return
     }
 
     // only dispatch seek action if originating from waveform
@@ -59,23 +67,9 @@ class SongShow extends React.Component {
   }
 
   renderWave() {
-    let wave = WaveSurfer.create({
-      container: "#song-show-waveform",
-      backend: "MediaElement",
-      height: 100,
-      barWidth: 2,
-      barHeight: 1,
-      barGap: null,
-      progressColor: "#f50",
-      cursorColor: "rgba(255, 0, 0, 0.0)",
-      fillParent: true,
-      minPxPerSec: 10,
-      barMinHeight: 1,
-      interact: false
-    });
+    let wave = initWave("#song-show-waveform");
     if (this.props.song.waveform) {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
-      wave.setMute(true);
       wave.on("seek", (pos) => this.seek(pos));
       wave.on("ready", () => this.syncWave());
       this.setState({ wave });
@@ -94,7 +88,6 @@ class SongShow extends React.Component {
   }
 
   syncWave() {
-    console.log("waveform ready event");
     // nothing to sync if song isn't selected
     if (!this.selected || !this.state.wave) {
       return;
@@ -105,7 +98,6 @@ class SongShow extends React.Component {
       // seek waveform to same percentage as progress element
       this.state.wave.seekTo(progress.value);
       this.makeWaveInteractive();
-      console.log(`seek to ${progress.value}`);
     }
   }
 
@@ -159,9 +151,9 @@ class SongShow extends React.Component {
             <div
               id="song-show-waveform"
               onClick={() => {
-                if (!this.selected){
+                if (!this.selected) {
                   this.makeWaveInteractive();
-                } else{
+                } else {
                   this.localSeek = true;
                 }
               }}
@@ -173,6 +165,10 @@ class SongShow extends React.Component {
             alt={this.props.song.title}
           />
         </div>
+        <WaveForm
+          fileUrl={this.props.song.fileUrl}
+          peakData={this.props.song.waveform}
+        />
       </div>
     );
   }

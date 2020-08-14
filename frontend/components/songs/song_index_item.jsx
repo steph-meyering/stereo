@@ -6,7 +6,11 @@ import WaveSurfer from "wavesurfer.js";
 
 class SongIndexItem extends React.Component {
   constructor(props) {
-    super(props);
+  super(props);
+    this.localSeek = false;
+    this.selected = false;
+    this.playing = false;
+    this.interactiveWave = false;
     this.state = {
       songId: this.props.song.id,
     };
@@ -18,8 +22,22 @@ class SongIndexItem extends React.Component {
     this.renderWave();
   }
 
+  componentDidUpdate() {
+    if (!this.props.currentlyPlaying) {
+      return;
+    }
+    // seek waveform if incoming seek action originates from playControls
+    let isPlaying = this.state.songId === this.props.currentlyPlaying.id
+    if (!isPlaying){
+      return;
+    }
+    let seek = this.props.currentlyPlaying.seek;
+    if (seek && seek.origin === "playControls") {
+      return this.state.wave.seekTo(seek.position);
+    }
+  }
+
   responsiveWave() {
-    console.log("resize event");
     this.state.wave.drawBuffer();
   }
 
@@ -44,11 +62,10 @@ class SongIndexItem extends React.Component {
       wave.load(this.props.song.fileUrl, JSON.parse(this.props.song.waveform));
       wave.setMute(true);
       this.setState({ wave });
-      //
       window.addEventListener(
         "resize",
         wave.util.debounce(this.responsiveWave),
-        2000
+        1000
       );
     } else {
       return null;
@@ -81,7 +98,7 @@ class SongIndexItem extends React.Component {
       console.log(`seek to ${progress.value}`);
     }
     // check state and initialize waveform playback if song is playing
-    if (this.props.isPlaying) {
+    if (this.props.isPlaying) { // FIXME
       this.state.wave.play();
     } else {
       this.state.wave.pause();
@@ -97,7 +114,7 @@ class SongIndexItem extends React.Component {
     ) : null;
 
     let selected = this.props.isSelected;
-    let playing = this.props.isPlaying;
+    let playing = this.props.isPlaying; // FIXME
 
     if (selected) {
       // if song is in currentlyPlaying slice of state, sync waveform

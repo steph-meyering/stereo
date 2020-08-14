@@ -37,7 +37,6 @@ progress[value] {
   width: 73%;
   height: 100%;
   background-color: transparent;
-  border-right: 1px solid $light-grey;
   display: flex;
   align-items: center;
   &:hover progress{ // Chrome and Firefox transition
