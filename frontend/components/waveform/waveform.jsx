@@ -11,11 +11,49 @@ class WaveForm extends React.Component {
     this.interactiveWave = false;
     this.makeWaveInteractive = this.makeWaveInteractive.bind(this);
     this.syncWave = this.syncWave.bind(this);
+    this.seek = this.seek.bind(this);
+  }
+
+  componentDidMount() {
+    this.wave = initWave("#song-show-wave");
+    this.wave.load(
+      this.props.song.fileUrl,
+      JSON.parse(this.props.song.waveform)
+    );
+    this.wave.on("ready", () => this.syncWave());
+    this.wave.on("seek", (pos) => this.seek(pos));
+  }
+
+  componentDidUpdate() {
+    this.selected = this.props.currentlyPlaying.id === this.props.song.id;
+    this.playing = this.props.currentlyPlaying.playing;
+
+    // seek waveform if incoming seek action originates from playControls
+    let seek = this.props.currentlyPlaying.seek;
+    if (seek && seek.origin === "playControls") {
+      return this.wave.seekTo(seek.position);
+    }
+    if (this.selected){
+      this.makeWaveInteractive();
+      if (this.playing){
+        this.wave.play();
+      } else {
+        this.wave.pause();
+      }
+    }
+  }
+
+  seek(pos){
+    // only dispatch seek action if click originates from waveform (localSeek)
+    if (this.localSeek) {
+      this.localSeek = false;
+      this.props.seek("waveform", pos);
+    }
   }
 
   syncWave() {
-    if (!this.props.currentlyPlaying){
-      return
+    if (!this.props.currentlyPlaying || !this.wave) {
+      return;
     }
     if (this.props.currentlyPlaying.id === this.props.song.id) {
       this.selected = true;
@@ -27,41 +65,36 @@ class WaveForm extends React.Component {
         this.makeWaveInteractive();
         this.selected = true;
       }
-      if (this.props.currentlyPlaying.playing){
-        debugger
-        this.wave.play()
-      }
+      // if (this.props.currentlyPlaying.playing) {
+      //   this.wave.play();
+      // }
     }
   }
 
   makeWaveInteractive() {
-    this.wave.toggleInteraction();
-    this.interactiveWave = true;
-  }
-
-  componentDidMount() {
-    this.wave = initWave("#song-show-wave");
-    this.wave.load(
-      this.props.song.fileUrl,
-      JSON.parse(this.props.song.waveform)
-    );
-    this.wave.on("ready", () => this.syncWave());
-    // wave.on("seek", (pos) => this.seek(pos));
+    if (!this.interactiveWave){
+      this.wave.toggleInteraction();
+      this.interactiveWave = true;
+    }
   }
 
   render() {
-    console.log("selected: ", this.selected);
-    if (this.props.currentlyPlaying) {
-      // set flag specifying if current song is already active in player
-      this.selected = this.props.song.id === this.props.currentlyPlaying.id;
-      // flag to determine button appearance (play / pause)
-      this.playing = this.props.currentlyPlaying.playing;
-    }    
+    // console.log("selected: ", this.selected);
+    // console.log("playing: ", this.playing);
+    // if (this.props.currentlyPlaying) {
+    //   // set flag specifying if current song is already active in player
+    //   this.selected = this.props.song.id === this.props.currentlyPlaying.id;
+    //   // flag to determine button appearance (play / pause)
+    //   this.playing = this.props.currentlyPlaying.playing;
+    // }
     return (
       <div
         id="song-show-wave"
         onClick={() => {
           if (!this.selected) {
+            this.props.selectSong(this.props.song)
+          } else {
+            this.localSeek = true;
           }
         }}
       ></div>

@@ -24,7 +24,7 @@ class SongShow extends React.Component {
   componentDidMount() {
     this.props
       .fetchSong(this.props.match.params.songId)
-      .then(() => this.renderWave());
+      // .then(() => this.renderWave());
   }
 
   componentDidUpdate() {
@@ -32,10 +32,10 @@ class SongShow extends React.Component {
       return;
     }
     // seek waveform if incoming seek action originates from playControls
-    let seek = this.props.currentlyPlaying.seek;
-    if (seek && seek.origin === "playControls") {
-      return this.state.wave.seekTo(seek.position);
-    }
+    // let seek = this.props.currentlyPlaying.seek;
+    // if (seek && seek.origin === "playControls") {
+    //   return this.state.wave.seekTo(seek.position);
+    // }
   }
 
   makeWaveInteractive(){
@@ -50,7 +50,6 @@ class SongShow extends React.Component {
   seek(pos) {
     // if song isn't currently selected, first click will select song and seek to beginning
     if (!this.selected){
-      debugger
       // this.selected = true;
       // this.localSeek = false;
       // this.props.selectSong(this.props.song);
@@ -108,14 +107,14 @@ class SongShow extends React.Component {
       // flag to determine button appearance (play / pause)
       this.playing = this.props.currentlyPlaying.playing;
     }
-    if (this.selected && this.state.wave) {
-      // initialize waveform playback if song is playing
-      if (this.playing) {
-        this.state.wave.play();
-      } else {
-        this.state.wave.pause();
-      }
-    }
+    // if (this.selected && this.state.wave) {
+    //   // initialize waveform playback if song is playing
+    //   if (this.playing) {
+    //     this.state.wave.play();
+    //   } else {
+    //     this.state.wave.pause();
+    //   }
+    // }
     return (
       <div className="song-show-page">
         <div className="song-show-top">
@@ -138,7 +137,7 @@ class SongShow extends React.Component {
                     // send selected song to play controls element...
                     this.props.selectSong(this.props.song);
                     // ... and make wave interactive
-                    this.makeWaveInteractive();
+                    // this.makeWaveInteractive();
                   }
                 }}
               ></div>
@@ -147,16 +146,20 @@ class SongShow extends React.Component {
                 <h2 className="song-show-title">{this.props.song.title}</h2>
               </div>
             </div>
-            <div
+            {/* <div
               id="song-show-waveform"
               onClick={() => {
                 if (!this.selected) {
-                  this.makeWaveInteractive();
+                  // this.makeWaveInteractive();
                 } else {
                   this.localSeek = true;
                 }
               }}
-            ></div>
+            ></div> */}
+            <WaveFormContainer
+              song={this.props.song}
+              selected={this.selected}
+            />
           </div>
           <img
             className="album-cover"
@@ -164,10 +167,6 @@ class SongShow extends React.Component {
             alt={this.props.song.title}
           />
         </div>
-        <WaveFormContainer
-          song={this.props.song}
-          selected={this.selected}
-        />
       </div>
     );
   }
