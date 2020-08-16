@@ -15,7 +15,7 @@ class WaveForm extends React.Component {
   }
 
   componentDidMount() {
-    this.wave = initWave("#song-show-wave");
+    this.wave = initWave(this.props.container);
     this.wave.load(
       this.props.song.fileUrl,
       JSON.parse(this.props.song.waveform)
@@ -65,9 +65,6 @@ class WaveForm extends React.Component {
         this.makeWaveInteractive();
         this.selected = true;
       }
-      // if (this.props.currentlyPlaying.playing) {
-      //   this.wave.play();
-      // }
     }
   }
 
@@ -79,17 +76,9 @@ class WaveForm extends React.Component {
   }
 
   render() {
-    // console.log("selected: ", this.selected);
-    // console.log("playing: ", this.playing);
-    // if (this.props.currentlyPlaying) {
-    //   // set flag specifying if current song is already active in player
-    //   this.selected = this.props.song.id === this.props.currentlyPlaying.id;
-    //   // flag to determine button appearance (play / pause)
-    //   this.playing = this.props.currentlyPlaying.playing;
-    // }
     return (
       <div
-        id="song-show-wave"
+        id={this.props.container}
         onClick={() => {
           if (!this.selected) {
             this.props.selectSong(this.props.song)
@@ -100,12 +89,6 @@ class WaveForm extends React.Component {
       ></div>
     );
   }
-
-  // first click:
-  // if not selected, make interactive
-
-  // subseq clicks:
-  // set localSeek flag to true
 }
 
 export default WaveForm;

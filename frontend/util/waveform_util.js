@@ -2,7 +2,8 @@ import WaveSurfer from "wavesurfer.js";
 
 export const initWave = container => {
   let wave = WaveSurfer.create({
-      container,
+    // container param takes in an element ID, so needs a # in front
+      container: `#${container}`,
       backend: "MediaElement",
       height: 100,
       barWidth: 2,
@@ -13,7 +14,8 @@ export const initWave = container => {
       fillParent: true,
       minPxPerSec: 10,
       barMinHeight: 1,
-      interact: false
+      interact: false,
+      responsive: true,
     });
   wave.setMute(true);
   return wave;
