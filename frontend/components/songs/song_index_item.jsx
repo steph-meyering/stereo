@@ -1,15 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
-import WaveSurfer from "wavesurfer.js";
 import WaveFormContainer from "../waveform/waveform_container";
 
 
 class SongIndexItem extends React.Component {
   constructor(props) {
   super(props);
-    this.selected = false;
-    this.playing = false;
+  this.selected = false;
+  this.playing = false;
+  }
+
+  componentDidUpdate(){
+    if (this.props.currentlyPlaying) {
+      this.selected = this.props.currentlyPlaying.id === this.props.song.id;  
+      this.playing = this.selected && this.props.currentlyPlaying.playing;
+    }
+    if (this.playing && this.selected){
+      this.played = true;
+    }
+    if (!this.selected && this.played){
+    }
   }
 
   edit() {
@@ -32,7 +43,7 @@ class SongIndexItem extends React.Component {
 
     return (
       <div className="song-index-item">
-        <Link to={`/songs/${this.props.songId}`}>
+        <Link to={`/songs/${this.props.song.id}`}>
           <img
             className="album-cover"
             src={this.props.song.photoUrl}

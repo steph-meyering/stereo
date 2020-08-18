@@ -8,6 +8,7 @@ class WaveForm extends React.Component {
     this.localSeek = false;
     this.selected = this.props.selected;
     this.playing = false;
+    this.played = false;
     this.interactiveWave = false;
     this.makeWaveInteractive = this.makeWaveInteractive.bind(this);
     this.syncWave = this.syncWave.bind(this);
@@ -25,11 +26,14 @@ class WaveForm extends React.Component {
   }
 
   componentDidUpdate() {
-    this.selected = this.props.currentlyPlaying.id === this.props.song.id;
-    this.playing = this.props.currentlyPlaying.playing;
+    let seek = null;
+    if (this.props.currentlyPlaying){
+      this.selected = this.props.currentlyPlaying.id === this.props.song.id;
+      this.playing = this.selected && this.props.currentlyPlaying.playing;
+      seek = this.props.currentlyPlaying.seek;
+    }
 
     // seek waveform if incoming seek action originates from playControls
-    let seek = this.props.currentlyPlaying.seek;
     if (seek && seek.origin === "playControls") {
       return this.wave.seekTo(seek.position);
     }
@@ -37,9 +41,16 @@ class WaveForm extends React.Component {
       this.makeWaveInteractive();
       if (this.playing){
         this.wave.play();
+        this.played = true;
       } else {
         this.wave.pause();
       }
+    }
+    if (this.played && !this.selected){
+      this.wave.stop();
+      this.played = false;
+      this.wave.toggleInteraction();
+      this.interactiveWave = false;
     }
   }
 

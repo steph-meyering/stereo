@@ -2,7 +2,6 @@ import React from "react";
 import SongIndexItem from "./song_index_item";
 import SongSplashItem from "./song_splash_item";
 import WaveSurfer from "wavesurfer.js";
-import { defaultWaveParams } from "../../util/waveform_util";
 
 class SongIndex extends React.Component {
   constructor(props) {
@@ -22,26 +21,28 @@ class SongIndex extends React.Component {
   }
 
   // Generate waveform data for each song, then save to database
-  generateAllWaveforms(songs) {
-    songs.forEach(song => {
-      let formData = new FormData();
-      let wave = WaveSurfer.create(defaultWaveParams)
-      wave.load(song.props.song.fileUrl)
-      wave.on("ready", () =>
-        wave
-          .exportPCM(1024, 10000, true)
-          .then((res) => formData.append("song[waveform]", res))
-          .then(() =>
-            this.props.updateSong({ id: song.props.song.id, song: formData })
-          )
-          .then(() =>
-            console.log(
-              `processed and saved waveform for ${song.props.song.id}`
-            )
-          )
-      );
-    })
-  }
+  // FIXME
+  
+  // generateAllWaveforms(songs) {
+  //   songs.forEach(song => {
+  //     let formData = new FormData();
+  //     let wave = WaveSurfer.create(defaultWaveParams)
+  //     wave.load(song.props.song.fileUrl)
+  //     wave.on("ready", () =>
+  //       wave
+  //         .exportPCM(1024, 10000, true)
+  //         .then((res) => formData.append("song[waveform]", res))
+  //         .then(() =>
+  //           this.props.updateSong({ id: song.props.song.id, song: formData })
+  //         )
+  //         .then(() =>
+  //           console.log(
+  //             `processed and saved waveform for ${song.props.song.id}`
+  //           )
+  //         )
+  //     );
+  //   })
+  // }
   
   isSplash() {
     let className =
@@ -91,9 +92,9 @@ class SongIndex extends React.Component {
           {this.addFiller()}
           {this.addFiller()}
         </ul>
-        <button onClick={() => this.generateAllWaveforms(songItems)}>
+        {/* <button onClick={() => this.generateAllWaveforms(songItems)}>
           Calc all waves 🛠
-        </button>
+        </button> */}
         <div id="waveform-container"></div>
       </div>
     );
