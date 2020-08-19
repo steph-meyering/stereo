@@ -34,7 +34,7 @@ class WaveForm extends React.Component {
     }
 
     // seek waveform if incoming seek action originates from playControls
-    if (seek && seek.origin === "playControls") {
+    if (seek && this.selected && seek.origin === "playControls") {
       return this.wave.seekTo(seek.position);
     }
     if (this.selected){

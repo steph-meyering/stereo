@@ -19,8 +19,6 @@ class SongIndexItem extends React.Component {
     if (this.playing && this.selected){
       this.played = true;
     }
-    if (!this.selected && this.played){
-    }
   }
 
   edit() {
