@@ -39,9 +39,6 @@ progress[value] {
   background-color: transparent;
   display: flex;
   align-items: center;
-  &:hover progress{ // Chrome and Firefox transition
-    height: 6px; 
-  }
   
   & #current-time, #song-duration{
     line-height: 50px;
@@ -73,6 +70,9 @@ progress[value] {
     height: 100%;
     display: flex;
     align-items: center;
+    &:hover progress{ // Chrome and Firefox transition
+      height: 6px; 
+    }
   }
 
   & progress {
@@ -98,6 +98,26 @@ progress[value] {
 progress::-moz-progress-bar { // for Firefox 
   background-color: $orange ;
   border-radius: 3px;
+}
+
+#volume-button{
+  &:hover #volume-slider-box{
+    display: flex;
+  }
+}
+
+#volume-slider-box {
+  display: none;
+  border: 1px solid grey;
+  position: relative;
+  bottom: 30px;
+  &:hover{
+    display: flex;
+  }
+}
+
+#volume-slider{
+  -webkit-appearance: slider-vertical;
 }
 
 .player-play {

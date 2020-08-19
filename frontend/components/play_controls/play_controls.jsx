@@ -97,9 +97,19 @@ class PlayControls extends React.Component {
                 <div id="song-duration">--:--</div>
               </div>
               <div
-                id="play-volume"
+                id="volume-button"
                 className="player-volume-high player-button"
-              ></div>
+              >
+                <div id="volume-slider-box">
+                  volume slider
+                  <input
+                    type="range"
+                    orient="vertical"
+                    name="volume-slider"
+                    id="volume-slider"
+                  />
+                </div>
+              </div>
             </div>
             <div className="currently-playing-song-data">
               <div>
