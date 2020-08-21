@@ -19,7 +19,6 @@ class SongForm extends React.Component {
     this.handleFile = this.handleFile.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.incrementWave = this.incrementWave.bind(this);
     this.savePeakData = this.savePeakData.bind(this);
   }
 
@@ -100,13 +99,6 @@ class SongForm extends React.Component {
     );
   }
 
-  saveWaveImage() {
-    const waveform = this.state.wave.exportImage();
-    this.setState({ waveform });
-    this.calcSeekStep();
-
-  }
-
   savePeakData() {
     this.state.wave
       .exportPCM(1024, 10000, true)
@@ -115,32 +107,7 @@ class SongForm extends React.Component {
       });
   }
 
-  useSavedWaveImage() {
-    let img = document.getElementById("yoyoyo");
-    img.src = this.state.waveform;
-  }
 
-  useSavedPeakData() {
-    this.state.wave.load(this.state.waveUrl, JSON.parse(this.state.waveform))
-  }
-
-  incrementWave() {
-    if (this.state.seekPos <= 1.00){
-      this.state.wave.seekTo(this.state.seekPos);
-      this.setState({seekPos: this.state.seekPos + this.state.seekStep})
-    } else {clearInterval()}
-  }
-  
-  calcSeekStep() {
-    let container = document.getElementById("waveform-container");
-    let numBars = container.offsetWidth / 3 // 2px per bar and 1px spacing
-    let duration = this.state.wave.getDuration()
-    let barsPerSec = numBars / this.state.wave.getDuration();
-    let seekStep = 1/(numBars*2);
-    let timeStep = 1000/(barsPerSec*2);
-    this.setState({seekStep, timeStep})
-  }
-  
   render() {
     const preview = this.state.photoUrl ? (
       <img src={this.state.photoUrl} />
@@ -193,13 +160,6 @@ class SongForm extends React.Component {
                   onChange={this.update("genre")}
                 />
                 <br />
-                {/* <h3>Artist ID </h3>
-                                <input
-                                    type="text"
-                                    value={this.state.artistId}
-                                    onChange={this.update('artistId')}
-                                />
-                                <br/> */}
               </div>
             </div>
             <button className="cancel-upload">Cancel</button>
@@ -209,34 +169,6 @@ class SongForm extends React.Component {
           </form>
           {this.renderErrors()}
           <div id="waveform-container"></div>
-          <div id="stored-waveform"></div>
-          <button type="button" onClick={() => this.saveWaveImage()}>
-            save waveform IMAGE
-          </button>
-          <button type="button" onClick={() => this.useSavedWaveImage()}>
-            useSavedWaveImage
-          </button>
-          <button type="button" onClick={() => this.savePeakData()}>
-            save PEAK DATA
-          </button>
-          <button type="button" onClick={() => this.useSavedPeakData()}>
-            useSavedPeakData
-          </button>
-          <button onClick={() => {
-            this.state.wave.setMute(false)
-            this.state.wave.playPause()}
-            }>
-            Play/Pause
-          </button>
-          <button onClick={() => {
-                  this.setState({
-                    seekPos: 0,
-                  });
-            setInterval(this.incrementWave, this.state.timeStep)
-          }}>
-            play / seek
-          </button>
-          <img src="#" alt="" className="test" id="yoyoyo" />
         </div>
       </div>
     );
