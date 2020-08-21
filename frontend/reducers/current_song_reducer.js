@@ -1,5 +1,4 @@
-import { SELECT_SONG, PLAY_PAUSE_SONG, SEEK, SEEK_CLEAR } from "../actions/current_song_actions";
-import { RECEIVE_SONG, RECEIVE_SONGS } from "../actions/song_actions";
+import { SELECT_SONG, PLAY_PAUSE_SONG, SEEK } from "../actions/current_song_actions";
 
 const currentSongReducer = (state = null, action) => {
   Object.freeze(state);
