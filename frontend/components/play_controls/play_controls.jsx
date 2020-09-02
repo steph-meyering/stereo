@@ -1,5 +1,6 @@
 import React from "react";
 import Slide from "react-reveal/Slide";
+import VolumeControls from "./volume_controls";
 
 class PlayControls extends React.Component {
   constructor(props) {
@@ -100,15 +101,7 @@ class PlayControls extends React.Component {
                 id="volume-button"
                 className="player-volume-high player-button"
               >
-                <div id="volume-slider-box">
-                  volume slider
-                  <input
-                    type="range"
-                    orient="vertical"
-                    name="volume-slider"
-                    id="volume-slider"
-                  />
-                </div>
+                <VolumeControls/>
               </div>
             </div>
             <div className="currently-playing-song-data">
