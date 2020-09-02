@@ -97,12 +97,7 @@ class PlayControls extends React.Component {
                 <progress value="0" max="1" id="progress-bar"></progress>
                 <div id="song-duration">--:--</div>
               </div>
-              <div
-                id="volume-button"
-                className="player-volume-high player-button"
-              >
-                <VolumeControls/>
-              </div>
+              <VolumeControls/>
             </div>
             <div className="currently-playing-song-data">
               <div>
