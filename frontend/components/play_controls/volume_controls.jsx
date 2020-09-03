@@ -82,7 +82,6 @@ class VolumeControls extends React.Component {
   }
 
   dragEnd(e) {
-    console.log("Drag End");
     this.selecting = false;
     this.sliderBox.classList.remove("active");
     if (e.target.id === "volume-button"){
@@ -91,7 +90,6 @@ class VolumeControls extends React.Component {
   }
 
   toggelMute(e){
-    console.log("Toggle mute")
     if (e.target.id !== "volume-button" || this.dragEndOnMute) {
       this.dragEndOnMute = false;
       return;

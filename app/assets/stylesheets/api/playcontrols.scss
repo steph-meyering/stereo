@@ -101,7 +101,6 @@ progress::-moz-progress-bar { // for Firefox
 }
 
 #volume-button{
-  padding-right: 20px;
   position: relative;
   &:hover #volume-slider-box{
     display: flex;
@@ -115,7 +114,7 @@ progress::-moz-progress-bar { // for Firefox
 #volume-slider-box {
   display: none;
   position: absolute;
-  right: 4px;
+  left: -2px;
   bottom: 1px;
   background-color: #f2f2f2;
   width: 36px;

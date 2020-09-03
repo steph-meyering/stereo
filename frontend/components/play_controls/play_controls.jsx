@@ -39,12 +39,18 @@ class PlayControls extends React.Component {
       this.progress.addEventListener("click", this.seek);
       this.playerTimeElement = document.getElementById("current-time");
       this.songDurationElement = document.getElementById("song-duration");
-      this.songDurationElement.innerHTML = this.convertTime(this.audio.duration)
     }
+    this.songDurationElement.innerHTML = this.convertTime(this.audio.duration)
     let currentTime = this.audio.currentTime;
     let duration = this.audio.duration;
     let nextValue = currentTime / duration;
     this.playerTimeElement.innerHTML = this.convertTime(currentTime);
+    if (nextValue === 1){
+      // update queue and play next song
+      this.props.playNext();
+      this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
+      this.initialized = false;
+    }
     if (!!nextValue) {
       // fixes bug where switching songs causes audio duration to briefly be 0
       this.progress.value = nextValue;
@@ -54,6 +60,9 @@ class PlayControls extends React.Component {
   convertTime(seconds){
     let currentSecond = Math.floor(seconds % 60);
     let currentMinute = Math.floor(seconds / 60);
+    if (Number.isNaN(currentMinute) || Number.isNaN(currentSecond)) {
+      return "--:--";
+    }
     currentSecond = currentSecond < 10 ? "0" + currentSecond : currentSecond
     currentMinute = currentMinute < 10 ? "0" + currentMinute : currentMinute;
     return `${currentMinute}:${currentSecond}`;
