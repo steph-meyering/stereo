@@ -46,10 +46,7 @@ class PlayControls extends React.Component {
     let nextValue = currentTime / duration;
     this.playerTimeElement.innerHTML = this.convertTime(currentTime);
     if (nextValue === 1){
-      // update queue and play next song
-      this.props.playNext();
-      this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
-      this.initialized = false;
+      this.playNext();
     }
     if (!!nextValue) {
       // fixes bug where switching songs causes audio duration to briefly be 0
@@ -78,6 +75,29 @@ class PlayControls extends React.Component {
     this.waveform.play();
   }
 
+  playNext(){
+    // update queue and play next song
+    if (this.props.queue.length > 1){
+      this.props.playNext();
+      this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
+      this.initialized = false;
+    }
+  }
+
+  playPrevious(){
+    // if song has played for more than 2 seconds, play from beginning
+    if (this.audio.currentTime > 2){
+      this.audio.currentTime = 0;
+      this.props.seek("playControls", 0);
+
+      // if at least one song has been played before, update queue and play it
+    } else if (this.props.played) {
+      this.props.playPrevious();
+      this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
+    }
+    
+  }
+  
   render() {
     if (this.props.currentlyPlaying === null) {
       return null;
@@ -92,13 +112,19 @@ class PlayControls extends React.Component {
               src={this.props.currentlyPlaying.fileUrl}
             ></audio>
             <div id="player">
-              <div className="player-previous player-button"></div>
+              <div 
+                className="player-previous player-button"
+                onClick={() => this.playPrevious()}
+              ></div>
               <div
                 id="play-pause"
                 className="player-pause player-button"
                 onClick={() => this.props.playPauseSong()}
               ></div>
-              <div className="player-next player-button"></div>
+              <div 
+                className="player-next player-button"
+                onClick={() => this.playNext()}
+              ></div>
               <div className="player-shuffle player-button"></div>
               <div className="player-repeat player-button"></div>
               <div id="timeline">
