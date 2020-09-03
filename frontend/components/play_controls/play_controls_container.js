@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import PlayControls from "./play_controls";
 import { playPauseSong, seek, selectSong } from "../../actions/current_song_actions";
-import { playNext, playPrevious } from "../../actions/queue_actions";
+import { playNext, playPrevious, shuffle } from "../../actions/queue_actions";
 
 const mSTP = (state) => ({
   currentlyPlaying: state.playControls.currentSong,
@@ -15,6 +15,7 @@ const mDTP = (dispatch) => ({
   selectSong: (song) => dispatch(selectSong(song)),
   playNext: () => dispatch(playNext()),
   playPrevious: () => dispatch(playPrevious()),
+  toggleShuffle: () => dispatch(shuffle()),
 });
 
 export default connect(mSTP,mDTP)(PlayControls)

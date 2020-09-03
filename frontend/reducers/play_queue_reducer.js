@@ -1,6 +1,7 @@
 import { RECEIVE_SONGS } from "../actions/song_actions";
 import { SELECT_SONG } from "../actions/current_song_actions";
-import { PLAY_NEXT, PLAY_PREVIOUS } from "../actions/queue_actions";
+import { PLAY_NEXT, PLAY_PREVIOUS, SHUFFLE } from "../actions/queue_actions";
+import { shuffle } from "lodash";
 
 const playQueueReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -24,6 +25,7 @@ const playQueueReducer = (state = {}, action) => {
           queue = queue.reverse();
         }
         nextState["queue"] = queue;
+        nextState["originalQueue"] = queue;
       }
       return nextState;
     case PLAY_NEXT:
@@ -33,15 +35,23 @@ const playQueueReducer = (state = {}, action) => {
       }
       if (nextState["queue"].length > 1) {
         // removes the top most (just played) song from the queue
-        nextState["played"].push(nextState["queue"].pop());
+        let lastPlayed = nextState["queue"].pop()
+        nextState["played"].push(lastPlayed);
+        nextState["originalQueue"] = nextState["queue"]
       }
-      console.log(nextState["played"], nextState["queue"]);
       return nextState;
     case PLAY_PREVIOUS:
       if (nextState["played"]) {
         // puts the last played song back on top of the queue
         let lastPlayed = nextState["played"].pop();
         nextState["queue"].push(lastPlayed);
+      }
+      return nextState;
+    case SHUFFLE:
+      if (nextState["originalQueue"] === nextState["queue"]){
+        nextState["queue"] = shuffle(nextState["queue"]);
+      } else {
+        nextState["queue"] = nextState["originalQueue"];
       }
       return nextState;
     default:

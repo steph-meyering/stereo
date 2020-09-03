@@ -16,6 +16,7 @@ class PlayControls extends React.Component {
         "player-repeat-one",
         "player-repeat-all",
       ],
+      shuffle: false,
     };
   }
 
@@ -122,6 +123,13 @@ class PlayControls extends React.Component {
     });
   }
 
+  toggleShuffle(){
+    this.setState({
+      shuffle: !this.state.shuffle
+    })
+    this.props.toggleShuffle();
+  }
+
   render() {
     if (this.props.currentlyPlaying === null) {
       return null;
@@ -149,7 +157,12 @@ class PlayControls extends React.Component {
                 className="player-next player-button"
                 onClick={() => this.playNext()}
               ></div>
-              <div className="player-shuffle player-button"></div>
+              <div
+                className={`${
+                  this.state.shuffle ? "player-shuffle-on" : "player-shuffle-off"
+                } player-button`}
+                onClick={() => this.toggleShuffle()}
+              ></div>
               <div
                 className={`${this.state.repeating[0]} player-button`}
                 onClick={() => this.toggleRepeat()}
