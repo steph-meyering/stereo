@@ -35,7 +35,13 @@ class WaveForm extends React.Component {
 
     // seek waveform if incoming seek action originates from playControls
     if (seek && this.selected && seek.origin === "playControls") {
-      return this.wave.seekTo(seek.position);
+      this.wave.seekTo(seek.position);
+      // if seek position is exactly zero, action originates from repeat or 
+      // from play from start (previous button), waveform should seek and play
+      if (seek.position === 0){
+        this.wave.play()
+      }
+      return;
     }
     if (this.selected){
       this.makeWaveInteractive();

@@ -38,7 +38,7 @@ const playQueueReducer = (state = {}, action) => {
       console.log(nextState["played"], nextState["queue"]);
       return nextState;
     case PLAY_PREVIOUS:
-      if (nextState["played"]){
+      if (nextState["played"]) {
         // puts the last played song back on top of the queue
         let lastPlayed = nextState["played"].pop();
         nextState["queue"].push(lastPlayed);

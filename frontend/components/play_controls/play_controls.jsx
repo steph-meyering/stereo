@@ -8,6 +8,14 @@ class PlayControls extends React.Component {
     this.initProgress = this.initProgress.bind(this);
     this.seek = this.seek.bind(this);
     this.initialized = false;
+    this.state = {
+      // allows cycling through the different repeat icon css classes
+      repeating: [
+        "player-repeat-off",
+        "player-repeat-one",
+        "player-repeat-all",
+      ],
+    };
   }
 
   componentDidUpdate() {
@@ -40,13 +48,17 @@ class PlayControls extends React.Component {
       this.playerTimeElement = document.getElementById("current-time");
       this.songDurationElement = document.getElementById("song-duration");
     }
-    this.songDurationElement.innerHTML = this.convertTime(this.audio.duration)
+    this.songDurationElement.innerHTML = this.convertTime(this.audio.duration);
     let currentTime = this.audio.currentTime;
     let duration = this.audio.duration;
     let nextValue = currentTime / duration;
     this.playerTimeElement.innerHTML = this.convertTime(currentTime);
-    if (nextValue === 1){
-      this.playNext();
+    if (nextValue === 1) {
+      if (this.state.repeating[0] === "player-repeat-one"){
+        this.playFromStart();
+      } else {
+        this.playNext();
+      }
     }
     if (!!nextValue) {
       // fixes bug where switching songs causes audio duration to briefly be 0
@@ -54,50 +66,59 @@ class PlayControls extends React.Component {
     }
   }
 
-  convertTime(seconds){
+  convertTime(seconds) {
     let currentSecond = Math.floor(seconds % 60);
     let currentMinute = Math.floor(seconds / 60);
     if (Number.isNaN(currentMinute) || Number.isNaN(currentSecond)) {
       return "--:--";
     }
-    currentSecond = currentSecond < 10 ? "0" + currentSecond : currentSecond
+    currentSecond = currentSecond < 10 ? "0" + currentSecond : currentSecond;
     currentMinute = currentMinute < 10 ? "0" + currentMinute : currentMinute;
     return `${currentMinute}:${currentSecond}`;
   }
-  
+
   seek(e) {
     let percent = e.offsetX / this.progress.offsetWidth;
     this.audio.currentTime = percent * this.audio.duration;
     this.props.seek("playControls", percent);
   }
 
-  playWave() {
-    this.waveform.play();
-  }
-
-  playNext(){
+  playNext() {
     // update queue and play next song
-    if (this.props.queue.length > 1){
+    if (this.props.queue.length > 1) {
       this.props.playNext();
       this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
       this.initialized = false;
     }
   }
 
-  playPrevious(){
+  playFromStart(){
+    this.audio.currentTime = 0;
+    this.props.seek("playControls", 0);
+    this.progress.value = 0;
+  }
+  
+  playPrevious() {
     // if song has played for more than 2 seconds, play from beginning
-    if (this.audio.currentTime > 2){
-      this.audio.currentTime = 0;
-      this.props.seek("playControls", 0);
+    if (this.audio.currentTime > 2) {
+      this.playFromStart();
 
       // if at least one song has been played before, update queue and play it
     } else if (this.props.played) {
       this.props.playPrevious();
       this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
     }
-    
   }
-  
+
+  toggleRepeat() {
+    this.setState({
+      repeating: [].concat(
+        this.state.repeating.slice(1),
+        this.state.repeating[0]
+      ),
+    });
+  }
+
   render() {
     if (this.props.currentlyPlaying === null) {
       return null;
@@ -112,7 +133,7 @@ class PlayControls extends React.Component {
               src={this.props.currentlyPlaying.fileUrl}
             ></audio>
             <div id="player">
-              <div 
+              <div
                 className="player-previous player-button"
                 onClick={() => this.playPrevious()}
               ></div>
@@ -121,18 +142,21 @@ class PlayControls extends React.Component {
                 className="player-pause player-button"
                 onClick={() => this.props.playPauseSong()}
               ></div>
-              <div 
+              <div
                 className="player-next player-button"
                 onClick={() => this.playNext()}
               ></div>
               <div className="player-shuffle player-button"></div>
-              <div className="player-repeat player-button"></div>
+              <div
+                className={`${this.state.repeating[0]} player-button`}
+                onClick={() => this.toggleRepeat()}
+              ></div>
               <div id="timeline">
                 <div id="current-time">--:--</div>
                 <progress value="0" max="1" id="progress-bar"></progress>
                 <div id="song-duration">--:--</div>
               </div>
-              <VolumeControls/>
+              <VolumeControls />
             </div>
             <div className="currently-playing-song-data">
               <div>
