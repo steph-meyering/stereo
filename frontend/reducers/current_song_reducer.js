@@ -18,9 +18,13 @@ const currentSongReducer = (state = null, action) => {
       nextState["seek"] = false;
       return nextState;
     case SEEK:
+      // generate unique id for each seek to prevent old seek data in state to 
+      // trigger again if component re-renders.
+      let id = Math.random()
       nextState["seek"] = {
         origin: action.origin,
         position: action.position,
+        id
       };
       return nextState;
     default:

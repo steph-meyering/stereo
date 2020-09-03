@@ -8,6 +8,7 @@ class PlayControls extends React.Component {
     this.initProgress = this.initProgress.bind(this);
     this.seek = this.seek.bind(this);
     this.initialized = false;
+    this.seekId = null;
     this.state = {
       // allows cycling through the different repeat icon css classes
       repeating: [
@@ -33,7 +34,9 @@ class PlayControls extends React.Component {
       this.playPauseButton.classList.add("player-play");
     }
     let seek = this.props.currentlyPlaying.seek;
-    if (seek && seek.origin === "waveform") {
+    if (seek && seek.origin === "waveform" && this.seekId !== seek.id) {
+      // seek id prevents old seek data from triggering again
+      this.seekId = seek.id;
       this.audio.currentTime = seek.position * this.audio.duration;
     }
   }
