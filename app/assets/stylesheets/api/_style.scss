@@ -58,6 +58,7 @@ $very-light-grey: #cecece;
     &:hover {
         cursor: pointer;
         border-color: white;
+        -webkit-filter: brightness(70%);
     }
 
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import WaveSurfer from "wavesurfer.js";
-import { updateSong } from "../../actions/song_actions";
+import { updateSong, deleteSong } from "../../actions/song_actions";
 import { closeModal } from "../../actions/modal_actions";
 
 class SongEdit extends React.Component {
@@ -86,8 +86,13 @@ class SongEdit extends React.Component {
     }
   }
 
+  deleteSong(){
+    debugger;
+    this.props.deleteSong(this.props.song.id);
+    this.props.closeModal();
+  }
+
   render() {
-    console.log(this.state)
     return (
       <div className="song-edit-modal">
         <div className="song-upload-form-container">
@@ -99,6 +104,7 @@ class SongEdit extends React.Component {
                   <img src={this.state.photoUrl} />
                   <label
                     className="image-upload-button"
+                    id="cover-photo-edit"
                     htmlFor="cover-photo-upload"
                   >
                     Edit
@@ -131,7 +137,18 @@ class SongEdit extends React.Component {
               </div>
             </div>
             <div id="waveform-container"></div>
-            <button className="cancel-upload" type="button" onClick={this.props.closeModal}>
+            <button
+              id="song-delete-button"
+              type="button"
+              onClick={() => this.deleteSong()}
+            >
+              Delete
+            </button>
+            <button
+              className="cancel-upload"
+              type="button"
+              onClick={this.props.closeModal}
+            >
               Cancel
             </button>
             <button className="save-upload" type="submit">
@@ -151,7 +168,8 @@ const mSTP = (state) => ({
 
 const mDTP = dispatch => ({
   updateSong: (song) => dispatch(updateSong(song)),
-  closeModal: () => dispatch(closeModal())
+  deleteSong: (songId) => dispatch(deleteSong(songId)),
+  closeModal: () => dispatch(closeModal()),
 })
 
 export default connect(mSTP, mDTP)(SongEdit);

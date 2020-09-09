@@ -197,6 +197,12 @@
   @include small-orange-button;
 }
 
+#song-delete-button{
+  position: absolute;
+  @include small-transparent-button;
+  color: #333;
+}
+
 .image-upload-button {
   position: absolute;
   bottom: 20px;
@@ -212,6 +218,10 @@
     cursor: pointer;
     -webkit-filter: brightness(70%);
   }
+}
+
+#cover-photo-edit{
+  left: 107px;
 }
 
 #camera-icon {
