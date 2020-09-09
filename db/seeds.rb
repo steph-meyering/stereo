@@ -18,7 +18,7 @@ guest = User.create!(
     password: "password",
     email: "guest@email.com",
     location: "Somewhere in the ActiveStorage Blob",
-    about: "I'm a guest!!!"
+    about: "I'm a demo user, my purpose is to show you what a user profile looks like for testing purposes. Though I am saving you the time and trouble of making your own account, you're more than welcome to create your own! :)"
 )
 
 steph = User.create!(
@@ -65,7 +65,7 @@ song2.save!
 
 # ================================
 song3 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"B l o m s t - Chill Rain", 
     genre: "chillout")
 
@@ -78,7 +78,7 @@ song3.save!
 
 # ================================
 song4 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Foster The People - Pumped Up Kicks", 
     genre: "indie pop")
 
@@ -91,7 +91,7 @@ song4.save!
 
 # ================================
 song5 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Gramatik - East Coast", 
     genre: "electronica")
 
@@ -104,7 +104,7 @@ song5.save!
 
 # ================================
 song6 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Kill The Noise ft Mija - Salvation", 
     genre: "bass")
 
@@ -117,7 +117,7 @@ song6.save!
 
 # ================================
 song7 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Kupla - Feathers", 
     genre: "chill")
 
@@ -130,7 +130,7 @@ song7.save!
 
 # ================================
 song8 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Letherette - CartoonHaunt", 
     genre: "experimental")
 
@@ -143,7 +143,7 @@ song8.save!
 
 # ================================
 song9 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Saib - Piano bar", 
     genre: "lofi hip-hop")
 
@@ -156,7 +156,7 @@ song9.save!
 
 # ================================
 song10 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"tails - Misted", 
     genre: "chillout")
 
@@ -169,7 +169,7 @@ song10.save!
 
 # ================================
 song11 = Song.new(
-    artist_id: guest.id, 
+    artist_id: steph.id, 
     title:"Wax Tailor - Que Sera", 
     genre: "electronica")
 
@@ -183,7 +183,7 @@ song11.save!
 # # ======TEMPLATE==========================
 # # ================================
 # # song@ = Song.new(
-# #     artist_id: guest.id, 
+# #     artist_id: steph.id, 
 # #     title:"", 
 # #     genre: "")
 
