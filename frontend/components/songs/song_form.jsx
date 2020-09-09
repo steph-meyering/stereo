@@ -1,5 +1,7 @@
 import React from "react";
 import WaveSurfer from "wavesurfer.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 class SongForm extends React.Component {
   constructor(props) {
@@ -13,8 +15,8 @@ class SongForm extends React.Component {
       photo: null,
       photoUrl: null,
       uploading: false,
-      seekStep: 0.00,
-      seekPos: 0.00,
+      seekStep: 0.0,
+      seekPos: 0.0,
     };
     this.handleFile = this.handleFile.bind(this);
     this.handlePhoto = this.handlePhoto.bind(this);
@@ -31,9 +33,15 @@ class SongForm extends React.Component {
 
   handleFile(e) {
     const audioFile = e.currentTarget.files[0];
-
+    if (audioFile.size > 20971520) { 
+      this.setState({ file: null });
+      alert("file size can't be greater than 20MB");
+      return;
+    }
     // Destroy existing wave element if a different audio file is selected
-    if (this.state.wave) {this.state.wave.destroy()}
+    if (this.state.wave) {
+      this.state.wave.destroy();
+    }
 
     // Create a blank wave element when an audio file is selected
     let wave = WaveSurfer.create({
@@ -60,6 +68,11 @@ class SongForm extends React.Component {
 
   handlePhoto(e) {
     const photoFile = e.currentTarget.files[0];
+    if (photoFile.size > 4194304) {
+      this.setState({ file: null });
+      alert("photo size can't be greater than 4MB");
+      return;
+    }
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
       this.setState({ photo: photoFile, photoUrl: fileReader.result });
@@ -100,13 +113,15 @@ class SongForm extends React.Component {
   }
 
   savePeakData() {
-    this.state.wave
-      .exportPCM(1024, 10000, true)
-      .then((res) => {
-        this.setState({ waveform: res })
-      });
+    this.state.wave.exportPCM(1024, 10000, true).then((res) => {
+      this.setState({ waveform: res });
+    });
   }
 
+  cancel(e) {
+    e.preventDefault();
+    this.props.history.goBack();
+  }
 
   render() {
     const preview = this.state.photoUrl ? (
@@ -123,6 +138,7 @@ class SongForm extends React.Component {
             <input
               className="audio-upload"
               type="file"
+              accept=".mp3, audio/*"
               onChange={this.handleFile}
             />
             <div className="song-upload-form">
@@ -133,6 +149,7 @@ class SongForm extends React.Component {
                     className="image-upload-button"
                     htmlFor="cover-photo-upload"
                   >
+                    <FontAwesomeIcon id="camera-icon" icon={faCamera} />
                     Upload image
                   </label>
                   <input
@@ -162,7 +179,9 @@ class SongForm extends React.Component {
                 <br />
               </div>
             </div>
-            <button className="cancel-upload">Cancel</button>
+            <button className="cancel-upload" onClick={(e) => this.cancel(e)}>
+              Cancel
+            </button>
             <button className="save-upload" type="submit">
               Save
             </button>

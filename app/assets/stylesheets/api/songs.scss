@@ -200,7 +200,7 @@
 .image-upload-button {
   position: absolute;
   bottom: 20px;
-  left: 108px;
+  left: 70px;
   background-color: #e3e7e9;
   color: black;
   align-items: center;
@@ -212,6 +212,10 @@
     cursor: pointer;
     -webkit-filter: brightness(70%);
   }
+}
+
+#camera-icon {
+  padding-right: 5px;
 }
 
 #waveform-canvas {
