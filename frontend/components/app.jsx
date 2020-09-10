@@ -13,6 +13,7 @@ import NotFound from "./errors/404";
 import SongFormContainer from "./songs/song_form_container";
 import PlayControlsContainer from "./play_controls/play_controls_container";
 import SplashHeader from "./splash/splash_header";
+import Footer from "./footer/footer";
 
 const App = () => (
   <div className="main">

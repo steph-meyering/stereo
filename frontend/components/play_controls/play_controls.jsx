@@ -1,6 +1,7 @@
 import React from "react";
 import Slide from "react-reveal/Slide";
 import VolumeControls from "./volume_controls";
+import Footer from "../footer/footer";
 
 class PlayControls extends React.Component {
   constructor(props) {
