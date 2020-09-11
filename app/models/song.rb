@@ -19,8 +19,13 @@ class Song < ApplicationRecord
     foreign_key: :artist_id,
     class_name: 'User'
     
+    has_many :comments,
+    foreign_key: :song_id,
+    class_name: 'Comment'
+    
     has_one_attached :file
     has_one_attached :photo
+    
 
     def ensure_file
         unless self.file.attached?

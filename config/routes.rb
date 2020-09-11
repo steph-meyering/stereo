@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :create]
     resources :songs, only: [:show, :update, :destroy, :index, :create]
+    resources :comments, only: [:show, :update, :destroy, :index, :create]
     resource :session, only: [:create, :destroy]
     # get '/', to: proc { [200, {}, ['']] } 
   end

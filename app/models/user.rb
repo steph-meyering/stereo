@@ -24,6 +24,10 @@ class User < ApplicationRecord
     foreign_key: :artist_id,
     class_name: 'Song'
 
+    has_many :comments,
+    foreign_key: :user_id,
+    class_name: 'Comment'
+
     attr_reader :password
 
     def self.find_by_credentials(username, password)
