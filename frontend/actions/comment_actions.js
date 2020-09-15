@@ -23,25 +23,29 @@ export const removeComment = (commentId) => {
   };
 };
 
-export const fetchComment = (commentId) => (dispatch) =>
-  CommentAPIUtil.fetchComment(commentId).then((comment) => dispatch(receiveComment(comment)));
+export const fetchComment = (songId, commentId) => (dispatch) =>
+  CommentAPIUtil.fetchComment(songId, commentId).then((comment) =>
+    dispatch(receiveComment(comment))
+  );
 
 export const fetchComments = (songId) => (dispatch) =>
   CommentAPIUtil.fetchComments(songId).then((songs) =>
     dispatch(receiveComments(songs))
   );
 
-export const deleteComment = (commentId) => (dispatch) =>
-  CommentAPIUtil.deleteComment(commentId).then(() => dispatch(removeComment(commentId)));
+export const deleteComment = (songId, commentId) => (dispatch) =>
+  CommentAPIUtil.deleteComment(songId, commentId).then(() =>
+    dispatch(removeComment(commentId))
+  );
 
-export const postComment = (comment) => (dispatch) =>
-  CommentAPIUtil.postComment(comment).then(
+export const postComment = (songId, comment) => (dispatch) =>
+  CommentAPIUtil.postComment(songId, comment).then(
     () => dispatch(receiveComment(comment)),
     (err) => console.log(err)
   );
 
-export const editComment = ({ id, comment }) => (dispatch) =>
-  CommentAPIUtil.editComment(id, comment).then(
+export const editComment = (songId, id, comment ) => (dispatch) =>
+  CommentAPIUtil.editComment(songId,id, comment).then(
     (comment) => dispatch(receiveComment(comment)),
     (err) => console.log(err)
   );

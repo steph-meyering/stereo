@@ -14,7 +14,7 @@ class Comment extends React.Component{
       return null
     }
     let commentItems = this.props.comments.map((comment) => (
-      <div>
+      <div key={comment.id}>
         <div>{comment.userId}</div>
         <div>{comment.body}</div>
       </div>

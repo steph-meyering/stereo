@@ -8,29 +8,26 @@ export const fetchComment = (commentId) =>
     return $.ajax({
       method: "GET",
       url: `/api/songs/${song_id}/comments`,
-      data: song_id
     });
   };
 
-  export const editComment = (id, comment) => {
+  export const editComment = (song_id, id, comment) => {
     return $.ajax({
       method: "PATCH",
-      url: `/api/comments/${id}`,
+      url: `/api/songs/${song_id}/comments/${id}`,
       data: comment,
-      contentType: false,
-      processData: false,
     });
   };
 
-  export const postComment = (comment) =>
+  export const postComment = (song_id, comment) =>
     $.ajax({
       method: "POST",
-      url: `/api/comments`,
-      data: comment,
+      url: `/api/songs/${song_id}/comments`,
+      data: {comment},
     });
 
-  export const deleteComment = (commentId) =>
+  export const deleteComment = (song_id, commentId) =>
     $.ajax({
       method: "DELETE",
-      url: `/api/comments/${commentId}`,
+      url: `/api/songs/${song_id}/comments/${commentId}`,
     });

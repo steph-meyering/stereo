@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Api::CommentsController < ApplicationController
     def show
         @comment = Comment.search(params[:song_id])

@@ -1,6 +1,7 @@
 import React from "react";
 import { initWave } from "../../util/waveform_util";
 import CommentContainer from "../comments/comment_container";
+import CommentForm from "../comments/comment_form";
 import WaveFormContainer from "../waveform/waveform_container";
 
 class SongShow extends React.Component {
@@ -66,7 +67,8 @@ class SongShow extends React.Component {
             alt={this.props.song.title}
           />
         </div>
-        <CommentContainer songId={this.props.song.id}/>
+        <CommentForm songId={this.props.song.id} />
+        <CommentContainer songId={this.props.song.id} />
       </div>
     );
   }

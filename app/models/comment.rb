@@ -22,7 +22,6 @@ class Comment < ApplicationRecord
 
   def self.search(song_id)
     comments = Comment.all
-    debugger
     comments = comments.where(song_id: song_id)
     comments
   end
