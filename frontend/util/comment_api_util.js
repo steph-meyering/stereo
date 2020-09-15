@@ -4,14 +4,15 @@ export const fetchComment = (commentId) =>
     url: `/api/comments/${commentId}`
   });
 
-  export const fetchComments = () => {
+  export const fetchComments = (song_id) => {
     return $.ajax({
       method: "GET",
-      url: `/api/comments`,
+      url: `/api/songs/${song_id}/comments`,
+      data: song_id
     });
   };
 
-  export const updateComment = (id, comment) => {
+  export const editComment = (id, comment) => {
     return $.ajax({
       method: "PATCH",
       url: `/api/comments/${id}`,
@@ -21,13 +22,11 @@ export const fetchComment = (commentId) =>
     });
   };
 
-  export const uploadComment = (comment) =>
+  export const postComment = (comment) =>
     $.ajax({
       method: "POST",
       url: `/api/comments`,
       data: comment,
-      contentType: false,
-      processData: false,
     });
 
   export const deleteComment = (commentId) =>

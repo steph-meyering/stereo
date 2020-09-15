@@ -3,6 +3,12 @@
 #                    Prefix Verb   URI Pattern                                                                              Controller#Action
 #                 api_users POST   /api/users(.:format)                                                                     api/users#create {:format=>:json}
 #                  api_user GET    /api/users/:id(.:format)                                                                 api/users#show {:format=>:json}
+#         api_song_comments GET    /api/songs/:song_id/comments(.:format)                                                   api/comments#index {:format=>:json}
+#                           POST   /api/songs/:song_id/comments(.:format)                                                   api/comments#create {:format=>:json}
+#          api_song_comment GET    /api/songs/:song_id/comments/:id(.:format)                                               api/comments#show {:format=>:json}
+#                           PATCH  /api/songs/:song_id/comments/:id(.:format)                                               api/comments#update {:format=>:json}
+#                           PUT    /api/songs/:song_id/comments/:id(.:format)                                               api/comments#update {:format=>:json}
+#                           DELETE /api/songs/:song_id/comments/:id(.:format)                                               api/comments#destroy {:format=>:json}
 #                 api_songs GET    /api/songs(.:format)                                                                     api/songs#index {:format=>:json}
 #                           POST   /api/songs(.:format)                                                                     api/songs#create {:format=>:json}
 #                  api_song GET    /api/songs/:id(.:format)                                                                 api/songs#show {:format=>:json}
@@ -23,8 +29,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :create]
-    resources :songs, only: [:show, :update, :destroy, :index, :create]
-    resources :comments, only: [:show, :update, :destroy, :index, :create]
+    resources :songs, only: [:show, :update, :destroy, :index, :create] do
+      resources :comments, only: [:show, :update, :destroy, :index, :create]
+    end
     resource :session, only: [:create, :destroy]
     # get '/', to: proc { [200, {}, ['']] } 
   end

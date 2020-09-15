@@ -1,11 +1,11 @@
 class Api::CommentsController < ApplicationController
     def show
-        @comment = Comment.find(params[:id])
+        @comment = Comment.search(params[:song_id])
         render :show
     end
 
     def index
-        @comments = Comment.all
+        @comments = Comment.search(params[:song_id])
         render :index
     end
     
@@ -36,6 +36,6 @@ class Api::CommentsController < ApplicationController
     private
     
     def comment_params
-        params.require(:comment).permit(:user_id, :, :song_id, :body, :song_time)
+        params.require(:comment).permit(:user_id, :song_id, :body, :song_time)
     end
 end
