@@ -6,10 +6,10 @@ class CommentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: this.props.userId,
-      song_id: this.props.songId,
+      userId: this.props.userId,
+      songId: this.props.songId,
       body: null,
-      song_time: 0,
+      songTime: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
