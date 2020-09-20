@@ -107,13 +107,14 @@ Waveforms are generated using the Wavesurfer.js package.
 ---
 
 ## Features for future development:
-- User Profile side bar component
+- Song Comments (IN PROGRESS)
+- User Profile side bar component 
 - Playlists
 - Song sharing
 - Song likes
-- Add song delete functionality to front end
+- ~~Add song delete functionality to front end~~ DONE
 - Add song upload progress bar and completion / failure messages
-- Add song upload file size limit
+- ~~Add song upload file size limit~~ DONE
 - Google OAuth and Facebook Login
 - Captcha for new account creation
 
