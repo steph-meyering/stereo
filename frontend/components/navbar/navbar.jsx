@@ -8,7 +8,7 @@ class Navbar extends React.Component {
   }
   
   render(){
-    const {currentUser, logout, openModal, history} = this.props
+    const {currentUser, logout, openModal} = this.props
     if (currentUser) {
       if (this.redirect) {
         this.redirect = false;

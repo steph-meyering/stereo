@@ -1,6 +1,6 @@
 import React from "react";
 import { initWave } from "../../util/waveform_util";
-import CommentContainer from "../comments/comment_container";
+import CommentContainer from "../comments/comment_index_container";
 import CommentForm from "../comments/comment_form";
 import WaveFormContainer from "../waveform/waveform_container";
 

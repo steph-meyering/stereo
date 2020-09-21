@@ -1,6 +1,7 @@
 import React from "react";
+import CommentIndexItem from "./comment_index_item";
 
-class Comment extends React.Component{
+class CommentIndex extends React.Component{
   constructor(props){
     super(props)
   }
@@ -14,13 +15,14 @@ class Comment extends React.Component{
       return null
     }
     let commentItems = this.props.comments.map((comment) => (
-      <div key={comment.id}>
-        <div>{comment.userId}</div>
-        <div>{comment.body}</div>
-      </div>
+      <CommentIndexItem
+        key={comment.id} 
+        comment={comment}
+      />
     ));
     return(
       <div>
+        <div>{commentItems.length} comments</div>
         <ul>
           {commentItems}
         </ul>
@@ -29,4 +31,4 @@ class Comment extends React.Component{
   }
 }
 
-export default Comment;
+export default CommentIndex;

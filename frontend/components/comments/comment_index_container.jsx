@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Comment from "./comment";
+import CommentIndex from "./comment_index";
 
 const { postComment, fetchComment, fetchComments, editComment, deleteComment } = require("../../actions/comment_actions");
 
@@ -16,4 +16,4 @@ const mDTP = (dispatch) => ({
   deleteComment: (id) => dispatch(deleteComment(id)),
 });
 
-export default connect(mSTP, mDTP)(Comment);
+export default connect(mSTP, mDTP)(CommentIndex);

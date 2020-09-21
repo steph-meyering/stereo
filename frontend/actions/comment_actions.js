@@ -38,14 +38,14 @@ export const deleteComment = (songId, commentId) => (dispatch) =>
     dispatch(removeComment(commentId))
   );
 
-export const postComment = (songId, comment) => (dispatch) =>
-  CommentAPIUtil.postComment(songId, comment).then(
-    () => dispatch(receiveComment(comment)),
+export const postComment = (songId, commentParams) => (dispatch) =>
+  CommentAPIUtil.postComment(songId, commentParams).then(
+    (comment) => dispatch(receiveComment(comment)),
     (err) => console.log(err)
   );
 
-export const editComment = (songId, id, comment ) => (dispatch) =>
-  CommentAPIUtil.editComment(songId,id, comment).then(
+export const editComment = (songId, id, commentParams ) => (dispatch) =>
+  CommentAPIUtil.editComment(songId,id, commentParams).then(
     (comment) => dispatch(receiveComment(comment)),
     (err) => console.log(err)
   );

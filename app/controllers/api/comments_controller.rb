@@ -2,12 +2,12 @@ require 'byebug'
 
 class Api::CommentsController < ApplicationController
     def show
-        @comment = Comment.search(params[:song_id])
+        @comment = Comment.includes(:user).search(params[:song_id])
         render :show
     end
 
     def index
-        @comments = Comment.search(params[:song_id])
+        @comments = Comment.includes(:user).search(params[:song_id])
         render :index
     end
     
@@ -15,7 +15,7 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.new(comment_params)
 
         if @comment.save
-            render json: {message: 'upload successful'}
+            render :show
         else
             render json: @comment.errors.full_messages, status: 422
         end
