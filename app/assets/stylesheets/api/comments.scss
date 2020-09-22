@@ -1,0 +1,27 @@
+.comment {
+    display: flex;
+  padding: 10px 0px;
+}
+
+.comment-owner-photo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  background-color: lightblue;
+  border-radius: 50%;
+}
+
+.comment-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.comment-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-time-posted {
+  
+}
