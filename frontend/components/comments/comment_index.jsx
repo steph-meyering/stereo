@@ -14,14 +14,14 @@ class CommentIndex extends React.Component{
     if (this.props.comments.length === 0){
       return null
     }
-    let commentItems = this.props.comments.map((comment) => (
+    let commentItems = this.props.comments.reverse().map((comment) => (
       <CommentIndexItem
         key={comment.id} 
         comment={comment}
       />
     ));
     return(
-      <div>
+      <div id="comment-section">
         <div>{commentItems.length} comments</div>
         <ul>
           {commentItems}

@@ -40,24 +40,29 @@ class CommentIndexItem extends React.Component {
       let unit = minutes < 2 ? " minute" : " minutes";
       return minutes + unit + " ago";
     }
-    return Math.floor(seconds) + " seconds";
+    return Math.floor(seconds) + " seconds ago";
   }
   
   render(){
     let comment = this.props.comment;
-    return(
-      <div className='comment'>
-        <div className='comment-owner-photo'>
-        </div>
-        <div className='comment-main'> 
-          <div className='comment-top'>
-            <div>{comment.commenter} at {comment.songTime}</div>
-            <div className='comment-time-posted'>{this.timeSince(comment.updatedAt)}</div>
+    return (
+      <div className="comment">
+        <div className="comment-owner-photo"></div>
+        <div className="comment-main">
+          <div className="comment-top">
+            <div className="comment-top-left">
+              <div className="comment-link-font">{comment.commenter}</div>
+              <div className="comment-at">at</div>
+              <div className="comment-link-font"> {comment.songTime}</div>
+            </div>
+            <div className="comment-time-posted">
+              {this.timeSince(comment.updatedAt)}
+            </div>
           </div>
-          <div className='comment-body'>{comment.body}</div>
+          <div className="comment-body">{comment.body}</div>
         </div>
       </div>
-    )
+    );
   }
 }
 

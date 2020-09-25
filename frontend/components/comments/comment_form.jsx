@@ -32,9 +32,10 @@ class CommentForm extends React.Component {
   render() {
     return (
       <div id="comment-form-container">
-        <div>user profile pic thumbnail + user name</div>
-        <form onSubmit={this.handleSubmit}>
+        <div id="commenter-profile-pic-thumbnail"></div>
+        <form onSubmit={this.handleSubmit} id="comment-form">
           <input
+            placeholder="Write a comment"
             disabled={!this.loggedIn}
             type="text"
             id="comment-body-input"

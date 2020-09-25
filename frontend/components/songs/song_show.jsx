@@ -25,7 +25,7 @@ class SongShow extends React.Component {
       // flag to determine button appearance (play / pause)
       this.playing = this.props.currentlyPlaying.playing;
     }
-
+    
     return (
       <div className="song-show-page">
         <div className="song-show-top">
@@ -68,7 +68,14 @@ class SongShow extends React.Component {
           />
         </div>
         <CommentForm songId={this.props.song.id} />
-        <CommentContainer songId={this.props.song.id} />
+        <div id="song-show-bottom">
+          <div id="song-uploader-info">
+            <div id="song-uploader-photo"></div>
+            <div>{this.props.song.artist}</div>
+          </div>
+          <CommentContainer songId={this.props.song.id} />
+        </div>
+        <div id="song-show-sidebar"> Related tracks</div>
       </div>
     );
   }
