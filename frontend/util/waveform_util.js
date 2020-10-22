@@ -1,4 +1,5 @@
 import WaveSurfer from "wavesurfer.js";
+import { updateSong } from "../actions/song_actions";
 
 export const initWave = container => {
   let wave = WaveSurfer.create({
@@ -32,7 +33,3 @@ export const seekWave = (waveData, wave, pos) => {
 
 export const makeInteractive = (waveData, wave, pos) => {
 }
-// export const syncWave = (waveData, wave, pos) => {
-//   if ()
-// }
-// MAKE WAVEFORM COMPONENT

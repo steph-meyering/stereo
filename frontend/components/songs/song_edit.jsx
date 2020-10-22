@@ -87,7 +87,6 @@ class SongEdit extends React.Component {
   }
 
   deleteSong(){
-    debugger;
     this.props.deleteSong(this.props.song.id);
     this.props.closeModal();
   }

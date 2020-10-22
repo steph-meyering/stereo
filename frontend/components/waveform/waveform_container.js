@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { selectSong, playPauseSong, seek } from "../../actions/current_song_actions";
+import { updateSong } from "../../actions/song_actions";
 import WaveForm from "./waveform";
 
 const mSTP = (state, ownProps) => {
@@ -14,6 +15,7 @@ const mDTP = (dispatch) => ({
   selectSong: (song) => dispatch(selectSong(song)),
   playPauseSong: () => dispatch(playPauseSong()),
   seek: (origin, pos) => dispatch(seek(origin, pos)),
+  updateSong: (id, song) => dispatch(updateSong(id, song))
 });
 
 export default connect(mSTP, mDTP)(WaveForm);

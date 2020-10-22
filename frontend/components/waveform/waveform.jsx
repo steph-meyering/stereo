@@ -1,5 +1,5 @@
 import React from "react";
-import { initWave } from "../../util/waveform_util";
+import {initWave } from "../../util/waveform_util";
 
 class WaveForm extends React.Component {
   constructor(props) {
@@ -17,6 +17,9 @@ class WaveForm extends React.Component {
 
   componentDidMount() {
     this.wave = initWave(this.props.container);
+    if (!this.props.song.waveform){
+      this.savePeakData(this.props.song.id, this.wave);
+    }
     this.wave.load(
       this.props.song.fileUrl,
       JSON.parse(this.props.song.waveform)
@@ -24,7 +27,7 @@ class WaveForm extends React.Component {
     this.wave.on("ready", () => this.syncWave());
     this.wave.on("seek", (pos) => this.seek(pos));
   }
-
+  
   componentDidUpdate() {
     let seek = null;
     if (this.props.currentlyPlaying){
@@ -60,6 +63,19 @@ class WaveForm extends React.Component {
     }
   }
 
+  savePeakData(id, wave) {
+    let formData = new FormData();
+    wave.on("waveform-ready", () => {
+      wave.exportPCM(512, 100, true)
+      .then((res) => {
+        formData.append("song[waveform]", res)
+        console.log(res)
+        this.props.updateSong({id, song: formData})
+      });
+    });
+  }
+   
+  
   seek(pos){
     // only dispatch seek action if click originates from waveform (localSeek)
     if (this.localSeek) {

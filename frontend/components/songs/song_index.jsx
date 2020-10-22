@@ -67,7 +67,6 @@ class SongIndex extends React.Component {
     }
     
     let SongComponent = this.withWaveForm();
-
     let songItems = this.props.songs.map((song) => (
       <SongComponent
         song={song}
@@ -77,7 +76,7 @@ class SongIndex extends React.Component {
         key={song.id}
         isSelected={song.id === currentSong}
         isPlaying={isPlaying}
-        currentlyPlaying = {this.props.currentlyPlaying}
+        currentlyPlaying={this.props.currentlyPlaying}
         // boolean to represent if current user is song uploader to allow editing
         ownSong={this.props.currentUser === song.artistId}
         openModal={this.props.openModal}
