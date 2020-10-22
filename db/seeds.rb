@@ -26,7 +26,8 @@ steph = User.create!(
     password: "password",
     email: "stephane.meyering@gmail.com",
     location: "San Francisco",
-    about: "I built this"
+    about: "I built this",
+    admin: true
 )
 
 # create a Song instance

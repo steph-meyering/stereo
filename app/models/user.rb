@@ -6,7 +6,7 @@
 #  username        :string           not null
 #  email           :string           not null
 #  location        :string
-#  artist          :boolean
+#  admin           :boolean          default(FALSE)
 #  about           :text
 #  password_digest :string           not null
 #  session_token   :string
@@ -25,6 +25,7 @@ class User < ApplicationRecord
     class_name: 'Song'
 
     has_many :comments,
+    dependent: :delete_all,
     foreign_key: :user_id,
     class_name: 'Comment'
 

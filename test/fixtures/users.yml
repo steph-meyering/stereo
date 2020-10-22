@@ -6,7 +6,7 @@
 #  username        :string           not null
 #  email           :string           not null
 #  location        :string
-#  artist          :boolean
+#  admin           :boolean          default(FALSE)
 #  about           :text
 #  password_digest :string           not null
 #  session_token   :string
