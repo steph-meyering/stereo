@@ -18,7 +18,7 @@ guest = User.create!(
     password: "password",
     email: "guest@email.com",
     location: "Somewhere in the ActiveStorage Blob",
-    about: "I'm a demo user, my purpose is to show you what a user profile looks like for testing purposes. Though I am saving you the time and trouble of making your own account, you're more than welcome to create your own! :)"
+    about: "I'm a demo user, my profile is here to show you what a user profile looks like for testing purposes. Though I am saving you the time and trouble of making your own account, you're more than welcome to create your own! :)"
 )
 
 steph = User.create!(
