@@ -19,30 +19,6 @@ class SongIndex extends React.Component {
       this.props.match.path === "/" ? SongSplashItem : SongIndexItem;
     return component;
   }
-
-  // Generate waveform data for each song, then save to database
-  // FIXME
-  
-  // generateAllWaveforms(songs) {
-  //   songs.forEach(song => {
-  //     let formData = new FormData();
-  //     let wave = WaveSurfer.create(defaultWaveParams)
-  //     wave.load(song.props.song.fileUrl)
-  //     wave.on("ready", () =>
-  //       wave
-  //         .exportPCM(1024, 10000, true)
-  //         .then((res) => formData.append("song[waveform]", res))
-  //         .then(() =>
-  //           this.props.updateSong({ id: song.props.song.id, song: formData })
-  //         )
-  //         .then(() =>
-  //           console.log(
-  //             `processed and saved waveform for ${song.props.song.id}`
-  //           )
-  //         )
-  //     );
-  //   })
-  // }
   
   isSplash() {
     let className =
@@ -78,7 +54,7 @@ class SongIndex extends React.Component {
         isPlaying={isPlaying}
         currentlyPlaying={this.props.currentlyPlaying}
         // boolean to represent if current user is song uploader to allow editing
-        ownSong={this.props.currentUser === song.artistId}
+        ownSong={this.props.isAdmin || this.props.currentUser === song.artistId}
         openModal={this.props.openModal}
       />
     ));

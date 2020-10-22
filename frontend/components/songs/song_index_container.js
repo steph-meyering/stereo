@@ -11,6 +11,7 @@ const mSTP = state => {
     return {
       songs: Object.values(state.entities.songs),
       currentUser: state.session.id,
+      isAdmin: state.session.admin,
       currentlyPlaying: state.playControls.currentSong,
     };
 }

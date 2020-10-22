@@ -37,7 +37,8 @@ export const fetchSongs = () => dispatch => SongAPIUtil.fetchSongs()
 .then ((songs) => dispatch(receiveSongs(songs)));
 
 export const deleteSong = (songId) => (dispatch) =>
-  SongAPIUtil.deleteSong(songId).then(() => dispatch(removeSong(song)));
+  SongAPIUtil.deleteSong(songId).then(() => dispatch(removeSong(songId)),
+  err => console.log(err));
 
 export const uploadSong = (song) => dispatch => SongAPIUtil.uploadSong(song)
     .then (() => dispatch(receiveSong(song)),

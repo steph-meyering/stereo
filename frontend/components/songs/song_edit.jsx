@@ -79,7 +79,7 @@ class SongEdit extends React.Component {
       wave.load(this.state.fileUrl);
       wave.on("ready", () =>
         wave
-          .exportPCM(1024, 10000, true)
+          .exportPCM(512, 100, true)
           .then((res) => this.setState({ waveform: res }))
       );
       console.log("load song and calc waveform data");

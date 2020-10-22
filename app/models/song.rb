@@ -20,6 +20,7 @@ class Song < ApplicationRecord
     class_name: 'User'
     
     has_many :comments,
+    dependent: :delete_all,
     foreign_key: :song_id,
     class_name: 'Comment'
     
