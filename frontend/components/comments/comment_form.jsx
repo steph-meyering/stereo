@@ -35,7 +35,7 @@ class CommentForm extends React.Component {
         <div id="commenter-profile-pic-thumbnail"></div>
         <form onSubmit={this.handleSubmit} id="comment-form">
           <input
-            placeholder="Write a comment"
+            placeholder={this.loggedIn ? "Write a comment" : "Sign in to leave a comment"}
             disabled={!this.loggedIn}
             type="text"
             id="comment-body-input"

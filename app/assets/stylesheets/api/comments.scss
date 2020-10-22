@@ -9,8 +9,10 @@
 }
 
 #comment-body-input{
-  width: 100%;
+  width: -webkit-fill-available;
   margin: 3px;
+  font-size: 18px;
+  padding: 4px;
 }
 
 #comment-section{
@@ -70,7 +72,7 @@
 }
 
 #song-uploader-photo{
-  min-width: 100px;
+  width: 100px;
   height: 100px;
   background-color: lightgreen;
   border-radius: 50%;

@@ -11,6 +11,7 @@ class UserSidebar extends React.Component {
   
   render() {
     let user = this.props.user;
+    
     // bioDiv only generated on user show page, not when this component is used in 
     // song show sidebar component
     let bioDiv = !!user ? (

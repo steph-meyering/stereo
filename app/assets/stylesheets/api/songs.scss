@@ -310,7 +310,20 @@ wave :hover {
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
-  > div {
-    margin: 10px;
-  }
+  // > div {
+  //   margin: 10px;
+  // }
+}
+
+#song-show-bottom-left{
+  width: 70%;
+  padding: 20px 30px;
+}
+
+#uploader-and-comments{
+  display: inline-flex;
+}
+
+#song-show-sidebar{
+  width: 320px;
 }

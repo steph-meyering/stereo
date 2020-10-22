@@ -3,6 +3,7 @@ import { initWave } from "../../util/waveform_util";
 import CommentContainer from "../comments/comment_index_container";
 import CommentForm from "../comments/comment_form";
 import WaveFormContainer from "../waveform/waveform_container";
+import UserSidebar from "../users/user_sidebar";
 
 class SongShow extends React.Component {
   constructor(props) {
@@ -13,8 +14,7 @@ class SongShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props
-      .fetchSong(this.props.match.params.songId)
+    this.props.fetchSong(this.props.match.params.songId);
   }
 
   render() {
@@ -25,7 +25,7 @@ class SongShow extends React.Component {
       // flag to determine button appearance (play / pause)
       this.playing = this.props.currentlyPlaying.playing;
     }
-    
+
     return (
       <div className="song-show-page">
         <div className="song-show-top">
@@ -67,15 +67,21 @@ class SongShow extends React.Component {
             alt={this.props.song.title}
           />
         </div>
-        <CommentForm songId={this.props.song.id} />
         <div id="song-show-bottom">
-          <div id="song-uploader-info">
-            <div id="song-uploader-photo"></div>
-            <div>{this.props.song.artist}</div>
+          <div id="song-show-bottom-left">
+            <CommentForm songId={this.props.song.id} />
+            <div id="uploader-and-comments">
+              <div id="song-uploader-info">
+                <div id="song-uploader-photo"></div>
+                <div>{this.props.song.artist}</div>
+              </div>
+              <CommentContainer songId={this.props.song.id} />
+            </div>
           </div>
-          <CommentContainer songId={this.props.song.id} />
+          <div id="song-show-sidebar"> Related tracks
+            <UserSidebar/>
+          </div>
         </div>
-        <div id="song-show-sidebar"> Related tracks</div>
       </div>
     );
   }
