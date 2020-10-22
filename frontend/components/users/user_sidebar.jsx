@@ -11,13 +11,16 @@ class UserSidebar extends React.Component {
   
   render() {
     let user = this.props.user;
+    let bioDiv = !!user ? (
+      <div className="sidebar-section">
+        About me:
+        <div className="section-content">{user.about}</div>
+      </div>
+    ) : null
     return (
       <div className="sidebar-main">
         <div className="sidebar">
-          <div className="sidebar-section">
-            About me:
-            <div className="section-content">{user.about}</div>
-          </div>
+          {bioDiv}
           <div className="sidebar-section">
             Get in touch:
             <div className="section-content">
