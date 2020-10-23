@@ -33,7 +33,7 @@ class SongIndexItem extends React.Component {
     if (this.props.song === undefined) return null;
 
     let editButton = this.props.ownSong ? (
-      <button onClick={() => this.edit()}>edit</button>
+      <button className="song-edit-button" onClick={() => this.edit()}>Edit</button>
     ) : null;
 
     let selected = this.props.isSelected;
@@ -77,7 +77,9 @@ class SongIndexItem extends React.Component {
             song={this.props.song}
             selected={this.selected}
           />
+          {/* <div className="edit-button-container"> */}
           {editButton}
+          {/* </div> */}
         </div>
       </div>
     );

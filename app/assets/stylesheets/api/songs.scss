@@ -98,6 +98,7 @@
 
 .info-and-wave {
   display: flex;
+  position: relative;
   flex-direction: column;
   height: max-content;
   width: 100%;
@@ -228,12 +229,28 @@
   padding-right: 5px;
 }
 
-#waveform-canvas {
-  // width: 800px;
-}
-
-.test {
-  // width: 800px;
+.song-edit-button {
+  border: none;
+  background: transparent;
+  position: absolute;
+  width: 60px;
+  bottom: -8px;
+  right: 0px;
+  color: $dark-grey;
+  &::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 17px;
+    background: url(https://a-v2.sndcdn.com/assets/images/edit-2fe52d66.svg);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+  }
+  &:hover {
+    cursor: pointer;
+    -webkit-filter: brightness(70%);
+  }
 }
 
 wave :hover {
@@ -332,4 +349,5 @@ wave :hover {
 #song-show-sidebar{
   min-width: 320px;
   flex-basis: initial;
+  margin-left: 1px;
 }

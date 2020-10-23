@@ -13,18 +13,13 @@ class CommentForm extends React.Component {
     };
     this.loggedIn = !!this.props.userId;
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.resetForm = this.resetForm.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const comment = Object.assign({}, this.state)
     this.props.postComment(this.state.userId, comment)
-      .then(() => this.resetForm())
-  }
-
-  resetForm() {
-    this.setState({ body: "" });
+      .then(() => this.setState({ body: "" }))
   }
 
   update(field) {
