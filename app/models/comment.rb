@@ -1,4 +1,3 @@
-require 'byebug'
 # == Schema Information
 #
 # Table name: comments
