@@ -32,7 +32,9 @@ class UserShow extends React.Component {
         <h1>Recent Activity</h1>
         <div className="songs-and-sidebar">
           <SongIndexContainer />
-          <UserSidebar user={this.props.user}/>
+          <div className="sidebar-main">
+            <UserSidebar user={this.props.user} />
+          </div>
         </div>
       </div>
     );

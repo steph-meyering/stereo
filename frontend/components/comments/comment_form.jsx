@@ -8,18 +8,23 @@ class CommentForm extends React.Component {
     this.state = {
       userId: this.props.userId,
       songId: this.props.songId,
-      body: null,
+      body: "",
       songTime: 0,
     };
     this.loggedIn = !!this.props.userId;
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetForm = this.resetForm.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const comment = Object.assign({}, this.state)
     this.props.postComment(this.state.userId, comment)
-      .then(() => this.setState({body: null}))
+      .then(() => this.resetForm())
+  }
+
+  resetForm() {
+    this.setState({ body: "" });
   }
 
   update(field) {
@@ -40,6 +45,7 @@ class CommentForm extends React.Component {
             type="text"
             id="comment-body-input"
             onChange={this.update("body")}
+            value={this.state.body}
           />
         </form>
       </div>

@@ -73,13 +73,17 @@ class SongShow extends React.Component {
             <div id="uploader-and-comments">
               <div id="song-uploader-info">
                 <div id="song-uploader-photo"></div>
-                <div>{this.props.song.artist}</div>
+                <div id="song-uploader-name">{this.props.song.artist}</div>
               </div>
               <CommentContainer songId={this.props.song.id} />
             </div>
           </div>
-          <div id="song-show-sidebar"> Related tracks
-            <UserSidebar/>
+          <div className="sidebar-main" id="song-show-sidebar">
+            <div className="sidebar-section">
+              <div className="wave-icon" /> Related Tracks
+              <div className="section-content">comming soon!</div>
+            </div>
+            <UserSidebar />
           </div>
         </div>
       </div>

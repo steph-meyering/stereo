@@ -21,7 +21,7 @@ class UserSidebar extends React.Component {
       </div>
     ) : null
     return (
-      <div className="sidebar-main">
+      <div>
         <div className="sidebar">
           {bioDiv}
           <div className="sidebar-section">
@@ -71,9 +71,9 @@ class UserSidebar extends React.Component {
             </div>
           </div>
 
+          {/* <div className="sidebar-section"></div>
           <div className="sidebar-section"></div>
-          <div className="sidebar-section"></div>
-          <div className="sidebar-section"></div>
+          <div className="sidebar-section"></div> */}
         </div>
       </div>
     );
