@@ -98,7 +98,7 @@ class SongForm extends React.Component {
     this.setState({
       uploading: true,
     });
-    console.log("starting upload");
+    // console.log("starting upload");
     this.props.uploadSong(formData).then(() => console.log("upload success"));
   }
 

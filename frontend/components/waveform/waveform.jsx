@@ -69,7 +69,6 @@ class WaveForm extends React.Component {
       wave.exportPCM(512, 100, true)
       .then((res) => {
         formData.append("song[waveform]", res)
-        console.log(res)
         this.props.updateSong({id, song: formData})
       });
     });

@@ -73,7 +73,7 @@ class SongEdit extends React.Component {
     // immediately
     if (this.state.waveform && this.state.waveform !== "undefined") {
       wave.load("#", JSON.parse(this.state.waveform));
-      console.log("use saved waveform data");
+      // console.log("use saved waveform data");
     // Otherwise, load the file, calculate peak data and add it to local state 
     } else { 
       wave.load(this.state.fileUrl);
