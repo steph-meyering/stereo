@@ -8,14 +8,16 @@ class Navbar extends React.Component {
   }
   
   render(){
-    const {currentUser, logout, openModal} = this.props
+    const {currentUser, logout, openModal} = this.props;
+    let redirect = null
     if (currentUser) {
       if (this.redirect) {
         this.redirect = false;
-        return(<Redirect to={`/users/${currentUser.id}`} />)
+        redirect = <Redirect to={`/users/${currentUser.id}`} />
       }
       return (
         <div className="navbar-div">
+          {redirect}
           <div className="navbar-content">
             <Link to="/">
               <div className="stereo-icon-div">
@@ -23,10 +25,13 @@ class Navbar extends React.Component {
               </div>
             </Link>
             <div className="navbar-buttons">
-              <button className="sign-out-button" onClick={() => {
-                logout();
-                this.redirect = true;
-              }}>
+              <button
+                className="sign-out-button"
+                onClick={() => {
+                  logout();
+                  this.redirect = true;
+                }}
+              >
                 Sign out
               </button>
               <Link className="upload-button" to="/upload">
