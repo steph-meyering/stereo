@@ -25,7 +25,7 @@ class Api::CommentsController < ApplicationController
     end
     
     def update
-        if @comment.update_attributes(comment_params)
+        if @comment.update(comment_params)
             render :show
         else
             render json: @comment.errors.full_messages, status: 422
