@@ -9,12 +9,80 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 
 - React: frontend components
 - Redux: frontend state
-- Rails: backend management
+- Rails 6.1: backend management
 - AWS S3: music and photo storage
 - PostgreSQL: database
 - Heroku: app/db hosting
 - BCrypt: password encryption/decryption
 - Wavesurfer.js: waveform rendering
+
+---
+
+## Local Development Setup
+
+### Prerequisites
+- Ruby 2.6.10
+- Node.js 13.7.0
+- PostgreSQL
+- AWS S3 account with three buckets (dev, prod, seeds)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone <your-repo-url>
+cd stereo
+```
+
+2. **Install dependencies**
+```bash
+# Install Ruby gems
+bundle install
+
+# Install Node packages
+npm install
+```
+
+3. **Set up environment variables**
+
+Create a `.env` file in the project root:
+```bash
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=us-west-1
+AWS_DEV_BUCKET=stereo-dev
+AWS_PROD_BUCKET=stereo-prod
+AWS_SEED_BUCKET=stereo-seeds
+```
+
+4. **Set up the database**
+```bash
+# Create and migrate database
+bundle exec rails db:create
+bundle exec rails db:migrate
+
+# Load seed data (requires stereo-seeds bucket with music/album art files)
+bundle exec rails db:seed
+```
+
+5. **Start the development server**
+
+In separate terminal windows:
+
+```bash
+# Terminal 1: Start Rails server
+export $(cat .env | xargs) && \
+export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH" && \
+export SECRET_KEY_BASE=$(openssl rand -hex 64) && \
+bundle exec rails server
+
+# Terminal 2: Start Webpack
+npm start
+```
+
+6. **Visit the app**
+
+Open your browser to `http://localhost:3000`
 
 ---
 

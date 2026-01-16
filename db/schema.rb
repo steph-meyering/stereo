@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_221241) do
+ActiveRecord::Schema.define(version: 2025_10_29_033602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,9 @@ ActiveRecord::Schema.define(version: 2020_10_21_221241) do
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+    t.string "service_name"
+    t.index ["key"], name: "active_storage_blobs_key_key", unique: true
+    t.index ["key"], name: "index_active_storage_blobs_on_key"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -67,11 +69,13 @@ ActiveRecord::Schema.define(version: 2020_10_21_221241) do
     t.string "session_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["session_token"], name: "index_users_on_session_token", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.index ["session_token"], name: "index_users_on_session_token"
+    t.index ["session_token"], name: "users_session_token_key", unique: true
+    t.index ["username"], name: "index_users_on_username"
+    t.index ["username"], name: "users_username_key", unique: true
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "songs"
-  add_foreign_key "comments", "users"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id", name: "active_storage_attachments_blob_id_fkey"
+  add_foreign_key "comments", "songs", name: "comments_song_id_fkey"
+  add_foreign_key "comments", "users", name: "comments_user_id_fkey"
 end

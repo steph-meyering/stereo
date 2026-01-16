@@ -17,14 +17,17 @@ class WaveForm extends React.Component {
 
   componentDidMount() {
     this.wave = initWave(this.props.container);
-    if (!this.props.song.waveform){
-      this.savePeakData(this.props.song.id, this.wave);
-    }
     this.wave.load(
       this.props.song.fileUrl,
-      JSON.parse(this.props.song.waveform)
+      this.props.song.waveform ? JSON.parse(this.props.song.waveform) : null
     );
-    this.wave.on("ready", () => this.syncWave());
+    this.wave.on("ready", () => {
+      this.syncWave();
+      // Save waveform data if it doesn't exist
+      if (!this.props.song.waveform) {
+        this.savePeakData(this.props.song.id, this.wave);
+      }
+    });
     this.wave.on("seek", (pos) => this.seek(pos));
   }
   
@@ -64,14 +67,12 @@ class WaveForm extends React.Component {
   }
 
   savePeakData(id, wave) {
-    let formData = new FormData();
-    wave.on("waveform-ready", () => {
-      wave.exportPCM(512, 100, true)
+    wave.exportPCM(512, 100, true)
       .then((res) => {
-        formData.append("song[waveform]", res)
-        this.props.updateSong({id, song: formData})
+        let formData = new FormData();
+        formData.append("song[waveform]", res);
+        this.props.updateSong({id, song: formData});
       });
-    });
   }
    
   

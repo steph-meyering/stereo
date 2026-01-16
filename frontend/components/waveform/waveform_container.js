@@ -15,7 +15,7 @@ const mDTP = (dispatch) => ({
   selectSong: (song) => dispatch(selectSong(song)),
   playPauseSong: () => dispatch(playPauseSong()),
   seek: (origin, pos) => dispatch(seek(origin, pos)),
-  updateSong: (id, song) => dispatch(updateSong(id, song))
+  updateSong: (payload) => dispatch(updateSong(payload))
 });
 
 export default connect(mSTP, mDTP)(WaveForm);

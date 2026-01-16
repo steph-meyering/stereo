@@ -2,6 +2,7 @@ node_modules/
 bundle.js*
 bundle.js.map
 .DS_Store
+.env
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 # config/initializers/secret_token.rb
 config/master.key
@@ -36,3 +37,5 @@ npm-debug.log
 /storage/*
 
 .byebug_history
+# Ignore master key for decrypting credentials and more.
+/config/master.key
