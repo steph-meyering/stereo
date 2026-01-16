@@ -32,9 +32,9 @@
     "test": "test"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider webpack --watch --mode=development",
+    "start": "webpack --watch --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "NODE_OPTIONS=--openssl-legacy-provider webpack"
+    "postinstall": "webpack"
   },
   "author": "steph-meyering",
   "license": "ISC",
@@ -43,7 +43,7 @@
     "style-loader": "^1.2.1"
   },
   "engines": {
-    "node": "13.7.0",
-    "npm": "6.9.0"
+    "node": "22.18.0",
+    "npm": "10.9.3"
   }
 }
