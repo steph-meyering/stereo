@@ -41,6 +41,7 @@ gem 'jquery-rails'
 gem 'bcrypt'
 gem 'aws-sdk-s3'
 gem 'seed_dump'
+gem 'rack-attack'  # Rate limiting and throttling
 
 
 group :development, :test do
