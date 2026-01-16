@@ -41,41 +41,41 @@ class Song < ApplicationRecord
 
     def ensure_file
         unless self.file.attached?
-            errors[:audio] << "file must be present"
+            errors.add(:audio, "file must be present")
         end
     end
 
     def ensure_photo
         unless self.photo.attached?
-            errors[:cover] << "art must be present"
+            errors.add(:cover, "art must be present")
         end
     end
 
     def validate_file_type
         return unless file.attached?
         unless AUDIO_TYPES.include?(file.content_type)
-            errors[:audio] << "must be an audio file (MP3, WAV, OGG, FLAC)"
+            errors.add(:audio, "must be an audio file (MP3, WAV, OGG, FLAC)")
         end
     end
 
     def validate_file_size
         return unless file.attached?
         if file.byte_size > MAX_AUDIO_SIZE
-            errors[:audio] << "file size must be less than #{MAX_AUDIO_SIZE / 1.megabyte}MB"
+            errors.add(:audio, "file size must be less than #{MAX_AUDIO_SIZE / 1.megabyte}MB")
         end
     end
 
     def validate_photo_type
         return unless photo.attached?
         unless IMAGE_TYPES.include?(photo.content_type)
-            errors[:cover] << "art must be an image file (JPEG, PNG, GIF, WebP)"
+            errors.add(:cover, "art must be an image file (JPEG, PNG, GIF, WebP)")
         end
     end
 
     def validate_photo_size
         return unless photo.attached?
         if photo.byte_size > MAX_IMAGE_SIZE
-            errors[:cover] << "art size must be less than #{MAX_IMAGE_SIZE / 1.megabyte}MB"
+            errors.add(:cover, "art size must be less than #{MAX_IMAGE_SIZE / 1.megabyte}MB")
         end
     end
 end

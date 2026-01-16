@@ -15,19 +15,19 @@
 #
 
 one:
-  username: MyString
-  email: MyString
+  username: demo_user
+  email: demo_user@example.com
   location: MyString
-  artist: false
+  admin: false
   about: MyText
-  password_digest: MyString
-  session_token: MyString
+  password_digest: <%= BCrypt::Password.create('password') %>
+  session_token: <%= SecureRandom.urlsafe_base64 %>
 
 two:
-  username: MyString
-  email: MyString
+  username: test_user
+  email: test_user@example.com
   location: MyString
-  artist: false
+  admin: false
   about: MyText
-  password_digest: MyString
-  session_token: MyString
+  password_digest: <%= BCrypt::Password.create('password') %>
+  session_token: <%= SecureRandom.urlsafe_base64 %>
