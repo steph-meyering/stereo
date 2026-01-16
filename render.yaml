@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: stereo
+    env: ruby
+    buildCommand: bundle install && npm install && bundle exec rails assets:precompile && bundle exec rails db:migrate
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: RACK_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "1"
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "1"
+      - key: SECRET_KEY_BASE
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        value: us-west-1
+      - key: AWS_DEV_BUCKET
+        value: stereo-dev
+      - key: AWS_PROD_BUCKET
+        value: stereo-prod
+      - key: AWS_SEED_BUCKET
+        value: stereo-seeds
+      - key: DATABASE_URL
+        fromDatabase:
+          name: stereo-db
+          property: connectionString
+
+databases:
+  - name: stereo-db
+    databaseName: stereo_production
+    user: stereo
