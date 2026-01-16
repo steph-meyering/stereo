@@ -5,6 +5,7 @@ import SongIndex from "./song_index";
 import { withRouter } from "react-router-dom";
 import { openModal } from "../../actions/modal_actions";
 import { selectSong, playPauseSong, seek } from "../../actions/current_song_actions";
+import { addToQueue } from "../../actions/queue_actions";
 
 
 const mSTP = state => {
@@ -23,6 +24,7 @@ const mDTP = (dispatch) => ({
   updateSong: (id, song) => dispatch(updateSong(id, song)),
   playPauseSong: () => dispatch(playPauseSong()),
   seek: (origin, pos) => dispatch(seek(origin, pos)),
+  addToQueue: (song) => dispatch(addToQueue(song)),
 });
 
 export default withRouter(connect(mSTP, mDTP)(SongIndex));

@@ -77,6 +77,21 @@
   }
 }
 
+.queue-add-button {
+  margin-top: 6px;
+  padding: 4px 8px;
+  background: none;
+  border: 1px solid $light-grey;
+  border-radius: 3px;
+  font-size: 11px;
+  color: $dark-grey;
+  cursor: pointer;
+  &:hover {
+    border-color: $orange;
+    color: $orange;
+  }
+}
+
 // SONG INDEX STYLE (STREAM AND USER SHOW):
 .song-index-main {
   width: 75%;

@@ -33,6 +33,12 @@ class SongSplashItem extends React.Component {
           <Link to={`/users/${this.props.song.artistId}`}>
             <h3>{this.props.song.artist}</h3>
           </Link>
+          <button
+            className="queue-add-button"
+            onClick={() => this.props.addToQueue(this.props.song)}
+          >
+            Add to Queue
+          </button>
         </div>
       </div>
     );

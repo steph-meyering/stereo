@@ -17,6 +17,7 @@ class PlayControls extends React.Component {
         "player-repeat-all",
       ],
       shuffle: false,
+      showQueue: false,
     };
   }
 
@@ -90,8 +91,9 @@ class PlayControls extends React.Component {
   playNext() {
     // update queue and play next song
     if (this.props.queue.length > 1) {
+      let nextSong = this.props.queue[1];
       this.props.playNext();
-      this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
+      this.props.selectSong(nextSong);
       this.initialized = false;
     }
   }
@@ -109,8 +111,11 @@ class PlayControls extends React.Component {
 
       // if at least one song has been played before, update queue and play it
     } else if (this.props.played) {
-      this.props.playPrevious();
-      this.props.selectSong(this.props.queue[this.props.queue.length - 1]);
+      let previousSong = this.props.played[this.props.played.length - 1];
+      if (previousSong) {
+        this.props.playPrevious();
+        this.props.selectSong(previousSong);
+      }
     }
   }
 
@@ -130,10 +135,17 @@ class PlayControls extends React.Component {
     this.props.toggleShuffle();
   }
 
+  toggleQueue(){
+    this.setState({ showQueue: !this.state.showQueue });
+  }
+
   render() {
     if (this.props.currentlyPlaying === null) {
       return null;
     } else {
+      const upNext = this.props.queue && this.props.queue.length > 1
+        ? this.props.queue.slice(1)
+        : [];
       return (
         <Slide bottom>
           <span id="play-controls">
@@ -167,6 +179,10 @@ class PlayControls extends React.Component {
                 className={`${this.state.repeating[0]} player-button`}
                 onClick={() => this.toggleRepeat()}
               ></div>
+              <div
+                className="player-queue player-button"
+                onClick={() => this.toggleQueue()}
+              ></div>
               <div id="timeline">
                 <div id="current-time">--:--</div>
                 <progress value="0" max="1" id="progress-bar"></progress>
@@ -188,6 +204,36 @@ class PlayControls extends React.Component {
                 </p>
               </div>
             </div>
+            {this.state.showQueue && (
+              <div id="queue-panel">
+                <div className="queue-header">
+                  <div>Up Next</div>
+                  <button className="queue-clear" onClick={() => this.props.clearQueue()}>
+                    Clear
+                  </button>
+                </div>
+                {upNext.length === 0 ? (
+                  <div className="queue-empty">Queue is empty</div>
+                ) : (
+                  <ul className="queue-list">
+                    {upNext.map((song) => (
+                      <li className="queue-item" key={song.id}>
+                        <div className="queue-item-info">
+                          <div className="queue-item-title">{song.title}</div>
+                          <div className="queue-item-artist">{song.artist}</div>
+                        </div>
+                        <button
+                          className="queue-remove"
+                          onClick={() => this.props.removeFromQueue(song.id)}
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
           </span>
         </Slide>
       );

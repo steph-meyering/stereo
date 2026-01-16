@@ -70,6 +70,12 @@ class SongIndexItem extends React.Component {
                 {this.props.song.artist}
               </Link>
               <h3>{this.props.song.title}</h3>
+              <button
+                className="queue-add-button"
+                onClick={() => this.props.addToQueue(this.props.song)}
+              >
+                Add to Queue
+              </button>
             </div>
           </div>
           <WaveFormContainer
