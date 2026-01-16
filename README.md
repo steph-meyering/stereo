@@ -9,7 +9,7 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 
 - React: frontend components
 - Redux: frontend state
-- Rails 6.1: backend management
+- Rails 7.1: backend management
 - AWS S3: music and photo storage
 - PostgreSQL: database
 - Heroku: app/db hosting
@@ -21,8 +21,8 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 ## Local Development Setup
 
 ### Prerequisites
-- Ruby 2.6.10
-- Node.js 13.7.0
+- Ruby 3.2.0 (managed via rbenv)
+- Node.js 22.18.0 (LTS)
 - PostgreSQL
 - AWS S3 account with three buckets (dev, prod, seeds)
 
@@ -71,8 +71,12 @@ In separate terminal windows:
 
 ```bash
 # Terminal 1: Start Rails server
+# Make sure rbenv is initialized first
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# Then start the server
 export $(cat .env | xargs) && \
-export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH" && \
 export SECRET_KEY_BASE=$(openssl rand -hex 64) && \
 bundle exec rails server
 
