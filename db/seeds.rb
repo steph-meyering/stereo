@@ -11,6 +11,12 @@ if ENV["RESET_SEEDS"] == "true"
   User.destroy_all
 end
 
+# Only seed if database is empty (first deploy) unless explicitly reset
+if User.exists? || Song.exists?
+  puts "Skipping seeds: data already exists. Set RESET_SEEDS=true to re-seed."
+  exit
+end
+
 def ensure_user(attrs)
   user = User.find_or_initialize_by(username: attrs[:username])
   user.email = attrs[:email]
