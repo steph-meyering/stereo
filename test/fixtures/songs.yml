@@ -12,11 +12,11 @@
 #
 
 one:
-  artist_id: 1
+  artist: one
   title: MyString
   genre: MyString
 
 two:
-  artist_id: 1
+  artist: two
   title: MyString
   genre: MyString
