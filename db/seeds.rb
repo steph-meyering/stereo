@@ -25,7 +25,6 @@ end
 def ensure_song(artist:, title:, genre:, audio_url:, photo_url:)
   song = Song.find_or_initialize_by(artist_id: artist.id, title: title)
   song.genre = genre
-  song.save!
 
   unless song.file.attached?
     file = URI.open(audio_url)
@@ -37,6 +36,7 @@ def ensure_song(artist:, title:, genre:, audio_url:, photo_url:)
     song.photo.attach(io: photo, filename: File.basename(URI.parse(photo_url).path))
   end
 
+  song.save!
   song
 end
 
