@@ -150,3 +150,24 @@ For every roadmap item:
 
 ### Milestone 6: Creator Tools
 - Analytics, draft uploads, release pages
+
+---
+
+## V2 Goal: Mobile Redesign (Recommended Path)
+
+### Phase 1: Responsive Foundations (Fastest)
+- Add responsive breakpoints (768px, 600px, 480px)
+- Convert song grid to 2-up → 1-up on small screens
+- Ensure player remains sticky at bottom
+- Replace hover interactions with tap-friendly controls
+
+### Phase 2: Mobile UX Polish
+- Bottom nav for primary sections (Home, Search, Profile)
+- Collapsible sections on song show (comments, related)
+- Slide-up queue panel for Up Next
+- Larger tap targets, consistent spacing
+
+### Phase 3: PWA Enhancements
+- Add manifest + install prompt
+- Offline shell (metadata + artwork caching)
+- Graceful fallback for audio when offline
