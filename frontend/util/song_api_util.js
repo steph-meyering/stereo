@@ -35,3 +35,15 @@ export const deleteSong = (songId) =>
     method: "DELETE",
     url: `/api/songs/${songId}`,
   });
+
+export const likeSong = (songId) =>
+  $.ajax({
+    method: "POST",
+    url: `/api/songs/${songId}/like`,
+  });
+
+export const unlikeSong = (songId) =>
+  $.ajax({
+    method: "DELETE",
+    url: `/api/songs/${songId}/like`,
+  });

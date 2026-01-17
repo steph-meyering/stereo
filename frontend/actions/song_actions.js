@@ -47,3 +47,13 @@ export const uploadSong = (song) => dispatch => SongAPIUtil.uploadSong(song)
 export const updateSong = ({id, song}) => dispatch => SongAPIUtil.updateSong(id, song)
     .then((song) => dispatch(receiveSong(song)),
     err => console.log(err));
+
+export const likeSong = (songId) => dispatch =>
+  SongAPIUtil.likeSong(songId)
+    .then((song) => dispatch(receiveSong(song)),
+    err => console.log(err));
+
+export const unlikeSong = (songId) => dispatch =>
+  SongAPIUtil.unlikeSong(songId)
+    .then((song) => dispatch(receiveSong(song)),
+    err => console.log(err));

@@ -57,6 +57,9 @@ class SongIndex extends React.Component {
         ownSong={this.props.isAdmin || this.props.currentUser === song.artistId}
         openModal={this.props.openModal}
         addToQueue={this.props.addToQueue}
+        currentUser={this.props.currentUser}
+        likeSong={this.props.likeSong}
+        unlikeSong={this.props.unlikeSong}
       />
     ));
     return (

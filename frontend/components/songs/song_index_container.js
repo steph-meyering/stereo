@@ -1,4 +1,4 @@
-import { fetchSongs} from "../../actions/song_actions";
+import { fetchSongs, likeSong, unlikeSong } from "../../actions/song_actions";
 import { updateSong } from "../../actions/song_actions";
 import { connect } from "react-redux";
 import SongIndex from "./song_index";
@@ -25,6 +25,8 @@ const mDTP = (dispatch) => ({
   playPauseSong: () => dispatch(playPauseSong()),
   seek: (origin, pos) => dispatch(seek(origin, pos)),
   addToQueue: (song) => dispatch(addToQueue(song)),
+  likeSong: (songId) => dispatch(likeSong(songId)),
+  unlikeSong: (songId) => dispatch(unlikeSong(songId)),
 });
 
 export default withRouter(connect(mSTP, mDTP)(SongIndex));

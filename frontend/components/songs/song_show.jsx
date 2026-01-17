@@ -25,6 +25,8 @@ class SongShow extends React.Component {
       // flag to determine button appearance (play / pause)
       this.playing = this.props.currentlyPlaying.playing;
     }
+    let liked = this.props.song.liked;
+    let likeCount = this.props.song.likeCount || 0;
 
     return (
       <div className="song-show-page">
@@ -53,6 +55,17 @@ class SongShow extends React.Component {
               <div className="name-artist">
                 <h3 className="username">{this.props.song.artist}</h3>
                 <h2 className="song-show-title">{this.props.song.title}</h2>
+                <button
+                  className={liked ? "like-button liked" : "like-button"}
+                  disabled={!this.props.currentUser}
+                  onClick={() =>
+                    liked
+                      ? this.props.unlikeSong(this.props.song.id)
+                      : this.props.likeSong(this.props.song.id)
+                  }
+                >
+                  {liked ? "Liked" : "Like"} · {likeCount}
+                </button>
               </div>
             </div>
             <WaveFormContainer

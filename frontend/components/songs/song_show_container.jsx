@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchSong } from "../../actions/song_actions";
+import { fetchSong, likeSong, unlikeSong } from "../../actions/song_actions";
 import SongShow from "./song_show";
 import {
   selectSong,
@@ -14,6 +14,7 @@ const mSTP = (state, ownProps) => {
   return {
     song: state.entities.songs[ownProps.match.params.songId],
     currentlyPlaying: state.playControls.currentSong,
+    currentUser: state.session.id,
   };
 };
 
@@ -22,6 +23,8 @@ const mDTP = (dispatch) => ({
   selectSong: (song) => dispatch(selectSong(song)),
   playPauseSong: () => dispatch(playPauseSong()),
   seek: (origin, pos) => dispatch(seek(origin, pos)),
+  likeSong: (songId) => dispatch(likeSong(songId)),
+  unlikeSong: (songId) => dispatch(unlikeSong(songId)),
 });
 
 export default connect(mSTP, mDTP)(SongShow);
