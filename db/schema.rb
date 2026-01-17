@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_16_215548) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_16_235420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,8 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_16_215548) do
     t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.string "service_name"
-    t.index ["key"], name: "active_storage_blobs_key_key", unique: true
     t.index ["key"], name: "index_active_storage_blobs_on_key"
+    t.unique_constraint ["key"], name: "active_storage_blobs_key_key"
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
@@ -52,6 +52,16 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_16_215548) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["song_id"], name: "index_comments_on_song_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["song_id"], name: "index_likes_on_song_id"
+    t.index ["user_id", "song_id"], name: "index_likes_on_user_id_and_song_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -75,13 +85,15 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_16_215548) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["session_token"], name: "index_users_on_session_token"
-    t.index ["session_token"], name: "users_session_token_key", unique: true
     t.index ["username"], name: "index_users_on_username"
-    t.index ["username"], name: "users_username_key", unique: true
+    t.unique_constraint ["session_token"], name: "users_session_token_key"
+    t.unique_constraint ["username"], name: "users_username_key"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id", name: "active_storage_attachments_blob_id_fkey"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "songs", name: "comments_song_id_fkey"
   add_foreign_key "comments", "users", name: "comments_user_id_fkey"
+  add_foreign_key "likes", "songs"
+  add_foreign_key "likes", "users"
 end

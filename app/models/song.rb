@@ -27,6 +27,11 @@ class Song < ApplicationRecord
     dependent: :delete_all,
     foreign_key: :song_id,
     class_name: 'Comment'
+
+    has_many :likes,
+    dependent: :delete_all,
+    foreign_key: :song_id,
+    class_name: 'Like'
     
     has_one_attached :file
     has_one_attached :photo
