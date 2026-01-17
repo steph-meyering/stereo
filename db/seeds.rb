@@ -121,7 +121,7 @@ def comment_body_for(song)
   parts << (rand < 0.40 ? genre_bits.sample : artist_bits.sample)
   parts = parts.sample(rand(2..3))
 
-  "#{parts.join(\" — \")}#{tail}".strip
+  "#{parts.join(" — ")}#{tail}".strip
 end
 
 guest = ensure_user(
