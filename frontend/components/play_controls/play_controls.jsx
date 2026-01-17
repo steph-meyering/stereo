@@ -7,6 +7,8 @@ class PlayControls extends React.Component {
     super(props);
     this.initProgress = this.initProgress.bind(this);
     this.seek = this.seek.bind(this);
+    this.handleScrubHover = this.handleScrubHover.bind(this);
+    this.clearScrubHover = this.clearScrubHover.bind(this);
     this.initialized = false;
     this.seekId = null;
     this.state = {
@@ -18,6 +20,8 @@ class PlayControls extends React.Component {
       ],
       shuffle: false,
       showQueue: false,
+      scrubTime: null,
+      scrubLeft: 0,
     };
   }
 
@@ -86,6 +90,19 @@ class PlayControls extends React.Component {
     let percent = e.offsetX / this.progress.offsetWidth;
     this.audio.currentTime = percent * this.audio.duration;
     this.props.seek("playControls", percent);
+  }
+
+  handleScrubHover(e) {
+    if (!this.audio || !this.progress) return;
+    const rect = this.progress.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const percent = Math.min(Math.max(offsetX / rect.width, 0), 1);
+    const scrubTime = this.convertTime(percent * this.audio.duration);
+    this.setState({ scrubTime, scrubLeft: offsetX });
+  }
+
+  clearScrubHover() {
+    this.setState({ scrubTime: null });
   }
 
   playNext() {
@@ -239,7 +256,21 @@ class PlayControls extends React.Component {
               ></div>
               <div id="timeline">
                 <div id="current-time">--:--</div>
-                <progress value="0" max="1" id="progress-bar"></progress>
+                <div
+                  id="progress-wrapper"
+                  onMouseMove={this.handleScrubHover}
+                  onMouseLeave={this.clearScrubHover}
+                >
+                  <progress value="0" max="1" id="progress-bar"></progress>
+                  {this.state.scrubTime && (
+                    <div
+                      className="scrub-tooltip"
+                      style={{ left: this.state.scrubLeft }}
+                    >
+                      {this.state.scrubTime}
+                    </div>
+                  )}
+                </div>
                 <div id="song-duration">--:--</div>
               </div>
               <VolumeControls />

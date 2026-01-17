@@ -84,6 +84,24 @@ progress[value] {
   }
 }
 
+#progress-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scrub-tooltip {
+  position: absolute;
+  bottom: 12px;
+  transform: translateX(-50%);
+  background: #111;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 .player-queue {
   background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHJlY3QgeD0iMyIgeT0iNSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjIiIGZpbGw9IiMzMzMiLz48cmVjdCB4PSIzIiB5PSIxMSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjIiIGZpbGw9IiMzMzMiLz48cmVjdCB4PSIzIiB5PSIxNyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjIiIGZpbGw9IiMzMzMiLz48L3N2Zz4=)
     no-repeat 50%;

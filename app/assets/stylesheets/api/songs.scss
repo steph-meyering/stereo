@@ -25,6 +25,7 @@
     height: 200px;
     margin: 40px 15px 20px 15px;
     border: 1px solid rgba(0,0,0,.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   & .play-button {
@@ -50,6 +51,11 @@
       z-index: 10;
     }
   }
+}
+
+.song-splash-item:hover .album-cover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
 .song-splash-item {
@@ -152,7 +158,13 @@
   padding: 15px;
   & .album-cover {
     border: 1px solid #999999;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+}
+
+.song-index-item:hover .album-cover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
 .album-cover {
@@ -332,6 +344,7 @@ wave :hover {
 .song-show-top {
   display: flex;
   justify-content: space-between;
+  position: relative;
   background: -moz-linear-gradient(
     336deg,
     rgba(171, 171, 171, 1) 0%,
@@ -354,6 +367,19 @@ wave :hover {
     width: auto;
     height: 300px;
   }
+}
+
+.song-show-top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.song-show-top > * {
+  position: relative;
+  z-index: 1;
 }
 .song-show-left {
   width: 70%;

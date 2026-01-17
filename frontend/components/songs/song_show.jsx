@@ -29,10 +29,15 @@ class SongShow extends React.Component {
     let likeCount = this.props.song.likeCount || 0;
     let reposted = this.props.song.reposted;
     let repostCount = this.props.song.repostCount || 0;
+    const backgroundStyle = {
+      backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.2)), url(${this.props.song.photoUrl})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    };
 
     return (
       <div className="song-show-page">
-        <div className="song-show-top">
+        <div className="song-show-top" style={backgroundStyle}>
           <div className="song-show-left">
             <div className="name-artist-play">
               <div
