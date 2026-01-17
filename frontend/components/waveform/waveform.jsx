@@ -16,7 +16,6 @@ class WaveForm extends React.Component {
   }
 
   componentDidMount() {
-    this.wave = initWave(this.props.container);
     let waveformData = null;
     if (this.props.song.waveform && this.props.song.waveform !== "[]") {
       try {
@@ -28,6 +27,8 @@ class WaveForm extends React.Component {
         waveformData = null;
       }
     }
+    const backend = waveformData ? "MediaElement" : "WebAudio";
+    this.wave = initWave(this.props.container, { backend });
     this.wave.load(
       this.props.song.fileUrl,
       waveformData

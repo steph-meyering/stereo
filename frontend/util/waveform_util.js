@@ -1,11 +1,11 @@
 import WaveSurfer from "wavesurfer.js";
 import { updateSong } from "../actions/song_actions";
 
-export const initWave = container => {
+export const initWave = (container, options = {}) => {
   let wave = WaveSurfer.create({
     // container param takes in an element ID, so needs a # in front
       container: `#${container}`,
-      backend: "MediaElement",
+      backend: options.backend || "MediaElement",
       height: 100,
       barWidth: 2,
       barHeight: 1,
