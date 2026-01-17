@@ -47,19 +47,81 @@ def ensure_song(artist:, title:, genre:, audio_url:, photo_url:)
 end
 
 def comment_body_for(song)
-  phrases = [
-    "On repeat.",
-    "This groove is perfect.",
-    "Love the mix and the vibe.",
-    "Instant favorite.",
-    "That drop is clean.",
-    "So smooth.",
-    "This is a mood.",
-    "Great production on this one.",
-    "Can't stop listening.",
-    "Beautiful texture throughout."
+  emoji_pool = ["🔥", "✨", "💫", "😮‍💨", "🥁", "🎧", "🫶", "🕺", "💃", "🌙", "🌊", "🧠", "💥", "🫠"]
+  punct = ["!", "!!", "…", ".", " 🤝"]
+  vibe = [
+    "Okayyy this is nice",
+    "Wait hold up",
+    "This is dangerously replayable",
+    "This mix is CRISP",
+    "That groove is doing things",
+    "This is a whole vibe",
+    "I’m levitating",
+    "This is going straight into rotation",
+    "This is giving main character energy",
+    "This is the perfect background-to-everything track",
+    "This one has teeth",
+    "This is smooth like butter",
+    "This drop is illegal",
+    "This is clean clean clean",
+    "This is therapy"
   ]
-  phrases.sample
+
+  specific = [
+    "the drums are ridiculous",
+    "the bass is sitting *perfectly*",
+    "the texture on the synths is so good",
+    "the groove is locked in",
+    "the mix feels wide in the best way",
+    "that swing is nasty",
+    "the bounce is immaculate",
+    "the chord choices are chef’s kiss",
+    "the low end is hugging my soul",
+    "the transition was so satisfying",
+    "the ear candy is everywhere",
+    "the atmosphere is unreal"
+  ]
+
+  meta = [
+    "whoever produced this understood the assignment",
+    "I need this in a late-night drive playlist",
+    "this is going to soundtrack my entire week",
+    "I’m stealing this for my \"focus\" playlist",
+    "this makes me want to stare out a rainy window dramatically",
+    "this is the kind of track you discover at 2am and never forget",
+    "this is my new \"one more play\" trap",
+    "I’m obsessed, respectfully",
+    "bookmarking this before the universe takes it away",
+    "I’m not okay (in a good way)"
+  ]
+
+  genre_bits = [
+    "this #{song.genre} energy is elite",
+    "the #{song.genre} vibes are hitting",
+    "#{song.genre} done right",
+    "this is such a #{song.genre} mood"
+  ]
+
+  artist_bits = [
+    "#{song.artist.username} did not come to play",
+    "#{song.artist.username} snapped",
+    "#{song.artist.username}, you’re cooking",
+    "okay #{song.artist.username} 👀"
+  ]
+
+  # 0–2 emojis max (sprinkle, not spam)
+  emoji_count = rand(0..2)
+  emojis = emoji_pool.sample(emoji_count).join(" ")
+  tail = [punct.sample, (emojis.empty? ? "" : " #{emojis}")].join
+
+  # Blend 2–3 parts for variety
+  parts = []
+  parts << vibe.sample
+  parts << (rand < 0.65 ? specific.sample : meta.sample)
+  parts << (rand < 0.40 ? genre_bits.sample : artist_bits.sample)
+  parts = parts.sample(rand(2..3))
+
+  "#{parts.join(\" — \")}#{tail}".strip
 end
 
 guest = ensure_user(
