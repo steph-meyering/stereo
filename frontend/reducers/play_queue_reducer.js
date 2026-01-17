@@ -90,10 +90,8 @@ const playQueueReducer = (state = initialState, action) => {
       nextState.queueIds = action.queue.map((song) => song.id);
       return nextState;
     case ADD_TO_QUEUE:
-      if (!nextState.queue.find((song) => song.id === action.song.id)) {
-        nextState.queue = [...nextState.queue, action.song];
-        nextState.queueIds = nextState.queue.map((song) => song.id);
-      }
+      nextState.queue = [...nextState.queue, action.song];
+      nextState.queueIds = nextState.queue.map((song) => song.id);
       return nextState;
     case REMOVE_FROM_QUEUE:
       nextState.queue = nextState.queue.filter((song, index) => {
