@@ -59,7 +59,7 @@ def comment_body_for(song)
     "Can't stop listening.",
     "Beautiful texture throughout."
   ]
-  "#{phrases.sample} #{song.title.split('-').last.to_s.strip}."
+  phrases.sample
 end
 
 guest = ensure_user(
