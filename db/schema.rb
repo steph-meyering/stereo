@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_16_235420) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_17_002947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_16_235420) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "reposts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "song_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["song_id"], name: "index_reposts_on_song_id"
+    t.index ["user_id", "song_id"], name: "index_reposts_on_user_id_and_song_id", unique: true
+    t.index ["user_id"], name: "index_reposts_on_user_id"
+  end
+
   create_table "songs", force: :cascade do |t|
     t.integer "artist_id", null: false
     t.string "title", null: false
@@ -96,4 +106,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_16_235420) do
   add_foreign_key "comments", "users", name: "comments_user_id_fkey"
   add_foreign_key "likes", "songs"
   add_foreign_key "likes", "users"
+  add_foreign_key "reposts", "songs"
+  add_foreign_key "reposts", "users"
 end

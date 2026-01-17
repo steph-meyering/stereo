@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :songs, only: [:show, :update, :destroy, :index, :create] do
       resources :comments, only: [:show, :update, :destroy, :index, :create]
       resource :like, only: [:create, :destroy]
+      resource :repost, only: [:create, :destroy]
     end
     resource :session, only: [:create, :destroy]
     # get '/', to: proc { [200, {}, ['']] } 

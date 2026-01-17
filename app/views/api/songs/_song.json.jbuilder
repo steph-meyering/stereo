@@ -4,3 +4,5 @@ json.photoUrl rails_blob_url(song.photo)
 json.artist song.artist.username
 json.likeCount song.likes.count
 json.liked current_user ? song.likes.exists?(user_id: current_user.id) : false
+json.repostCount song.reposts.count
+json.reposted current_user ? song.reposts.exists?(user_id: current_user.id) : false
