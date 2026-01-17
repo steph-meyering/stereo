@@ -11,6 +11,7 @@ import NotFound from "./errors/404";
 import SongFormContainer from "./songs/song_form_container";
 import PlayControlsContainer from "./play_controls/play_controls_container";
 import SplashHeader from "./splash/splash_header";
+import PlaylistIndexContainer from "./playlists/playlist_index_container";
 
 const App = () => (
   <div className="main">
@@ -21,6 +22,7 @@ const App = () => (
       <Switch>
         {/* <Route exact path="/" component={TestContainer} /> */}
         <Route exact path="/" component={SongIndexContainer} />
+        <Route exact path="/playlists" component={PlaylistIndexContainer} />
         <Route exact path="/users/:userId" component={UserShow} />
         <Route exact path="/songs/:songId" component={SongShowContainer} />
         <Route exact path="/songs" component={SongIndexContainer} />

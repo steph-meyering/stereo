@@ -59,3 +59,55 @@ export const unrepostSong = (songId) =>
     method: "DELETE",
     url: `/api/songs/${songId}/repost`,
   });
+
+export const fetchPlaylists = () =>
+  $.ajax({
+    method: "GET",
+    url: "/api/playlists",
+  });
+
+export const fetchPlaylist = (playlistId) =>
+  $.ajax({
+    method: "GET",
+    url: `/api/playlists/${playlistId}`,
+  });
+
+export const createPlaylist = (playlist) =>
+  $.ajax({
+    method: "POST",
+    url: "/api/playlists",
+    data: { playlist },
+  });
+
+export const updatePlaylist = (playlistId, playlist) =>
+  $.ajax({
+    method: "PATCH",
+    url: `/api/playlists/${playlistId}`,
+    data: { playlist },
+  });
+
+export const deletePlaylist = (playlistId) =>
+  $.ajax({
+    method: "DELETE",
+    url: `/api/playlists/${playlistId}`,
+  });
+
+export const addSongToPlaylist = (playlistId, playlistSong) =>
+  $.ajax({
+    method: "POST",
+    url: `/api/playlists/${playlistId}/playlist_songs`,
+    data: { playlist_song: playlistSong },
+  });
+
+export const removeSongFromPlaylist = (playlistId, songId) =>
+  $.ajax({
+    method: "DELETE",
+    url: `/api/playlists/${playlistId}/playlist_songs/${songId}`,
+  });
+
+export const reorderPlaylistSong = (playlistId, songId, playlistSong) =>
+  $.ajax({
+    method: "PATCH",
+    url: `/api/playlists/${playlistId}/playlist_songs/${songId}`,
+    data: { playlist_song: playlistSong },
+  });

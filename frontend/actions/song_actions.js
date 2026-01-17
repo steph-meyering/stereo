@@ -30,6 +30,19 @@ export const receiveSongErrors = errors => ({
     errors
 })
 
+export const RECEIVE_PLAYLISTS = "RECEIVE_PLAYLISTS";
+export const RECEIVE_PLAYLIST = "RECEIVE_PLAYLIST";
+
+export const receivePlaylists = playlists => ({
+  type: RECEIVE_PLAYLISTS,
+  playlists
+});
+
+export const receivePlaylist = playlist => ({
+  type: RECEIVE_PLAYLIST,
+  playlist
+});
+
 export const fetchSong = songId => dispatch => SongAPIUtil.fetchSong(songId)
 .then((song) => dispatch(receiveSong(song)));
 
@@ -39,6 +52,46 @@ export const fetchSongs = () => dispatch => SongAPIUtil.fetchSongs()
 export const deleteSong = (songId) => (dispatch) =>
   SongAPIUtil.deleteSong(songId).then(() => dispatch(removeSong(songId)),
   err => console.log(err));
+
+export const fetchPlaylists = () => dispatch =>
+  SongAPIUtil.fetchPlaylists()
+    .then((playlists) => dispatch(receivePlaylists(playlists)),
+    err => console.log(err));
+
+export const fetchPlaylist = (playlistId) => dispatch =>
+  SongAPIUtil.fetchPlaylist(playlistId)
+    .then((playlist) => dispatch(receivePlaylist(playlist)),
+    err => console.log(err));
+
+export const createPlaylist = (playlist) => dispatch =>
+  SongAPIUtil.createPlaylist(playlist)
+    .then((playlist) => dispatch(receivePlaylist(playlist)),
+    err => console.log(err));
+
+export const updatePlaylist = (playlistId, playlist) => dispatch =>
+  SongAPIUtil.updatePlaylist(playlistId, playlist)
+    .then((playlist) => dispatch(receivePlaylist(playlist)),
+    err => console.log(err));
+
+export const deletePlaylist = (playlistId) => dispatch =>
+  SongAPIUtil.deletePlaylist(playlistId)
+    .then(() => dispatch(fetchPlaylists()),
+    err => console.log(err));
+
+export const addSongToPlaylist = (playlistId, payload) => dispatch =>
+  SongAPIUtil.addSongToPlaylist(playlistId, payload)
+    .then((playlist) => dispatch(receivePlaylist(playlist)),
+    err => console.log(err));
+
+export const removeSongFromPlaylist = (playlistId, songId) => dispatch =>
+  SongAPIUtil.removeSongFromPlaylist(playlistId, songId)
+    .then((playlist) => dispatch(receivePlaylist(playlist)),
+    err => console.log(err));
+
+export const reorderPlaylistSong = (playlistId, songId, payload) => dispatch =>
+  SongAPIUtil.reorderPlaylistSong(playlistId, songId, payload)
+    .then((playlist) => dispatch(receivePlaylist(playlist)),
+    err => console.log(err));
 
 export const uploadSong = (song) => dispatch => SongAPIUtil.uploadSong(song)
     .then (() => dispatch(receiveSong(song)),
