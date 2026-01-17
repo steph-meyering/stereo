@@ -204,3 +204,37 @@ songs.each do |song|
     )
   end
 end
+
+likers = commenters
+songs.each do |song|
+  likers.sample(rand(1..6)).each do |user|
+    Like.find_or_create_by!(song_id: song.id, user_id: user.id)
+  end
+end
+
+reposters = commenters
+songs.each do |song|
+  reposters.sample(rand(0..4)).each do |user|
+    Repost.find_or_create_by!(song_id: song.id, user_id: user.id)
+  end
+end
+
+playlists = [
+  { user: guest, title: "Late Night Lo-Fi", private: false },
+  { user: guest, title: "Coding Flow", private: false },
+  { user: steph, title: "Studio Drafts", private: true },
+  { user: steph, title: "Stereo Picks", private: false }
+] + extra_users.sample(2).map do |user|
+  { user: user, title: "#{user.username.split.first}'s Mix", private: false }
+end
+
+playlists.each do |attrs|
+  playlist = Playlist.find_or_create_by!(user_id: attrs[:user].id, title: attrs[:title]) do |p|
+    p.private = attrs[:private]
+  end
+  songs.sample(rand(3..6)).each_with_index do |song, idx|
+    PlaylistSong.find_or_create_by!(playlist_id: playlist.id, song_id: song.id) do |ps|
+      ps.position = idx + 1
+    end
+  end
+end
