@@ -37,6 +37,11 @@ class Song < ApplicationRecord
     dependent: :delete_all,
     foreign_key: :song_id,
     class_name: 'Repost'
+
+    has_many :playlist_songs,
+    dependent: :delete_all,
+    foreign_key: :song_id,
+    class_name: 'PlaylistSong'
     
     has_one_attached :file
     has_one_attached :photo

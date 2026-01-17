@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_17_002947) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_17_005759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,27 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_17_002947) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "playlist_songs", force: :cascade do |t|
+    t.bigint "playlist_id", null: false
+    t.bigint "song_id", null: false
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_id", "position"], name: "index_playlist_songs_on_playlist_id_and_position"
+    t.index ["playlist_id", "song_id"], name: "index_playlist_songs_on_playlist_id_and_song_id", unique: true
+    t.index ["playlist_id"], name: "index_playlist_songs_on_playlist_id"
+    t.index ["song_id"], name: "index_playlist_songs_on_song_id"
+  end
+
+  create_table "playlists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.boolean "private", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
   create_table "reposts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "song_id", null: false
@@ -106,6 +127,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_17_002947) do
   add_foreign_key "comments", "users", name: "comments_user_id_fkey"
   add_foreign_key "likes", "songs"
   add_foreign_key "likes", "users"
+  add_foreign_key "playlist_songs", "playlists"
+  add_foreign_key "playlist_songs", "songs"
+  add_foreign_key "playlists", "users"
   add_foreign_key "reposts", "songs"
   add_foreign_key "reposts", "users"
 end

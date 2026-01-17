@@ -40,6 +40,11 @@ class User < ApplicationRecord
     foreign_key: :user_id,
     class_name: 'Repost'
 
+    has_many :playlists,
+    dependent: :delete_all,
+    foreign_key: :user_id,
+    class_name: 'Playlist'
+
     attr_reader :password
 
     def self.find_by_credentials(username, password)
