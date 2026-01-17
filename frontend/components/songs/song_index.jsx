@@ -60,6 +60,8 @@ class SongIndex extends React.Component {
         currentUser={this.props.currentUser}
         likeSong={this.props.likeSong}
         unlikeSong={this.props.unlikeSong}
+        repostSong={this.props.repostSong}
+        unrepostSong={this.props.unrepostSong}
       />
     ));
     return (

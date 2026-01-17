@@ -8,6 +8,8 @@ class SongSplashItem extends React.Component {
     let playing = this.props.isPlaying;
     let liked = this.props.song.liked;
     let likeCount = this.props.song.likeCount || 0;
+    let reposted = this.props.song.reposted;
+    let repostCount = this.props.song.repostCount || 0;
     return (
       <div className="song-splash-item">
         <Link to={`/songs/${this.props.song.id}`}>
@@ -51,6 +53,17 @@ class SongSplashItem extends React.Component {
             }
           >
             {liked ? "Liked" : "Like"} · {likeCount}
+          </button>
+          <button
+            className={reposted ? "repost-button reposted" : "repost-button"}
+            disabled={!this.props.currentUser}
+            onClick={() =>
+              reposted
+                ? this.props.unrepostSong(this.props.song.id)
+                : this.props.repostSong(this.props.song.id)
+            }
+          >
+            {reposted ? "Reposted" : "Repost"} · {repostCount}
           </button>
         </div>
       </div>

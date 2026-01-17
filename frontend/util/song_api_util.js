@@ -47,3 +47,15 @@ export const unlikeSong = (songId) =>
     method: "DELETE",
     url: `/api/songs/${songId}/like`,
   });
+
+export const repostSong = (songId) =>
+  $.ajax({
+    method: "POST",
+    url: `/api/songs/${songId}/repost`,
+  });
+
+export const unrepostSong = (songId) =>
+  $.ajax({
+    method: "DELETE",
+    url: `/api/songs/${songId}/repost`,
+  });

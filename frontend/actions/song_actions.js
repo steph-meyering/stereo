@@ -57,3 +57,13 @@ export const unlikeSong = (songId) => dispatch =>
   SongAPIUtil.unlikeSong(songId)
     .then((song) => dispatch(receiveSong(song)),
     err => console.log(err));
+
+export const repostSong = (songId) => dispatch =>
+  SongAPIUtil.repostSong(songId)
+    .then((song) => dispatch(receiveSong(song)),
+    err => console.log(err));
+
+export const unrepostSong = (songId) => dispatch =>
+  SongAPIUtil.unrepostSong(songId)
+    .then((song) => dispatch(receiveSong(song)),
+    err => console.log(err));

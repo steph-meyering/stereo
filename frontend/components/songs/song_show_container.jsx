@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchSong, likeSong, unlikeSong } from "../../actions/song_actions";
+import { fetchSong, likeSong, unlikeSong, repostSong, unrepostSong } from "../../actions/song_actions";
 import SongShow from "./song_show";
 import {
   selectSong,
@@ -25,6 +25,8 @@ const mDTP = (dispatch) => ({
   seek: (origin, pos) => dispatch(seek(origin, pos)),
   likeSong: (songId) => dispatch(likeSong(songId)),
   unlikeSong: (songId) => dispatch(unlikeSong(songId)),
+  repostSong: (songId) => dispatch(repostSong(songId)),
+  unrepostSong: (songId) => dispatch(unrepostSong(songId)),
 });
 
 export default connect(mSTP, mDTP)(SongShow);
