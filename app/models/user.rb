@@ -45,6 +45,24 @@ class User < ApplicationRecord
     foreign_key: :user_id,
     class_name: 'Playlist'
 
+    has_many :followed_relationships,
+    dependent: :delete_all,
+    foreign_key: :follower_id,
+    class_name: 'Follow'
+
+    has_many :following,
+    through: :followed_relationships,
+    source: :followed
+
+    has_many :follower_relationships,
+    dependent: :delete_all,
+    foreign_key: :followed_id,
+    class_name: 'Follow'
+
+    has_many :followers,
+    through: :follower_relationships,
+    source: :follower
+
     attr_reader :password
 
     def self.find_by_credentials(username, password)

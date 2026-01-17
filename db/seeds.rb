@@ -100,6 +100,14 @@ extra_users = [
   )
 end
 
+users_for_follows = [guest, steph] + extra_users
+users_for_follows.each do |user|
+  candidates = users_for_follows.reject { |u| u.id == user.id }
+  candidates.sample(rand(2..5)).each do |followed|
+    Follow.find_or_create_by!(follower_id: user.id, followed_id: followed.id)
+  end
+end
+
 songs = []
 
 # Optional: include this track only when explicitly requested
