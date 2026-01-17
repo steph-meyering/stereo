@@ -8,6 +8,7 @@ const mSTP = (state, ownProps) => {
     song: ownProps.song,
     currentlyPlaying: state.playControls.currentSong,
     selected: ownProps.selected,
+    currentUserId: state.session.id,
   };
 };
 

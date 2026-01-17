@@ -17,14 +17,25 @@ class WaveForm extends React.Component {
 
   componentDidMount() {
     this.wave = initWave(this.props.container);
+    let waveformData = null;
+    if (this.props.song.waveform && this.props.song.waveform !== "[]") {
+      try {
+        waveformData = JSON.parse(this.props.song.waveform);
+        if (Array.isArray(waveformData) && waveformData.length === 0) {
+          waveformData = null;
+        }
+      } catch (e) {
+        waveformData = null;
+      }
+    }
     this.wave.load(
       this.props.song.fileUrl,
-      this.props.song.waveform ? JSON.parse(this.props.song.waveform) : null
+      waveformData
     );
     this.wave.on("ready", () => {
       this.syncWave();
       // Save waveform data if it doesn't exist
-      if (!this.props.song.waveform) {
+      if (!waveformData && this.canSaveWaveform()) {
         this.savePeakData(this.props.song.id, this.wave);
       }
     });
@@ -69,10 +80,16 @@ class WaveForm extends React.Component {
   savePeakData(id, wave) {
     wave.exportPCM(512, 100, true)
       .then((res) => {
+        if (Array.isArray(res) && res.length === 0) return;
+        if (typeof res === "string" && res.trim() === "[]") return;
         let formData = new FormData();
         formData.append("song[waveform]", res);
         this.props.updateSong({id, song: formData});
       });
+  }
+
+  canSaveWaveform() {
+    return this.props.currentUserId && this.props.currentUserId === this.props.song.artistId;
   }
    
   
