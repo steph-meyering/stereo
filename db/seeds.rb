@@ -46,6 +46,22 @@ def ensure_song(artist:, title:, genre:, audio_url:, photo_url:)
   song
 end
 
+def comment_body_for(song)
+  phrases = [
+    "On repeat.",
+    "This groove is perfect.",
+    "Love the mix and the vibe.",
+    "Instant favorite.",
+    "That drop is clean.",
+    "So smooth.",
+    "This is a mood.",
+    "Great production on this one.",
+    "Can't stop listening.",
+    "Beautiful texture throughout."
+  ]
+  "#{phrases.sample} #{song.title.split('-').last.to_s.strip}."
+end
+
 guest = ensure_user(
   username: "Demo User",
   password: "password",
@@ -63,9 +79,32 @@ steph = ensure_user(
   admin: true
 )
 
+extra_users = [
+  { username: "Ava Stone", email: "ava.stone@example.com", location: "Oakland", about: "Vinyl collector." },
+  { username: "Liam Park", email: "liam.park@example.com", location: "Seattle", about: "Chill beats all day." },
+  { username: "Noah Brooks", email: "noah.brooks@example.com", location: "Austin", about: "Bedroom producer." },
+  { username: "Mia Carter", email: "mia.carter@example.com", location: "Portland", about: "Late-night listener." },
+  { username: "Ethan Reed", email: "ethan.reed@example.com", location: "Denver", about: "Crate digger." },
+  { username: "Zoey Quinn", email: "zoey.quinn@example.com", location: "Los Angeles", about: "Ambient and lo-fi." },
+  { username: "Lucas Hall", email: "lucas.hall@example.com", location: "Chicago", about: "Sampler enthusiast." },
+  { username: "Sofia Price", email: "sofia.price@example.com", location: "Brooklyn", about: "Always chasing new sounds." },
+  { username: "Mason Bell", email: "mason.bell@example.com", location: "Phoenix", about: "Headphones on." },
+  { username: "Harper Lane", email: "harper.lane@example.com", location: "San Diego", about: "Melodic vibes." }
+].map do |attrs|
+  ensure_user(
+    username: attrs[:username],
+    password: "password",
+    email: attrs[:email],
+    location: attrs[:location],
+    about: attrs[:about]
+  )
+end
+
+songs = []
+
 # Optional: include this track only when explicitly requested
 if ENV["INCLUDE_SONG1"] == "true"
-  ensure_song(
+  songs << ensure_song(
     artist: steph,
     title: "Apashe - Work (feat. Young Buck)",
     genre: "bass",
@@ -74,7 +113,7 @@ if ENV["INCLUDE_SONG1"] == "true"
   )
 end
 
-ensure_song(
+songs << ensure_song(
   artist: guest,
   title: "dontcry - redbone",
   genre: "lo-fi chill",
@@ -82,7 +121,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/dontcry+-+redbone.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "B l o m s t - Chill Rain",
   genre: "chillout",
@@ -90,7 +129,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/blomst-chillrain.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Foster The People - Pumped Up Kicks",
   genre: "indie pop",
@@ -98,7 +137,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/FosterThePeople-PumpedUpKicks.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Gramatik - East Coast",
   genre: "electronica",
@@ -106,7 +145,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/Gramatik-EastCoast.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Kill The Noise ft Mija - Salvation",
   genre: "bass",
@@ -114,7 +153,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/KillTheNoise-Salvation.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Kupla - Feathers",
   genre: "chill",
@@ -122,7 +161,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/kupla-feathers.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Letherette - CartoonHaunt",
   genre: "experimental",
@@ -130,7 +169,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/Letherette-CartoonHaunt.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Saib - Piano bar",
   genre: "lofi hip-hop",
@@ -138,7 +177,7 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/saib-pianobar.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "tails - Misted",
   genre: "chillout",
@@ -146,10 +185,22 @@ ensure_song(
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/tails-Misted.jpg"
 )
 
-ensure_song(
+songs << ensure_song(
   artist: steph,
   title: "Wax Tailor - Que Sera",
   genre: "electronica",
   audio_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/music/WaxTailor-QueSera.mp3",
   photo_url: "https://stereo-seeds.s3-us-west-1.amazonaws.com/album-art/WaxTailor-QueSera.jpg"
 )
+
+commenters = [guest, steph] + extra_users
+songs.each do |song|
+  rand(2..8).times do
+    Comment.create!(
+      song_id: song.id,
+      user_id: commenters.sample.id,
+      body: comment_body_for(song),
+      song_time: rand(0..120)
+    )
+  end
+end
