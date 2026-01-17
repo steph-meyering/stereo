@@ -29,7 +29,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:show, :create]
-    resources :playlists, only: [:index, :show, :create, :update, :destroy]
+    resources :playlists, only: [:index, :show, :create, :update, :destroy] do
+      resources :playlist_songs, only: [:create, :update, :destroy]
+    end
     resources :songs, only: [:show, :update, :destroy, :index, :create] do
       resources :comments, only: [:show, :update, :destroy, :index, :create]
       resource :like, only: [:create, :destroy]
