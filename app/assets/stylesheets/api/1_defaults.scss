@@ -30,6 +30,14 @@ a {
     text-decoration: none;
 }
 
+button:focus-visible,
+.play-button:focus-visible,
+.pause-button:focus-visible,
+.player-button:focus-visible {
+    outline: 2px solid $orange;
+    outline-offset: 2px;
+}
+
 
 h1 {
     font-size: 32px;

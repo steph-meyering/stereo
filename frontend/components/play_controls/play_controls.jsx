@@ -159,29 +159,83 @@ class PlayControls extends React.Component {
               <div
                 className="player-previous player-button"
                 onClick={() => this.playPrevious()}
+                role="button"
+                tabIndex="0"
+                aria-label="Play previous"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.playPrevious();
+                  }
+                }}
               ></div>
               <div
                 id="play-pause"
                 className="player-pause player-button"
                 onClick={() => this.props.playPauseSong()}
+                role="button"
+                tabIndex="0"
+                aria-label="Play or pause"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.props.playPauseSong();
+                  }
+                }}
               ></div>
               <div
                 className="player-next player-button"
                 onClick={() => this.playNext()}
+                role="button"
+                tabIndex="0"
+                aria-label="Play next"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.playNext();
+                  }
+                }}
               ></div>
               <div
                 className={`${
                   this.state.shuffle ? "player-shuffle-on" : "player-shuffle-off"
                 } player-button`}
                 onClick={() => this.toggleShuffle()}
+                role="button"
+                tabIndex="0"
+                aria-label="Toggle shuffle"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.toggleShuffle();
+                  }
+                }}
               ></div>
               <div
                 className={`${this.state.repeating[0]} player-button`}
                 onClick={() => this.toggleRepeat()}
+                role="button"
+                tabIndex="0"
+                aria-label="Toggle repeat"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.toggleRepeat();
+                  }
+                }}
               ></div>
               <div
                 className="player-queue player-button"
                 onClick={() => this.toggleQueue()}
+                role="button"
+                tabIndex="0"
+                aria-label="Toggle queue"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    this.toggleQueue();
+                  }
+                }}
               ></div>
               <div id="timeline">
                 <div id="current-time">--:--</div>

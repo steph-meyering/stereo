@@ -69,6 +69,23 @@ class SongIndexItem extends React.Component {
                   this.props.selectSong(this.props.song);
                 }
               }}
+              role="button"
+              tabIndex="0"
+              aria-label={selected && playing ? "Pause song" : "Play song"}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  if (selected) {
+                    this.props.playPauseSong();
+                  } else {
+                    let progress = document.getElementById("progress-bar");
+                    if (progress) {
+                      progress.value = 0;
+                    }
+                    this.props.selectSong(this.props.song);
+                  }
+                }
+              }}
             ></div>
             <div>
               <Link to={`/users/${this.props.song.artistId}`}>

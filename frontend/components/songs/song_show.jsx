@@ -53,6 +53,23 @@ class SongShow extends React.Component {
                     this.props.selectSong(this.props.song);
                   }
                 }}
+                role="button"
+                tabIndex="0"
+                aria-label={this.selected && this.playing ? "Pause song" : "Play song"}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    if (this.selected) {
+                      this.props.playPauseSong();
+                    } else {
+                      let progress = document.getElementById("progress-bar");
+                      if (progress) {
+                        progress.value = 0;
+                      }
+                      this.props.selectSong(this.props.song);
+                    }
+                  }
+                }}
               ></div>
               <div className="name-artist">
                 <h3 className="username">{this.props.song.artist}</h3>

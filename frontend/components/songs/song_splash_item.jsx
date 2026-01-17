@@ -29,6 +29,19 @@ class SongSplashItem extends React.Component {
             }
           } 
         }
+          role="button"
+          tabIndex="0"
+          aria-label={selected && playing ? "Pause song" : "Play song"}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              if (selected) {
+                this.props.playPauseSong();
+              } else {
+                this.props.selectSong(this.props.song);
+              }
+            }
+          }}
         ></div>
         <div className="splash-song-info">
           <Link to={`/songs/${this.props.song.id}`}>

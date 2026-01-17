@@ -58,18 +58,6 @@ This document outlines the product roadmap for Stereo (a SoundCloud-style clone)
 
 ---
 
-### 4) Discovery & Feeds
-**Goal**: Help users find content.
-- Follow graph (user to user)
-- Feed of new uploads by followed users
-- Trending page with time window scoring
-- Search improvements (artist/title/genre)
-
-**Definition of Done**
-- Personalized feed and discoverable trending
-
----
-
 ### 5) UX Polish & Design System
 **Goal**: Move closer to the SoundCloud feel.
 - Mini-player bar with queue and scrub preview
@@ -79,6 +67,18 @@ This document outlines the product roadmap for Stereo (a SoundCloud-style clone)
 
 **Definition of Done**
 - Consistent UI and polished audio experience
+
+---
+
+### 4) Discovery & Feeds
+**Goal**: Help users find content.
+- Follow graph (user to user)
+- Feed of new uploads by followed users
+- Trending page with time window scoring
+- Search improvements (artist/title/genre)
+
+**Definition of Done**
+- Personalized feed and discoverable trending
 
 ---
 
@@ -139,11 +139,11 @@ For every roadmap item:
 ### Milestone 2: Engagement Features
 - Likes, reposts, playlists
 
-### Milestone 3: Discovery & Feed
-- Follow graph, feed, trending, search improvements
-
-### Milestone 4: UX Polish
+### Milestone 3: UX Polish
 - Mini-player, themed UI, hover previews
+
+### Milestone 4: Discovery & Feed
+- Follow graph, feed, trending, search improvements
 
 ### Milestone 5: Performance
 - Streaming optimization, waveform precompute
