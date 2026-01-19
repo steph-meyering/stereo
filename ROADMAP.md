@@ -70,18 +70,6 @@ This document outlines the product roadmap for Stereo (a SoundCloud-style clone)
 
 ---
 
-### 4) Discovery & Feeds
-**Goal**: Help users find content.
-- Follow graph (user to user)
-- Feed of new uploads by followed users
-- Trending page with time window scoring
-- Search improvements (artist/title/genre)
-
-**Definition of Done**
-- Personalized feed and discoverable trending
-
----
-
 ### 6) Performance & Streaming
 **Goal**: Improve stability and scale.
 - Range request audio streaming
@@ -142,7 +130,7 @@ For every roadmap item:
 ### Milestone 3: UX Polish
 - Mini-player, themed UI, hover previews
 
-### Milestone 4: Discovery & Feed
+### Milestone 4: Discovery & Feed (Backlog)
 - Follow graph, feed, trending, search improvements
 
 ### Milestone 5: Performance
@@ -150,6 +138,20 @@ For every roadmap item:
 
 ### Milestone 6: Creator Tools
 - Analytics, draft uploads, release pages
+
+---
+
+## Backlog (Deprioritized for Now)
+
+### Discovery & Feeds
+**Goal**: Help users find content.
+- Follow graph (user to user)
+- Feed of new uploads by followed users
+- Trending page with time window scoring
+- Search improvements (artist/title/genre)
+
+**Definition of Done**
+- Personalized feed and discoverable trending
 
 ---
 
