@@ -3,5 +3,5 @@ class Repost < ApplicationRecord
   validates :song_id, uniqueness: { scope: :user_id }
 
   belongs_to :user
-  belongs_to :song
+  belongs_to :song, counter_cache: true
 end
