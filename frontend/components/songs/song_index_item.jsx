@@ -47,11 +47,14 @@ class SongIndexItem extends React.Component {
     return (
       <div className="song-index-item">
         <Link to={`/songs/${this.props.song.id}`}>
-          <img
-            className="album-cover"
-            src={this.props.song.photoUrl}
-            alt={this.props.song.title}
-          />
+          <div className="album-cover-wrapper">
+            <img
+              className="album-cover"
+              src={this.props.song.photoUrl}
+              alt={this.props.song.title}
+            />
+            <div className="album-cover-preview">Preview</div>
+          </div>
         </Link>
         <div className="info-and-wave">
           <div className="song-index-info">

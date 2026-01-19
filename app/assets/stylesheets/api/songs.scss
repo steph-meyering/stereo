@@ -162,6 +162,37 @@
   }
 }
 
+.album-cover-wrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+.album-cover-wrapper .album-cover {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.album-cover-preview {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.song-index-item:hover .album-cover-preview {
+  opacity: 1;
+}
+
 .song-index-item:hover .album-cover {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);

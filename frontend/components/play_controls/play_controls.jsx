@@ -163,9 +163,16 @@ class PlayControls extends React.Component {
       const upNext = this.props.queue && this.props.queue.length > 1
         ? this.props.queue.slice(1)
         : [];
+      const playerStyle = this.props.currentlyPlaying.photoUrl
+        ? {
+            backgroundImage: `linear-gradient(90deg, rgba(242, 242, 242, 0.97), rgba(242, 242, 242, 0.9)), url(${this.props.currentlyPlaying.photoUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }
+        : undefined;
       return (
         <Slide bottom>
-          <span id="play-controls">
+          <span id="play-controls" style={playerStyle}>
             <audio
               id="audio-element"
               onTimeUpdate={this.initProgress}
