@@ -32,10 +32,10 @@ class Navbar extends React.Component {
                   this.redirect = true;
                 }}
               >
-                Sign out
+                <span>Sign out</span>
               </button>
               <Link className="upload-button" to="/upload">
-                Upload
+                <span>Upload</span>
               </Link>
               <Link to={`/users/${currentUser.id}`}>
                 <img
@@ -65,13 +65,13 @@ class Navbar extends React.Component {
                   openModal("login")
                 }}
               >
-                Sign in
+                <span>Sign in</span>
               </button>
               <button
                 className="create-account-button"
                 onClick={() => openModal("signup")}
               >
-                Create account
+                <span>Create account</span>
               </button>
             </div>
           </div>

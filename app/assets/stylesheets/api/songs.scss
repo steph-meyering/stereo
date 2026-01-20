@@ -12,6 +12,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0px 3% 3% 3%;
+
+  @include mobile {
+    justify-content: center;
+  }
 }
 
 .song-splash-item {
@@ -26,6 +30,20 @@
     margin: 40px 15px 20px 15px;
     border: 1px solid rgba(0,0,0,.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    @include tablet {
+      width: 160px;
+      height: 160px;
+      margin: 30px 10px 15px 10px;
+    }
+
+    @include mobile {
+      width: 280px;
+      height: 280px;
+      max-width: 90vw;
+      max-height: 90vw;
+      margin: 20px auto 15px auto;
+    }
   }
 
   & .play-button {
@@ -38,6 +56,12 @@
     &:hover {
       z-index: 10;
     }
+
+    @include mobile {
+      width: 80px;
+      height: 80px;
+      z-index: 10;
+    }
   }
 
   & .pause-button {
@@ -48,6 +72,12 @@
     left: 34.5%;
     z-index: -1;
     &:hover {
+      z-index: 10;
+    }
+
+    @include mobile {
+      width: 80px;
+      height: 80px;
       z-index: 10;
     }
   }
@@ -80,6 +110,16 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: "interstateregular";
+
+    @include tablet {
+      width: 160px;
+    }
+
+    @include mobile {
+      width: 280px;
+      max-width: 90vw;
+      text-align: center;
+    }
   }
 }
 
@@ -160,6 +200,11 @@
     border: 1px solid #999999;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+
+  @include mobile {
+    flex-direction: column;
+    padding: 10px;
+  }
 }
 
 .album-cover-wrapper {
@@ -202,6 +247,18 @@
   width: 160px;
   height: 160px;
   object-fit: cover;
+
+  @include tablet {
+    width: 140px;
+    height: 140px;
+  }
+
+  @include mobile {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
 }
 
 .info-and-wave {
@@ -212,6 +269,11 @@
   width: 100%;
   justify-self: center;
   margin-left: 10px;
+
+  @include mobile {
+    margin-left: 0;
+    margin-top: 10px;
+  }
 }
 
 .song-index-info {

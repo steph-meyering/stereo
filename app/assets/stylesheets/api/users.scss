@@ -59,16 +59,34 @@
 
 .songs-and-sidebar {
   display: flex;
+
+  @include tablet {
+    flex-direction: column;
+  }
 }
 
 .song-index {
   position: relative;
   flex-basis: 71%;
+
+  @include tablet {
+    flex-basis: 100%;
+  }
 }
 
 .sidebar-main {
   flex-basis: 28%;
   border-left: 1px solid $very-light-grey;
+
+  @include tablet {
+    flex-basis: 100%;
+    border-left: none;
+    border-top: 1px solid $very-light-grey;
+  }
+
+  @include mobile {
+    display: none;
+  }
 }
 
 .sidebar {

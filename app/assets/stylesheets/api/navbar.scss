@@ -16,6 +16,9 @@
     justify-content: space-between;
     align-items: center;
 
+    @include mobile {
+        margin: 0px 3%;
+    }
 }
 
 .navbar-buttons {
@@ -47,19 +50,67 @@
 
 .create-account-button{
 	@include small-orange-button;
+
+	@include mobile {
+		padding: 4px 10px;
+		font-size: 12px;
+		span {
+			display: none;
+		}
+		&::before {
+			content: "+";
+			font-size: 18px;
+		}
+	}
 }
 
 .sign-in-button{
 	@include small-transparent-button;
+
+	@include mobile {
+		padding: 4px 10px;
+		font-size: 12px;
+		span {
+			display: none;
+		}
+		&::before {
+			content: "→";
+			font-size: 18px;
+		}
+	}
 }
 
 .sign-out-button{
 	@include small-transparent-button;
+
+	@include mobile {
+		padding: 4px 10px;
+		font-size: 12px;
+		span {
+			display: none;
+		}
+		&::before {
+			content: "←";
+			font-size: 18px;
+		}
+	}
 }
 
 .upload-button {
     @include small-orange-button;
     padding: 4px 16px;
+
+    @include mobile {
+        padding: 4px 10px;
+        font-size: 12px;
+        span {
+            display: none;
+        }
+        &::before {
+            content: "↑";
+            font-size: 18px;
+        }
+    }
 }
 
 .profile-pic-thumbnail {

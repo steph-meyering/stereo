@@ -1,0 +1,21 @@
+// Breakpoint definitions for responsive design
+$mobile-max: 600px;
+$tablet-max: 900px;
+
+@mixin mobile {
+  @media (max-width: $mobile-max) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet-max) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $tablet-max + 1) {
+    @content;
+  }
+}
