@@ -1,0 +1,200 @@
+@import "./style";
+
+// TopBar - Dark navbar with search
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: var(--navbar-bg);
+  color: var(--navbar-text);
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @include mobile {
+    height: 56px;
+  }
+}
+
+.topbar-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @include mobile {
+    padding: 0 var(--space-4);
+  }
+}
+
+// Logo
+.topbar-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  margin-right: var(--space-5);
+
+  @include mobile {
+    font-size: 20px;
+    margin-right: var(--space-3);
+  }
+}
+
+.logo-mobile {
+  display: none;
+
+  @include mobile {
+    display: inline;
+  }
+}
+
+.logo-full {
+  display: inline;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+// Search
+.topbar-search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+
+  @include mobile {
+    max-width: 200px;
+  }
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 40px 8px 16px;
+  border: none;
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--navbar-text);
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  @include mobile {
+    padding: 6px 36px 6px 12px;
+    font-size: 14px;
+  }
+}
+
+.search-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: var(--navbar-text);
+  }
+}
+
+// Actions
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+
+  @include mobile {
+    gap: var(--space-2);
+  }
+}
+
+.topbar-button {
+  padding: 8px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+
+  @include mobile {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+}
+
+.signup-btn {
+  background-color: var(--accent);
+  color: white;
+
+  &:hover {
+    background-color: var(--accent-hover);
+  }
+}
+
+.upload-btn {
+  background-color: transparent;
+  color: var(--navbar-text);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  @include mobile {
+    span {
+      display: none;
+    }
+    &::before {
+      content: "↑";
+      font-size: 18px;
+    }
+  }
+}
+
+.topbar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @include mobile {
+    width: 32px;
+    height: 32px;
+  }
+}

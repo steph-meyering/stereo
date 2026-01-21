@@ -1,0 +1,112 @@
+@import "./style";
+
+// App Layout Structure
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+// Mobile Layout Stack
+// ┌─────────────────────┐
+// │  TopBar (fixed)     │
+// ├─────────────────────┤
+// │  Scrollable Content │
+// ├─────────────────────┤
+// │  MiniPlayer (cond)  │
+// ├─────────────────────┤
+// │  BottomTabs (fixed) │
+// └─────────────────────┘
+
+.app-content-wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 60px; // TopBar height
+  padding-bottom: 120px; // MiniPlayer + BottomTabs
+
+  @include mobile {
+    margin-top: 56px;
+    padding-bottom: 120px; // 64px mini + 56px tabs
+  }
+}
+
+.app-main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
+
+  @include mobile {
+    padding: var(--space-4);
+  }
+}
+
+// Desktop Layout
+// ┌─────────────────────────────────┐
+// │  Navbar (fixed)                 │
+// ├──────────────────┬──────────────┤
+// │  Main Content    │  Sidebar     │
+// └──────────────────┴──────────────┘
+
+@media (min-width: 900px) {
+  .app-content-wrapper {
+    flex-direction: row;
+    padding-bottom: 80px; // Player bar only
+  }
+
+  .app-main-content {
+    flex: 1;
+    max-width: calc(100% - 320px); // Leave room for sidebar
+  }
+
+  .app-sidebar {
+    width: 320px;
+    position: fixed;
+    right: 0;
+    top: 60px;
+    bottom: 80px;
+    background-color: var(--surface);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    display: none; // Hidden until a song is playing
+
+    &.visible {
+      display: block;
+    }
+  }
+}
+
+// Bottom navigation for mobile
+.bottom-tabs {
+  display: none;
+
+  @include mobile {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    z-index: 98;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+// Mini player (mobile)
+.mini-player-container {
+  display: none;
+
+  @include mobile {
+    display: block;
+    position: fixed;
+    bottom: 56px; // Above bottom tabs
+    left: 0;
+    right: 0;
+    z-index: 99;
+  }
+}
