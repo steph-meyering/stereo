@@ -8,7 +8,9 @@
 }
 #comment-form{
   width: 100%;
-  background-color: #f2f2f2;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
 
 #comment-body-input{
@@ -16,6 +18,17 @@
   margin: 3px;
   font-size: 18px;
   padding: 4px;
+  background-color: var(--surface);
+  color: var(--text);
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--muted);
+  }
 }
 
 #comment-section{
@@ -50,6 +63,7 @@
   hyphens: auto;
   padding-right: 60px;
   min-width: 0;
+  color: var(--text);
 
   @include mobile {
     padding-right: 10px;

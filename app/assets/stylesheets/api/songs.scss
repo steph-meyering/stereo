@@ -457,15 +457,16 @@
 #song-delete-button{
   position: absolute;
   @include small-transparent-button;
-  color: #333;
+  color: var(--text);
 }
 
 .image-upload-button {
   position: absolute;
   bottom: 20px;
   left: 70px;
-  background-color: #e3e7e9;
-  color: black;
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
   align-items: center;
   font-size: 14px;
   padding: 5px 10px;

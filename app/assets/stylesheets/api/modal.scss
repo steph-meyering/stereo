@@ -14,10 +14,11 @@
 }
 
 .modal-child {
-	background-color: white;
-	border-radius: 5px;
+	background-color: var(--surface);
+	border-radius: var(--radius-md);
 	z-index: 1001;
 	position: relative;
+	color: var(--text);
 }
 
 .login-form-container {
@@ -80,6 +81,14 @@
 		@include mobile {
 			font-size: 16px;
 			padding: 8px;
+		}
+		background-color: var(--surface);
+		color: var(--text);
+		border: 1px solid var(--border);
+
+		&:focus {
+			outline: none;
+			border-color: var(--accent);
 		}
 	}
 }
