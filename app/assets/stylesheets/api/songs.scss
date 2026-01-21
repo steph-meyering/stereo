@@ -125,8 +125,19 @@
   }
 }
 
-.queue-add-button {
+.song-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
   margin-top: 6px;
+
+  @include mobile {
+    margin-top: 4px;
+  }
+}
+
+.queue-add-button {
   padding: 4px 8px;
   background: none;
   border: 1px solid $light-grey;
@@ -138,11 +149,35 @@
     border-color: $orange;
     color: $orange;
   }
+
+  @include mobile {
+    padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    .button-text {
+      display: none;
+    }
+    
+    .button-icon {
+      display: inline;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  @include desktop {
+    .button-icon {
+      display: none;
+    }
+  }
 }
 
 .like-button {
-  margin-top: 6px;
-  margin-left: 6px;
+  margin-left: 0;
   padding: 4px 8px;
   background: none;
   border: 1px solid $light-grey;
@@ -157,6 +192,24 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  @include mobile {
+    padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    
+    .button-icon {
+      font-size: 16px;
+    }
+    
+    .button-count {
+      font-size: 12px;
+    }
   }
 }
 
@@ -166,8 +219,7 @@
 }
 
 .repost-button {
-  margin-top: 6px;
-  margin-left: 6px;
+  margin-left: 0;
   padding: 4px 8px;
   background: none;
   border: 1px solid $light-grey;
@@ -182,6 +234,24 @@
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  @include mobile {
+    padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    
+    .button-icon {
+      font-size: 16px;
+    }
+    
+    .button-count {
+      font-size: 12px;
+    }
   }
 }
 

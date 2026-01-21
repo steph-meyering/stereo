@@ -95,34 +95,45 @@ class SongIndexItem extends React.Component {
                 {this.props.song.artist}
               </Link>
               <h3>{this.props.song.title}</h3>
-              <button
-                className="queue-add-button"
-                onClick={() => this.props.addToQueue(this.props.song)}
-              >
-                Add to Queue
-              </button>
-              <button
-                className={liked ? "like-button liked" : "like-button"}
-                disabled={!this.props.currentUser}
-                onClick={() =>
-                  liked
-                    ? this.props.unlikeSong(this.props.song.id)
-                    : this.props.likeSong(this.props.song.id)
-                }
-              >
-                {liked ? "Liked" : "Like"} · {likeCount}
-              </button>
-              <button
-                className={reposted ? "repost-button reposted" : "repost-button"}
-                disabled={!this.props.currentUser}
-                onClick={() =>
-                  reposted
-                    ? this.props.unrepostSong(this.props.song.id)
-                    : this.props.repostSong(this.props.song.id)
-                }
-              >
-                {reposted ? "Reposted" : "Repost"} · {repostCount}
-              </button>
+              <div className="song-actions">
+                <button
+                  className="queue-add-button"
+                  onClick={() => this.props.addToQueue(this.props.song)}
+                  aria-label="Add to queue"
+                  title="Add to Queue"
+                >
+                  <span className="button-text">Add to Queue</span>
+                  <span className="button-icon">+</span>
+                </button>
+                <button
+                  className={liked ? "like-button liked" : "like-button"}
+                  disabled={!this.props.currentUser}
+                  onClick={() =>
+                    liked
+                      ? this.props.unlikeSong(this.props.song.id)
+                      : this.props.likeSong(this.props.song.id)
+                  }
+                  aria-label={liked ? "Unlike" : "Like"}
+                  title={liked ? "Unlike" : "Like"}
+                >
+                  <span className="button-icon">♥</span>
+                  <span className="button-count">{likeCount}</span>
+                </button>
+                <button
+                  className={reposted ? "repost-button reposted" : "repost-button"}
+                  disabled={!this.props.currentUser}
+                  onClick={() =>
+                    reposted
+                      ? this.props.unrepostSong(this.props.song.id)
+                      : this.props.repostSong(this.props.song.id)
+                  }
+                  aria-label={reposted ? "Unrepost" : "Repost"}
+                  title={reposted ? "Unrepost" : "Repost"}
+                >
+                  <span className="button-icon">↻</span>
+                  <span className="button-count">{repostCount}</span>
+                </button>
+              </div>
             </div>
           </div>
           <WaveFormContainer
