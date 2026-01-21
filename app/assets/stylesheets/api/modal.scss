@@ -10,12 +10,14 @@
 	right: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.7);
-	z-index: 10;
+	z-index: 1000;
 }
 
 .modal-child {
 	background-color: white;
 	border-radius: 5px;
+	z-index: 1001;
+	position: relative;
 }
 
 .login-form-container {
