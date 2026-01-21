@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import WaveformSeek from "../waveform/waveform_seek";
 
 class TrackCardV3 extends React.Component {
   constructor(props) {
@@ -24,15 +25,53 @@ class TrackCardV3 extends React.Component {
     this.setState({ showOverflow: !this.state.showOverflow });
   };
 
+  handleWaveformSeek = (percentage) => {
+    const { song, currentlyPlaying, selectSong, seek } = this.props;
+    const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
+
+    // If this song isn't playing, start it first
+    if (!isSelected) {
+      selectSong(song);
+      // Give it a moment to load, then seek
+      setTimeout(() => {
+        seek(song.id, percentage);
+      }, 100);
+    } else {
+      seek(song.id, percentage);
+    }
+  };
+
+  getWaveformProgress = () => {
+    const { song, currentlyPlaying } = this.props;
+    const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
+    
+    if (!isSelected || !currentlyPlaying.progress) {
+      return 0;
+    }
+    
+    return currentlyPlaying.progress / 100;
+  };
+
   render() {
     const { song, currentUser, addToQueue, likeSong, unlikeSong, repostSong, unrepostSong, currentlyPlaying } = this.props;
     const { showOverflow } = this.state;
 
     const isPlaying = currentlyPlaying && currentlyPlaying.id === song.id && currentlyPlaying.playing;
+    const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
     const liked = song.liked;
     const reposted = song.reposted;
     const likeCount = song.likeCount || 0;
     const repostCount = song.repostCount || 0;
+
+    // Parse waveform data
+    let waveformData = null;
+    if (song.waveform && song.waveform !== "[]") {
+      try {
+        waveformData = JSON.parse(song.waveform);
+      } catch (e) {
+        // Invalid JSON, use null
+      }
+    }
 
     return (
       <div className="track-card-v3">
@@ -62,20 +101,14 @@ class TrackCardV3 extends React.Component {
           </div>
         </div>
 
-        {/* Waveform section (placeholder for now) */}
+        {/* Interactive Waveform */}
         <div className="track-card-waveform">
-          <div className="waveform-bars">
-            {Array.from({ length: 50 }).map((_, i) => (
-              <div
-                key={i}
-                className="waveform-bar"
-                style={{
-                  height: `${Math.random() * 80 + 20}%`,
-                  backgroundColor: i < 20 ? 'var(--waveform-played)' : 'var(--waveform-unplayed)'
-                }}
-              />
-            ))}
-          </div>
+          <WaveformSeek
+            waveformData={waveformData}
+            progress={this.getWaveformProgress()}
+            height={40}
+            onSeek={this.handleWaveformSeek}
+          />
         </div>
 
         {/* Engagement row */}
