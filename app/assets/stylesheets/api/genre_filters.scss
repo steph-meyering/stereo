@@ -1,0 +1,61 @@
+@import "./style";
+
+.genre-filters-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+}
+
+.genre-filters-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+
+  @include mobile {
+    font-size: 24px;
+  }
+}
+
+.genre-filters {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.genre-pill {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  background-color: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  &.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: var(--accent-muted);
+  }
+
+  @include mobile {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+}
