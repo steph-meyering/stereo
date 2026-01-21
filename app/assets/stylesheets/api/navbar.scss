@@ -16,7 +16,7 @@
     justify-content: space-between;
     align-items: center;
 
-    @include mobile {
+    @media (max-width: 600px) {
         margin: 0px 3%;
     }
 }
@@ -51,7 +51,7 @@
 .create-account-button{
 	@include small-orange-button;
 
-	@include mobile {
+	@media (max-width: 600px) {
 		padding: 4px 10px;
 		font-size: 12px;
 		span {
@@ -67,7 +67,7 @@
 .sign-in-button{
 	@include small-transparent-button;
 
-	@include mobile {
+	@media (max-width: 600px) {
 		padding: 4px 10px;
 		font-size: 12px;
 		span {
@@ -83,7 +83,7 @@
 .sign-out-button{
 	@include small-transparent-button;
 
-	@include mobile {
+	@media (max-width: 600px) {
 		padding: 4px 10px;
 		font-size: 12px;
 		span {
@@ -100,7 +100,7 @@
     @include small-orange-button;
     padding: 4px 16px;
 
-    @include mobile {
+    @media (max-width: 600px) {
         padding: 4px 10px;
         font-size: 12px;
         span {
