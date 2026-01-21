@@ -1,0 +1,19 @@
+@import "./style";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+.main-content {
+  margin-top: 60px; // TopBar height
+  padding-bottom: 80px; // Player bar height
+  flex: 1;
+
+  @include mobile {
+    margin-top: 56px;
+    padding-bottom: 120px; // Player + bottom tabs
+  }
+}

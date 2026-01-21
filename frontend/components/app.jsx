@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./navbar/navbar_container";
+import TopBarContainer from "./layout/top_bar_container";
 import { Switch, Route, Redirect, Router } from "react-router-dom";
 import { ProtectedRoute } from "../util/route_util";
 import ModalContainer from "./modal/modal_container";
@@ -16,7 +16,7 @@ import PlaylistIndexContainer from "./playlists/playlist_index_container";
 const App = () => (
   <div className="main">
     <ModalContainer />
-    <Navbar />
+    <TopBarContainer />
     <div className="main-content">
       <Route exact path="/" component={SplashHeader} />
       <Switch>
