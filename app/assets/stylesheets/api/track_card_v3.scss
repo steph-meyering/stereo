@@ -1,0 +1,204 @@
+@import "./style";
+
+.track-card-v3 {
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+  margin-bottom: var(--space-4);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// Header: Album art + Title/Artist
+.track-card-header {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.track-card-artwork-wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.track-card-artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.track-card-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  .track-card-v3:hover & {
+    opacity: 1;
+  }
+
+  &.playing {
+    opacity: 1;
+  }
+
+  @include mobile {
+    opacity: 1;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.track-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.track-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  margin-bottom: var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.track-card-artist {
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+// Waveform
+.track-card-waveform {
+  height: 40px;
+  margin-bottom: var(--space-3);
+  cursor: pointer;
+}
+
+.waveform-bars {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  gap: 1px;
+}
+
+.waveform-bar {
+  flex: 1;
+  min-width: 2px;
+  transition: background-color 0.2s ease;
+}
+
+// Actions
+.track-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.action-button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+
+  &:hover:not(:disabled) {
+    color: var(--text);
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.active {
+    color: var(--accent);
+  }
+
+  .count {
+    font-size: 13px;
+  }
+}
+
+.track-card-overflow {
+  position: relative;
+  margin-left: auto;
+}
+
+.overflow-trigger {
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.overflow-menu {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: var(--space-1);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 160px;
+  overflow: hidden;
+  z-index: 10;
+
+  button,
+  a {
+    display: block;
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    background: none;
+    border: none;
+    text-align: left;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--accent-muted);
+      color: var(--accent);
+    }
+  }
+}
