@@ -63,12 +63,20 @@ class TopBar extends React.Component {
                 </Link>
               </>
             ) : (
-              <button
-                className="topbar-button signup-btn"
-                onClick={() => openModal("signup")}
-              >
-                Sign up
-              </button>
+              <>
+                <button
+                  className="topbar-button signin-btn"
+                  onClick={() => openModal("login")}
+                >
+                  Sign in
+                </button>
+                <button
+                  className="topbar-button signup-btn"
+                  onClick={() => openModal("signup")}
+                >
+                  Sign up
+                </button>
+              </>
             )}
           </div>
         </div>
