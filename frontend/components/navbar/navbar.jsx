@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import ThemeToggle from "../theme/theme_toggle";
 
 class Navbar extends React.Component {
   constructor(props){
@@ -25,6 +26,7 @@ class Navbar extends React.Component {
               </div>
             </Link>
             <div className="navbar-buttons">
+              <ThemeToggle />
               <button
                 className="sign-out-button"
                 onClick={() => {
@@ -58,6 +60,7 @@ class Navbar extends React.Component {
               </div>
             </Link>
             <div className="navbar-buttons">
+              <ThemeToggle />
               <button
                 className="sign-in-button"
                 onClick={() => {
