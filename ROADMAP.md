@@ -264,26 +264,43 @@ Import them first in `_style.scss` so every file can use the mixins.
 
 ---
 
-### Milestone V2-4: Dark Mode for Mobile
+### Milestone V2-4: Dark Mode (All Platforms)
 
-**Goal**: Comfortable night-time listening.
+**Goal**: Support both light and dark themes across mobile and desktop.
 
 | Token | Light | Dark |
 |-------|-------|------|
-| `--bg-primary` | `#fff` | `#121212` |
-| `--bg-secondary` | `#f2f2f2` | `#1e1e1e` |
-| `--text-primary` | `#333` | `#e0e0e0` |
-| `--text-secondary` | `#999` | `#888` |
+| `--bg` | `#f7f7f7` | `#121212` |
+| `--surface` | `#ffffff` | `#1e1e1e` |
+| `--surface-elevated` | `#ffffff` | `#2a2a2a` |
+| `--text` | `#333333` | `#e0e0e0` |
+| `--muted` | `#666666` | `#888888` |
+| `--border` | `#e0e0e0` | `#333333` |
 | `--accent` | `#f50` | `#f50` (keep consistent) |
 
+**Theme Toggle:**
+- Place toggle in navbar (sun/moon icon)
+- Store preference in `localStorage`
+- Respect OS `prefers-color-scheme` as default
+- Add `.light-mode` and `.dark-mode` classes to `<html>`
+
 **Implementation notes**:
-- Define CSS custom properties in `:root` and override inside `@media (prefers-color-scheme: dark)` or a `.dark-mode` class on `<body>`.
-- For mobile-only dark mode, nest inside `@include mobile { ... }`.
+- Define CSS custom properties in `:root` (light theme default)
+- Override inside `@media (prefers-color-scheme: dark)` for auto-dark
+- Override with `.dark-mode` class for manual selection
+- Use `:root:not(.light-mode)` inside media query to allow manual override
+
+**Design considerations**:
+- Don't invert images; artwork should stay as-is
+- Navbar is always dark (`#1a1a1a`) in both themes for consistency
+- Use softer tones (no pure white `#fff` on black `#000`)
+- Test contrast ratios in both themes
 
 **Definition of Done**:
-- Dark mode activates automatically based on OS preference.
-- Manual toggle works and persists across sessions.
-- All text remains readable; no pure-white-on-black (use softer tones).
+- Theme respects OS preference automatically
+- Manual toggle works and persists across sessions
+- All text remains readable in both themes (4.5:1 contrast)
+- Both mobile and desktop support both themes
 
 ---
 
@@ -327,7 +344,9 @@ Import them first in `_style.scss` so every file can use the mixins.
 - [x] Tap targets ≥ 44px.
 - [ ] Player bar and bottom nav don't overlap or obscure content.
 - [x] Forms usable with on-screen keyboard open.
+- [ ] Light mode readable and consistent.
 - [ ] Dark mode readable and consistent.
+- [ ] Theme toggle persists preference.
 - [ ] Offline fallback renders gracefully.
 - [ ] Install prompt appears on supported browsers.
 
@@ -402,40 +421,97 @@ Stereo is a lightweight SoundCloud-inspired listening experience with likes, rep
 
 **Goal**: Establish tokens and reusable primitives before building components.
 
-### Color Tokens
+### Theme Strategy
+
+The app supports **both light and dark modes** across all platforms:
+
+| Trigger | Behavior |
+|---------|----------|
+| OS preference | Respects `prefers-color-scheme` by default |
+| Manual toggle | User can override via navbar toggle |
+| Persistence | Choice saved to `localStorage` |
+
+### Color Tokens (Light Theme — Default)
 
 ```scss
-// CSS Custom Properties (define in :root)
+:root {
+  // Backgrounds
+  --bg: #f7f7f7;              // Primary background
+  --surface: #ffffff;          // Cards, panels
+  --surface-elevated: #ffffff; // Modals, sheets
 
-// Backgrounds
---bg: #f7f7f7;           // Primary background (light)
---surface: #ffffff;       // Cards, panels
---surface-elevated: #fff; // Modals, sheets
+  // Text
+  --text: #333333;             // Primary text
+  --muted: #666666;            // Secondary text, timestamps
+  --disabled: #999999;         // Disabled states
 
-// Text
---text: #333333;          // Primary text
---muted: #666666;         // Secondary text, timestamps
---disabled: #999999;      // Disabled states
+  // Accent
+  --accent: #f50;              // Stereo orange
+  --accent-hover: #e04500;     // Darker on hover
+  --accent-muted: rgba(255, 85, 0, 0.1); // Subtle backgrounds
 
-// Accent
---accent: #f50;           // Stereo orange (SoundCloud-esque)
---accent-hover: #e04500;  // Darker on hover
---accent-muted: rgba(255, 85, 0, 0.1); // Subtle backgrounds
+  // Borders
+  --border: #e0e0e0;
+  --border-light: #f0f0f0;
 
-// Borders
---border: #e0e0e0;
---border-light: #f0f0f0;
+  // Waveform
+  --waveform-played: #f50;
+  --waveform-unplayed: #cccccc;
 
-// Waveform
---waveform-played: #f50;
---waveform-unplayed: #cccccc;
+  // Shadows
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+```
 
-// Dark theme (mobile)
---dark-bg: #121212;
---dark-surface: #1e1e1e;
---dark-surface-elevated: #2a2a2a;
---dark-text: #e0e0e0;
---dark-muted: #888888;
+### Color Tokens (Dark Theme)
+
+```scss
+:root.dark-mode,
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) {
+    // Backgrounds
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --surface-elevated: #2a2a2a;
+
+    // Text
+    --text: #e0e0e0;
+    --muted: #888888;
+    --disabled: #555555;
+
+    // Borders
+    --border: #333333;
+    --border-light: #2a2a2a;
+
+    // Shadows (less visible on dark)
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+}
+```
+
+### Theme Toggle Implementation
+
+```javascript
+// Theme toggle logic
+const getTheme = () => {
+  const stored = localStorage.getItem('theme');
+  if (stored) return stored;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+const setTheme = (theme) => {
+  document.documentElement.classList.remove('light-mode', 'dark-mode');
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark-mode');
+  } else if (theme === 'light') {
+    document.documentElement.classList.add('light-mode');
+  }
+  localStorage.setItem('theme', theme);
+};
 ```
 
 ### Spacing Scale (8pt Grid)
@@ -478,15 +554,21 @@ Create `app/assets/stylesheets/api/_tokens.scss`:
 
 ```scss
 :root {
+  // ===== LIGHT THEME (default) =====
+  
   // Colors
   --bg: #f7f7f7;
   --surface: #ffffff;
+  --surface-elevated: #ffffff;
   --text: #333333;
   --muted: #666666;
   --accent: #f50;
+  --accent-hover: #e04500;
   --border: #e0e0e0;
   --waveform-played: #f50;
   --waveform-unplayed: #ccc;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   
   // Spacing
   --space-1: 4px;
@@ -511,22 +593,41 @@ Create `app/assets/stylesheets/api/_tokens.scss`:
   --text-xl: 24px;
 }
 
-// Dark theme
-@include mobile {
-  :root {
+// ===== DARK THEME =====
+// Activated by: OS preference OR manual .dark-mode class
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) {
     --bg: #121212;
     --surface: #1e1e1e;
+    --surface-elevated: #2a2a2a;
     --text: #e0e0e0;
     --muted: #888888;
     --border: #333333;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
+}
+
+// Manual override class
+:root.dark-mode {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --surface-elevated: #2a2a2a;
+  --text: #e0e0e0;
+  --muted: #888888;
+  --border: #333333;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 ```
 
 **Definition of Done**:
 - `_tokens.scss` created and imported first in `_style.scss`
-- All new components use tokens instead of hardcoded values
-- Dark theme applies on mobile via tokens
+- All new components use CSS variables (not hardcoded colors)
+- Theme respects OS preference by default
+- Manual toggle works and persists in localStorage
+- Both themes tested on mobile and desktop
 
 ---
 
@@ -592,7 +693,13 @@ Create `app/assets/stylesheets/api/_tokens.scss`:
 |---------|---------|--------|
 | Logo | "(((Stereo)))" orange text | "(((S)))" or icon |
 | Search | Centered input, 400px max | Icon only, links to `/search` |
+| Theme toggle | Sun/moon icon | Same |
 | Auth | "Sign up" button or profile pic | Same, smaller |
+
+**Theme toggle behavior:**
+- Sun icon = currently light, click to go dark
+- Moon icon = currently dark, click to go light
+- Respects OS preference on first visit
 
 ### 2. BottomTabs
 
@@ -872,8 +979,9 @@ Track these events for KPI measurement:
 
 ## V3 Component Checklist
 
-- [ ] `_tokens.scss` — design tokens
-- [ ] `TopBar` — dark navbar, search, auth
+- [ ] `_tokens.scss` — design tokens (light + dark themes)
+- [ ] `ThemeToggle` — sun/moon icon button with localStorage persistence
+- [ ] `TopBar` — dark navbar, search, theme toggle, auth
 - [ ] `BottomTabs` — mobile navigation
 - [ ] `MiniPlayer` — collapsed player
 - [ ] `TrackCard` — redesigned song card
@@ -882,7 +990,7 @@ Track these events for KPI measurement:
 - [ ] `NowPlayingFull` — mobile full-screen view
 - [ ] `NowPlayingSidebar` — desktop queue panel
 - [ ] `QueueList` — queue items with remove
-- [ ] `CommentList` — styled for dark theme
+- [ ] `CommentList` — styled for both themes
 - [ ] `CommentComposer` — input + sign-in CTA
 - [ ] `GenreFilters` — horizontal pills
 - [ ] `HeroSection` — featured playlist banner
@@ -896,8 +1004,17 @@ Track these events for KPI measurement:
 - [ ] Empty states render (no queue, no comments)
 - [ ] Loading states render (skeleton cards)
 - [ ] Audio keeps playing while navigating
-- [ ] Dark theme consistent on mobile
 - [ ] No layout shift from images (fixed aspect ratios)
+
+### Theming
+- [ ] Light theme renders correctly on mobile
+- [ ] Light theme renders correctly on desktop
+- [ ] Dark theme renders correctly on mobile
+- [ ] Dark theme renders correctly on desktop
+- [ ] Theme toggle works and persists across sessions
+- [ ] OS preference respected on first visit
+- [ ] Navbar dark in both themes (consistent branding)
+- [ ] Artwork/images unchanged by theme
 
 ### Touch / Interaction
 - [ ] All tap targets ≥ 44px
@@ -906,7 +1023,7 @@ Track these events for KPI measurement:
 - [ ] Waveform seek is smooth
 
 ### Accessibility
-- [ ] Contrast ratio ≥ 4.5:1 for text
+- [ ] Contrast ratio ≥ 4.5:1 for text (both themes)
 - [ ] Focus rings visible on keyboard nav
 - [ ] Icon buttons have ARIA labels
 - [ ] Player state announced to screen readers
