@@ -8,13 +8,23 @@ import UserSidebar from "../users/user_sidebar";
 class SongShow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      commentsExpanded: true,
+    };
     this.selected = false;
     this.playing = false;
   }
 
   componentDidMount() {
     this.props.fetchSong(this.props.match.params.songId);
+    // Collapse comments by default on mobile
+    if (window.innerWidth <= 600) {
+      this.setState({ commentsExpanded: false });
+    }
+  }
+
+  toggleComments() {
+    this.setState({ commentsExpanded: !this.state.commentsExpanded });
   }
 
   render() {
@@ -119,11 +129,21 @@ class SongShow extends React.Component {
           <div id="song-show-bottom-left">
             <CommentForm songId={this.props.song.id} />
             <div id="uploader-and-comments">
-              <div id="song-uploader-info">
-                <div id="song-uploader-photo"></div>
-                <div id="song-uploader-name">{this.props.song.artist}</div>
-              </div>
-              <CommentContainer songId={this.props.song.id} />
+              <button
+                className="comments-toggle"
+                onClick={() => this.toggleComments()}
+              >
+                {this.state.commentsExpanded ? "Hide" : "Show"} Comments
+              </button>
+              {this.state.commentsExpanded && (
+                <>
+                  <div id="song-uploader-info">
+                    <div id="song-uploader-photo"></div>
+                    <div id="song-uploader-name">{this.props.song.artist}</div>
+                  </div>
+                  <CommentContainer songId={this.props.song.id} />
+                </>
+              )}
             </div>
           </div>
           <div className="sidebar-main" id="song-show-sidebar">

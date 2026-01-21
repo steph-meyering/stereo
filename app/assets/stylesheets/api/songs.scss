@@ -545,6 +545,15 @@ wave :hover {
     padding: 15px;
     width: auto;
     height: 300px;
+
+    @include mobile {
+      display: none;
+    }
+  }
+
+  @include mobile {
+    flex-direction: column;
+    min-height: 40vh;
   }
 }
 
@@ -566,6 +575,11 @@ wave :hover {
   flex-direction: column;
   justify-content: space-between;
   padding: 15px;
+
+  @include mobile {
+    width: 100%;
+    padding: 20px 15px;
+  }
 }
 
 .name-artist-play {
@@ -591,6 +605,25 @@ wave :hover {
     background-color: rgba(0, 0, 0, 0.8);
     max-width: max-content;
   }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    & .play-button, & .pause-button {
+      margin-bottom: 16px;
+    }
+    
+    & .name-artist {
+      width: 100%;
+    }
+    
+    & .song-show-title {
+      font-size: 18px;
+      max-width: 100%;
+    }
+  }
 }
 
 .wave-icon{
@@ -605,15 +638,52 @@ wave :hover {
   // > div {
   //   margin: 10px;
   // }
+
+  @include mobile {
+    flex-direction: column;
+  }
 }
 
 #song-show-bottom-left{
   width: 70%;
   padding: 20px 20px;
+
+  @include mobile {
+    width: 100%;
+    padding: 15px;
+  }
 }
 
 #uploader-and-comments{
   display: flex;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.comments-toggle {
+  display: none;
+
+  @include mobile {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background: #f7f7f7;
+    border: 1px solid $light-grey;
+    border-radius: 4px;
+    font-size: 14px;
+    color: $dark-grey;
+    cursor: pointer;
+    font-family: interstateregular;
+    
+    &:hover {
+      background: #f0f0f0;
+      border-color: $orange;
+      color: $orange;
+    }
+  }
 }
 
 #song-show-sidebar{
