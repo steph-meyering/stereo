@@ -1,0 +1,21 @@
+@import "./style";
+
+.splash-v3 {
+  min-height: 100vh;
+  background-color: var(--bg);
+  padding-bottom: 120px; // Space for MiniPlayer on mobile
+}
+
+.splash-v3-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-4);
+
+  @include mobile {
+    padding: var(--space-3);
+  }
+}
+
+.track-list-v3 {
+  margin-top: var(--space-4);
+}

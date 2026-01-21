@@ -12,16 +12,20 @@ import SongFormContainer from "./songs/song_form_container";
 import PlayControlsContainer from "./play_controls/play_controls_container";
 import SplashHeader from "./splash/splash_header";
 import PlaylistIndexContainer from "./playlists/playlist_index_container";
+import SplashV3Container from "./splash/splash_v3_container";
+
+// Feature flag for V3 redesign
+const USE_V3_DESIGN = true;
 
 const App = () => (
   <div className="main">
     <ModalContainer />
     <TopBarContainer />
     <div className="main-content">
-      <Route exact path="/" component={SplashHeader} />
+      {!USE_V3_DESIGN && <Route exact path="/" component={SplashHeader} />}
       <Switch>
         {/* <Route exact path="/" component={TestContainer} /> */}
-        <Route exact path="/" component={SongIndexContainer} />
+        <Route exact path="/" component={USE_V3_DESIGN ? SplashV3Container : SongIndexContainer} />
         <Route exact path="/playlists" component={PlaylistIndexContainer} />
         <Route exact path="/users/:userId" component={UserShow} />
         <Route exact path="/songs/:songId" component={SongShowContainer} />
