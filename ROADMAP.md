@@ -357,3 +357,34 @@ Total: ~6–9 days of focused work.
 - [ ] Dark mode readable and consistent.
 - [ ] Offline fallback renders gracefully.
 - [ ] Install prompt appears on supported browsers.
+
+---
+
+## V3 Goal: Mobile-First UX Redesign (Placeholder)
+
+**Status**: ⏳ Awaiting detailed PRD and design mockups
+
+**Overview**: 
+A comprehensive mobile-first redesign focused on improving the core listening experience on mobile devices. This will build upon V2 responsive foundations with a ground-up reimagining of key flows and interactions.
+
+**Scope** (TBD):
+- Mobile-first navigation patterns
+- Redesigned player experience
+- Streamlined content discovery
+- Touch-optimized interactions
+- Performance improvements for mobile networks
+
+**Key Questions to Answer in PRD**:
+- What are the primary user flows to prioritize?
+- What visual design language/inspiration should guide the redesign?
+- Are there specific pain points in the current mobile experience?
+- Should this maintain desktop parity or diverge for mobile-specific patterns?
+- What devices/screen sizes are the priority targets?
+
+**Next Steps**:
+1. Review PRD and design mockups when provided
+2. Break down into granular milestones
+3. Prioritize quick wins vs. larger UX shifts
+4. Define success metrics (load time, engagement, etc.)
+
+**Note**: This section will be expanded once design specifications are available.
