@@ -1,3 +1,5 @@
+@import "./style";
+
 #comment-form-container {
   display: inline-flex;
   padding-bottom: 20px;
@@ -18,7 +20,12 @@
 
 #comment-section{
   width: 100%;
-  padding-left: 15px
+  padding-left: 15px;
+
+  @include mobile {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 
@@ -31,6 +38,10 @@
 .comment {
   display: flex;
   padding: 10px 0px;
+
+  @include mobile {
+    padding: 8px 0px;
+  }
 }
 
 .comment-body {
@@ -38,7 +49,12 @@
   word-wrap: break-word;
   hyphens: auto;
   padding-right: 60px;
-  min-width: 0
+  min-width: 0;
+
+  @include mobile {
+    padding-right: 10px;
+    font-size: 14px;
+  }
 }
 
 .comment-owner-photo {
@@ -47,6 +63,12 @@
   margin-right: 10px;
   background-color: lightblue;
   border-radius: 50%;
+
+  @include mobile {
+    min-width: 36px;
+    height: 36px;
+    margin-right: 8px;
+  }
 }
 
 .comment-main {
