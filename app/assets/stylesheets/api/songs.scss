@@ -50,8 +50,9 @@
     width: 72px;
     height: 72px;
     position: absolute;
-    bottom: 39%;
-    left: 34.5%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: -1;
     &:hover {
       z-index: 10;
@@ -68,8 +69,9 @@
     width: 72px;
     height: 72px;
     position: absolute;
-    bottom: 39%;
-    left: 34.5%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: -1;
     &:hover {
       z-index: 10;
