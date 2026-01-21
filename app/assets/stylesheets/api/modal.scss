@@ -22,6 +22,11 @@
 
 .login-form-container {
 	width: 450px;
+
+	@include mobile {
+		width: 90vw;
+		max-width: 400px;
+	}
 }
 
 .login-form-box * {
@@ -34,6 +39,49 @@
 .login-form-box {
 	padding: 25px;
 	border-radius: 3px;
+
+	@include mobile {
+		padding: 20px 15px;
+	}
+
+	& ul {
+		color: #d32f2f;
+		font-size: 13px;
+		list-style: none;
+		padding: 0;
+		margin: 10px 0;
+		line-height: 1.4;
+
+		@include mobile {
+			font-size: 12px;
+			margin: 8px 0;
+		}
+	}
+
+	& li {
+		margin-bottom: 4px;
+	}
+
+	& h1 {
+		@include mobile {
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+	}
+
+	& h3 {
+		@include mobile {
+			font-size: 14px;
+			margin-bottom: 6px;
+		}
+	}
+
+	& input {
+		@include mobile {
+			font-size: 16px;
+			padding: 8px;
+		}
+	}
 }
 
 .login-form-box button {
