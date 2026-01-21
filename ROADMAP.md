@@ -333,329 +333,586 @@ Import them first in `_style.scss` so every file can use the mixins.
 
 ---
 
-## V3 Goal: UX Redesign
+## V3 Goal: UX/UI Revamp (Mobile-First)
 
-**Status**: 🟢 Design spec ready (based on provided mockups)
+**Status**: 🟢 Design spec ready (PRD + mockups integrated)
 
-### Design Vision
+### Background
 
-V3 is a visual and UX overhaul that gives Stereo a modern, polished identity. Key changes:
+Stereo is a lightweight SoundCloud-inspired listening experience with likes, reposts, comments, and a queue/player. The current UI works functionally but suffers from:
+- Inconsistent layout and weak visual hierarchy
+- Non-native mobile patterns (table-like queue, crowded track pages)
+- "Everything floats" feel without clear structure
 
-- **Dark navbar** on desktop with centered search
-- **Hero/featured section** for curated content
-- **Trending with genre filters** for discovery
-- **Redesigned song cards** with inline waveforms
-- **Persistent "Now Playing" sidebar** on desktop
-- **Full-screen "Now Playing" view** on mobile with tabbed content
-- **Dark theme** for mobile by default
+### Goals
 
-### Design Language
+**Primary Goals (Must Have)**
+1. Make the mobile experience feel like a real music app
+2. Improve scanability (discover music faster)
+3. Make player + queue clear, persistent, and delightful
+4. Establish a reusable design system + component library
 
-| Element | Current | V3 Target |
-|---------|---------|-----------|
-| Primary background | `#f2f2f2` (light gray) | `#f7f7f7` (softer gray) |
-| Navbar | Light with multiple buttons | Dark (`#1a1a1a`) with search + single CTA |
-| Accent color | `#f50` (orange) | `#f50` (keep) |
-| Cards | Floating with shadows | Subtle rounded corners (8px), minimal shadow |
-| Waveforms | Gray bars only | Dual-tone: orange (played) / gray (unplayed) |
-| Mobile theme | Light (same as desktop) | Dark (`#121212`) |
+**Secondary Goals (Nice to Have)**
+- Improve desktop with a "control center" (queue/player sidebar)
+- Reduce perceived load time with skeleton states
 
-### Typography
+### Non-Goals
+- Rebuilding recommendation logic or changing backend models
+- Introducing creator upload flows
+- Redesigning auth flows beyond visual cleanup
 
-| Use | Size | Weight |
-|-----|------|--------|
-| Logo | 24px | 700 |
-| Section headers ("Trending") | 28px | 700 |
-| Song titles | 16px | 600 |
-| Artist names | 14px | 400 |
-| Body/comments | 14px | 400 |
-| Buttons/labels | 14px | 500 |
+### Success Metrics (KPIs)
+
+| Metric | Target |
+|--------|--------|
+| Play starts per session | +15–25% |
+| Queue adds per session | +10–20% |
+| Likes/reposts per play | +5–15% |
+| Time-to-first-play | Reduce |
+| Sign-in conversion from comment CTA | Measurable lift |
+
+### Target Users
+
+| Persona | Behavior |
+|---------|----------|
+| **Lean-back listener** | Wants quick play + continuous listening |
+| **Curator** | Builds a queue, removes/reorders, shares tracks |
+| **Social listener** | Reads and posts comments, likes/reposts |
+
+### Core User Stories
+
+1. As a user, I can quickly play a trending track from the feed.
+2. As a user, I can add to queue from anywhere in one tap.
+3. As a user, I can open Now Playing and scrub via waveform.
+4. As a user, I can view Up Next and remove items easily.
+5. As a user, I can read comments comfortably and sign in to comment.
 
 ---
 
-### Milestone V3-1: Dark Navbar + Search
+## V3 Rollout Phases
 
-**Goal**: Replace the current light navbar with a dark, focused header.
+### Phase 1: Design System + TrackCard + MiniPlayer
+### Phase 2: Now Playing + Queue Sheet
+### Phase 3: Profile/Activity + Desktop Sidebar
+### Phase 4: Polish, Motion, Skeletons, Accessibility QA
 
-| Element | Spec |
-|---------|------|
-| Background | `#1a1a1a` |
-| Logo | "(((Stereo)))" in orange (`#f50`), left-aligned |
-| Search | Centered, rounded input (`border-radius: 24px`), placeholder "Search artists, tracks...", search icon (🔍) |
-| CTA | Single "Sign up" button (orange bg, white text, rounded) — when logged in, show profile pic |
-| Height | 60px |
+---
 
-**Mobile behavior**:
-- Hide search input, show search icon that links to `/search`
-- Simplify to: logo (left) + search icon + profile/sign-up (right)
+## V3-0: Design System Foundation (Do This First)
+
+**Goal**: Establish tokens and reusable primitives before building components.
+
+### Color Tokens
+
+```scss
+// CSS Custom Properties (define in :root)
+
+// Backgrounds
+--bg: #f7f7f7;           // Primary background (light)
+--surface: #ffffff;       // Cards, panels
+--surface-elevated: #fff; // Modals, sheets
+
+// Text
+--text: #333333;          // Primary text
+--muted: #666666;         // Secondary text, timestamps
+--disabled: #999999;      // Disabled states
+
+// Accent
+--accent: #f50;           // Stereo orange (SoundCloud-esque)
+--accent-hover: #e04500;  // Darker on hover
+--accent-muted: rgba(255, 85, 0, 0.1); // Subtle backgrounds
+
+// Borders
+--border: #e0e0e0;
+--border-light: #f0f0f0;
+
+// Waveform
+--waveform-played: #f50;
+--waveform-unplayed: #cccccc;
+
+// Dark theme (mobile)
+--dark-bg: #121212;
+--dark-surface: #1e1e1e;
+--dark-surface-elevated: #2a2a2a;
+--dark-text: #e0e0e0;
+--dark-muted: #888888;
+```
+
+### Spacing Scale (8pt Grid)
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `--space-1` | 4px | Tight gaps |
+| `--space-2` | 8px | Default gap |
+| `--space-3` | 12px | Card padding |
+| `--space-4` | 16px | Section gaps |
+| `--space-5` | 24px | Large gaps |
+| `--space-6` | 32px | Page margins |
+| `--space-8` | 48px | Hero padding |
+
+### Border Radius
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `--radius-sm` | 4px | Buttons, pills |
+| `--radius-md` | 8px | Cards, inputs |
+| `--radius-lg` | 12px | Panels, artwork |
+| `--radius-xl` | 16px | Modals |
+| `--radius-full` | 9999px | Avatars, pills |
+
+### Typography Scale
+
+| Token | Size | Weight | Use |
+|-------|------|--------|-----|
+| `--text-xs` | 12px | 400 | Timestamps, captions |
+| `--text-sm` | 14px | 400 | Body, secondary |
+| `--text-base` | 16px | 400 | Default body |
+| `--text-md` | 16px | 600 | Song titles |
+| `--text-lg` | 20px | 600 | Now Playing title |
+| `--text-xl` | 24px | 700 | Section headers |
+| `--text-2xl` | 28px | 700 | Page titles |
+
+### Implementation
+
+Create `app/assets/stylesheets/api/_tokens.scss`:
+
+```scss
+:root {
+  // Colors
+  --bg: #f7f7f7;
+  --surface: #ffffff;
+  --text: #333333;
+  --muted: #666666;
+  --accent: #f50;
+  --border: #e0e0e0;
+  --waveform-played: #f50;
+  --waveform-unplayed: #ccc;
+  
+  // Spacing
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  
+  // Radius
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  // Typography
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+}
+
+// Dark theme
+@include mobile {
+  :root {
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --text: #e0e0e0;
+    --muted: #888888;
+    --border: #333333;
+  }
+}
+```
 
 **Definition of Done**:
-- Navbar matches mockup aesthetic on desktop and mobile
-- Search input functional (wire to existing search or stub)
-- Single auth CTA or logged-in profile state
+- `_tokens.scss` created and imported first in `_style.scss`
+- All new components use tokens instead of hardcoded values
+- Dark theme applies on mobile via tokens
 
 ---
 
-### Milestone V3-2: Hero / Featured Playlist Section
+## V3-1: Layout Structure
 
-**Goal**: Add a hero banner to the landing page for featured content.
+**Goal**: Establish consistent page structure across all views.
 
-| Element | Spec |
-|---------|------|
-| Container | Full width, 180px height, dark background (`#2a2a2a`) with rounded corners (12px) |
-| Content | Left-aligned: "Hero / featured playlist" title (white, 20px bold), short subtitle (gray, 14px), "Play all" CTA (text link, orange) |
-| Positioning | Below navbar, 24px margin, above trending section |
+### Mobile Layout Stack
 
-**Implementation notes**:
-- Can be static placeholder initially
-- Later: fetch featured playlist from backend and display first track's artwork as blurred background
-- On mobile: reduce height to 120px, same layout
-
-**Definition of Done**:
-- Hero section renders on splash page
-- "Play all" queues featured tracks (or is stubbed)
-
----
-
-### Milestone V3-3: Trending Section + Genre Filters
-
-**Goal**: Replace current splash grid with a filterable "Trending" section.
-
-| Element | Spec |
-|---------|------|
-| Header | "Trending" (28px, bold, black) inline with filter pills |
-| Filter pills | Horizontal row: "All", "Lo-fi", "Indie", "Hip-hop" (add more as needed) |
-| Pill style | `border-radius: 20px`, `padding: 8px 20px`, `border: 2px solid` |
-| Active state | Orange text + orange border |
-| Inactive state | Gray text (`#666`) + gray border (`#ccc`) |
-| Grid | 3 columns desktop, 2 columns tablet, 1 column mobile |
-
-**Implementation notes**:
-- Filters are client-side (filter songs by `genre` field)
-- "All" shows all songs, others filter by matching genre
-- Add hover state: border darkens
-
-**Definition of Done**:
-- Genre pills render and are clickable
-- Active state visually distinct
-- Grid filters correctly by genre
-
----
-
-### Milestone V3-4: Redesigned Song Cards
-
-**Goal**: Update song cards to match mockup layout.
-
-**Card structure** (top to bottom):
 ```
 ┌─────────────────────────────────────┐
-│  [Album Art 80x80]  Title           │
-│  with play overlay  Artist          │
+│  TopBar (fixed, 56px)               │
 ├─────────────────────────────────────┤
-│  [═══════════════════════════════]  │  ← Waveform (full width)
+│                                     │
+│  Scrollable Content                 │
+│  (flex: 1, overflow-y: auto)        │
+│                                     │
 ├─────────────────────────────────────┤
-│  ♥ 5    ⇄ 1                 Queue   │  ← Engagement row
+│  MiniPlayer (conditional, 64px)     │
+├─────────────────────────────────────┤
+│  BottomTabs (fixed, 56px)           │
+└─────────────────────────────────────┘
+```
+
+### Desktop Layout
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Navbar (fixed, 60px)                                       │
+├───────────────────────────────────────────┬─────────────────┤
+│                                           │                 │
+│  Main Content                             │  Now Playing    │
+│  (flex: 1)                                │  Sidebar        │
+│                                           │  (320px fixed)  │
+│                                           │                 │
+├───────────────────────────────────────────┴─────────────────┤
+│  Player Bar (fixed, 80px)                                   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Bottom Tabs (Mobile)
+
+| Tab | Icon | Route |
+|-----|------|-------|
+| Home | 🏠 | `/` |
+| Search | 🔍 | `/search` |
+| Library | 📚 | `/library` |
+| Profile | 👤 | `/users/:id` |
+
+**Definition of Done**:
+- Layout wrapper component created
+- Fixed header/footer don't scroll with content
+- MiniPlayer appears when audio is active
+- BottomTabs shows on mobile only
+
+---
+
+## V3-2: Core Components (Build in This Order)
+
+### 1. TopBar
+
+| Element | Desktop | Mobile |
+|---------|---------|--------|
+| Logo | "(((Stereo)))" orange text | "(((S)))" or icon |
+| Search | Centered input, 400px max | Icon only, links to `/search` |
+| Auth | "Sign up" button or profile pic | Same, smaller |
+
+### 2. BottomTabs
+
+- 4 tabs with icons and optional labels
+- Active = orange fill, inactive = outline
+- 56px height, safe area padding for notched phones
+
+### 3. MiniPlayer
+
+| Element | Spec |
+|---------|------|
+| Height | 64px |
+| Layout | Artwork (48px) → Title/Artist (truncated) → Play/Pause (48px) |
+| Background | `--surface` with top border |
+| Progress | 2px orange line at top |
+| Tap | Opens full Now Playing (except play/pause) |
+
+### 4. TrackCard
+
+**Structure:**
+```
+┌─────────────────────────────────────┐
+│  [Artwork 80px]  Title              │
+│  + play overlay  Artist             │
+├─────────────────────────────────────┤
+│  [════════════ Waveform ══════════] │
+├─────────────────────────────────────┤
+│  ♥ 5    ↻ 1              •••        │
 └─────────────────────────────────────┘
 ```
 
 | Element | Spec |
 |---------|------|
-| Card | White background, `border-radius: 12px`, subtle shadow `0 2px 8px rgba(0,0,0,0.08)` |
-| Album art | 80×80px, `border-radius: 8px`, positioned top-left with 12px padding |
-| Play overlay | Orange triangle (▶), centered on album art, appears on hover (desktop) or always visible (mobile) |
-| Title | 16px, bold, truncate with ellipsis, beside album art |
-| Artist | 14px, gray (`#666`), link to profile |
-| Waveform | Full card width minus padding, ~40px height |
-| Waveform colors | Played = orange (`#f50`), Unplayed = gray (`#ccc`) |
-| Engagement row | Heart icon + count, repost icon + count, "Queue" text button — right-aligned |
-| Icons | Heart (♥), Repost (⇄ or ↻), 14px, gray, orange when active |
+| Artwork | 80×80px, `--radius-lg`, play overlay on hover/tap |
+| Title | `--text-md` (16px/600), truncate |
+| Artist | `--text-sm` (14px), `--muted`, link to profile |
+| Waveform | Full width, 40px height, dual-color |
+| Actions | Like + count, Repost + count, Overflow menu (•••) |
+| Overflow menu | Add to queue, Share, Go to track |
+
+### 5. WaveformSeek
+
+- Dual-color: `--waveform-played` / `--waveform-unplayed`
+- Tappable/draggable for seeking
+- Shows current time on drag
+- Fixed aspect ratio to prevent layout shift
+
+### 6. BottomSheet
+
+- Slides up from bottom (`transform: translateY`)
+- Drag handle at top (24px, rounded)
+- Backdrop with opacity fade
+- Content scrollable
+- Used for: Queue, Overflow menu, Comments
+
+### 7. CommentList + CommentComposer
+
+**CommentList:**
+- Compact avatars (36px)
+- Name + "• Xd ago" timestamp
+- Readable text (14px)
+- Signed-out: small "Sign in to comment" CTA (not a huge bar)
+
+**CommentComposer:**
+- Input: 48px height, placeholder "Add a comment..."
+- Submit button: orange, icon or text
+- Disabled state when not signed in
 
 **Definition of Done**:
-- Cards match mockup layout
-- Play overlay works on hover/tap
-- Waveform shows playback progress with dual colors
-- Engagement actions functional
+- All 7 components built and styled with tokens
+- Components work on both mobile and desktop
+- Actions (play, like, queue) are functional
 
 ---
 
-### Milestone V3-5: "Now Playing" Sidebar (Desktop)
+## V3-3: Now Playing View
 
-**Goal**: Add a persistent right sidebar showing current track and queue.
+### Mobile Full-Screen
 
-| Element | Spec |
-|---------|------|
-| Width | 320px fixed, right side of viewport |
-| Background | White, subtle left border (`#e0e0e0`) |
-| Header | "Now Playing" (16px, bold, black) |
-| Current track section | Album art (60×60, rounded), title (16px bold), artist (14px gray), play/pause button (orange) |
-| Mini waveform | Below current track, orange/gray dual-tone, ~30px height |
-| "Up Next" header | 14px, bold, with track count |
-| Queue list | Scrollable, max-height 50vh; each item: title (14px), artist (12px gray), "Remove" link (orange, right-aligned) |
-
-**Visibility**:
-- Only show on desktop (≥ 900px viewport)
-- Hide on splash page if no song is playing
-
-**Implementation notes**:
-- Pull from Redux `playControls.queue` state
-- Clicking queued track plays it immediately
-- "Remove" removes from queue without stopping playback
-
-**Definition of Done**:
-- Sidebar renders on desktop when a song is playing
-- Current track updates in real-time
-- Queue is manageable (add/remove/skip)
-
----
-
-### Milestone V3-6: Full-Screen "Now Playing" (Mobile)
-
-**Goal**: Create a dedicated mobile view for the currently playing track.
-
-**Layout** (top to bottom):
 ```
 ┌─────────────────────────────────────┐
-│  ←  Now Playing                 ... │  ← Header
+│  ←  Now Playing                 ••• │
 ├─────────────────────────────────────┤
 │                                     │
 │         ┌───────────────┐           │
-│         │               │           │
-│         │    Artwork    │           │  ← Large artwork (70% width)
-│         │               │           │
+│         │    Artwork    │           │
+│         │   (70% width) │           │
 │         └───────────────┘           │
 │                                     │
-│         dontcry - redbone           │  ← Title (20px bold, white)
-│           Demo User                 │  ← Artist (16px gray)
+│         dontcry - redbone           │
+│           Demo User                 │
 │                                     │
-│  ════════════════════════════════   │  ← Waveform with progress
-│  0:42                        2:30   │  ← Timestamps
+│  ══════════════════════════════════ │
+│  0:42                        2:30   │
 │                                     │
-│     ⇄      ▶▶      ≡       ♥        │  ← Action icons (48px tap targets)
+│     ⇄      ◀◀     ▶▶      ≡    ♥   │
 │                                     │
 ├─────────────────────────────────────┤
-│  [Comments]  Up Next   Details      │  ← Tab bar
+│  [Comments]  Up Next   Details      │
 ├─────────────────────────────────────┤
-│  (Tab content scrollable area)      │
-│  • Comments list                    │
-│  • Sign in to comment prompt        │
+│  (Tab content - scrollable)         │
 └─────────────────────────────────────┘
 ```
 
 | Element | Spec |
 |---------|------|
-| Background | Dark (`#121212`) |
-| Header | Back arrow (←) left, "Now Playing" center (16px white), "..." menu right |
-| Artwork | Square, 70% viewport width, centered, `border-radius: 12px` |
-| Title | 20px, bold, white, centered |
-| Artist | 16px, gray (`#888`), centered |
-| Waveform | Full width (minus padding), 60px height, orange/gray dual-tone |
-| Timestamps | 14px, gray, left (current) and right (duration) |
-| Action icons | Shuffle (⇄), Play/Pause (▶/▐▐), Queue (≡), Like (♥) — 48px tap targets, orange accent |
-| Tab bar | 3 tabs: "Comments" (active = orange bg, rounded), "Up Next", "Details" |
-| Tab content | Scrollable, shows comments list OR queue OR track details |
+| Artwork | 70vw, centered, `--radius-lg` |
+| Title | `--text-lg` (20px/600), white |
+| Artist | `--text-base`, `--dark-muted` |
+| Waveform | Full width, 60px, draggable seek |
+| Actions | 48px tap targets, `--accent` when active |
+| Tabs | Comments (orange bg active), Up Next, Details |
 
-**Comments tab content**:
-- User avatar (40px circle, blue placeholder)
-- Username + "• 4d ago" timestamp
-- Comment text (14px, white)
-- "Sign in to comment" prompt with orange "Sign in" button
+### Tabs Content
+
+**Comments Tab:**
+- Scrollable list of comments for current track
+- CommentComposer at bottom (or sign-in CTA)
+
+**Up Next Tab:**
+- Queue list with artwork thumbnails
+- Remove button per item (icon, not link)
+- Clear all button in header
+- (Later: drag to reorder)
+
+**Details Tab:**
+- Track metadata: genre, upload date, description
+- Artist info with link to profile
 
 **Definition of Done**:
-- Tapping mini player opens full-screen view
-- All tabs functional (Comments loads from API, Up Next from queue, Details shows metadata)
-- Actions work (like, queue toggle, shuffle)
+- Full-screen view opens from MiniPlayer tap
+- All tabs functional with real data
 - Back arrow returns to previous view
+- Actions work (like, queue, shuffle)
 
 ---
 
-### Milestone V3-7: Mini Player (Mobile)
+## V3-4: Queue (Mobile)
 
-**Goal**: Persistent mini player that expands to full "Now Playing" view.
+**Goal**: Replace table queue with a proper bottom sheet.
 
 | Element | Spec |
 |---------|------|
-| Height | 64px, fixed at bottom |
-| Background | Dark (`#1e1e1e`) |
-| Layout | Album art (48px, left) → title/artist (truncated, center) → play/pause (48px, right) |
-| Progress | Optional thin orange line at top (2px) showing playback progress |
-| Tap behavior | Tap anywhere (except play/pause) opens full "Now Playing" |
+| Trigger | Queue icon (≡) in Now Playing or MiniPlayer |
+| Sheet height | 70vh max, dismissible by drag or backdrop tap |
+| Header | "Up Next" + track count + "Clear All" button |
+| Items | Artwork (40px) + Title/Artist + Remove icon (×) |
+| Row height | 56px minimum for thumb-friendly taps |
+| Active track | Highlighted with accent border or background |
 
-**z-index layering**:
-- Mini player: `z-index: 100`
-- Bottom nav (if present): `z-index: 99`
-- Modals: `z-index: 1000`
+**Interactions:**
+- Tap item = play immediately
+- Remove = icon button, not text link
+- Clear All = confirmation or immediate (with undo toast)
+- (Later iteration: drag reorder)
 
 **Definition of Done**:
-- Mini player visible when a track is playing on mobile
-- Tap expands to full view
-- Play/pause works inline without expanding
+- Queue opens as bottom sheet
+- Add/remove/clear functional
+- Tall rows are easy to tap
 
 ---
 
-### V3 Summary
+## V3-5: Desktop Sidebar (Now Playing)
 
-| Milestone | Focus | Effort |
-|-----------|-------|--------|
-| V3-1 | Dark navbar + search | 1 day |
-| V3-2 | Hero section | 0.5 day |
-| V3-3 | Trending + genre filters | 1 day |
-| V3-4 | Song card redesign | 2 days |
-| V3-5 | Desktop "Now Playing" sidebar | 1.5 days |
-| V3-6 | Mobile full-screen "Now Playing" | 2 days |
-| V3-7 | Mini player | 1 day |
+**Goal**: Persistent right sidebar for queue management on desktop.
 
-**Total**: ~9 days of focused work
+| Element | Spec |
+|---------|------|
+| Width | 320px, fixed on right |
+| Visibility | ≥900px viewport only |
+| Header | "Now Playing" |
+| Current track | Artwork (60px) + Title + Artist + Play/Pause |
+| Mini waveform | Below current track |
+| "Up Next" | Scrollable queue list, max-height 50vh |
+| Queue items | Title + Artist + Remove |
 
----
-
-### V3 Color Tokens
-
-```scss
-// Light theme (desktop default)
-$v3-bg-primary: #f7f7f7;
-$v3-bg-card: #ffffff;
-$v3-bg-navbar: #1a1a1a;
-$v3-text-primary: #333333;
-$v3-text-secondary: #666666;
-$v3-accent: #f50;
-$v3-border: #e0e0e0;
-$v3-waveform-played: #f50;
-$v3-waveform-unplayed: #cccccc;
-
-// Dark theme (mobile)
-$v3-dark-bg-primary: #121212;
-$v3-dark-bg-secondary: #1e1e1e;
-$v3-dark-bg-card: #2a2a2a;
-$v3-dark-text-primary: #e0e0e0;
-$v3-dark-text-secondary: #888888;
-```
+**Definition of Done**:
+- Sidebar renders on desktop
+- Updates in real-time as queue changes
+- Clicking queued track plays it
 
 ---
 
-### V3 New Components Checklist
+## V3-6: Feed + Discovery (Desktop Improvements)
 
-- [ ] `NavbarV3` — dark, centered search, single CTA
-- [ ] `HeroSection` — featured playlist banner
-- [ ] `GenreFilters` — horizontal pill tabs
-- [ ] `SongCardV3` — new layout with inline waveform
-- [ ] `WaveformDual` — dual-color waveform (played/unplayed)
-- [ ] `NowPlayingSidebar` — desktop queue panel
+| Area | Change |
+|------|--------|
+| Hero | Reduce height, add "Play all" CTA |
+| Genre filters | Horizontal pills: All, Lo-fi, Indie, Hip-hop |
+| Grid | 3 columns, TrackCard layout |
+| Hover states | Play button overlay, subtle lift |
+| Keyboard | Focus rings on all interactive elements |
+
+**Definition of Done**:
+- Desktop feed uses new TrackCard layout
+- Genre filters work
+- Hover and focus states polished
+
+---
+
+## V3-7: Polish Phase
+
+### Motion & Microinteractions
+
+| Interaction | Effect |
+|-------------|--------|
+| Button press | `scale(0.96)` + opacity shift |
+| Sheet open | `translateY(100%) → translateY(0)`, 300ms ease-out |
+| Like/repost | Heart/icon fills with subtle bounce |
+| Play button | Smooth transition between play/pause icons |
+| Waveform seek | Thumb follows touch with time tooltip |
+
+### Skeleton States
+
+- TrackCard skeleton: gray rectangles for artwork, title, waveform
+- CommentList skeleton: avatar circles + text lines
+- Show skeletons during API fetch, fade to content
+
+### Empty States
+
+| State | Message |
+|-------|---------|
+| Empty queue | "Your queue is empty. Add some tracks!" |
+| No comments | "Be the first to comment." |
+| No search results | "No tracks found. Try a different search." |
+
+### Accessibility Audit
+
+- [ ] Minimum 4.5:1 contrast ratio for all text
+- [ ] All tap targets ≥ 44px
+- [ ] Focus rings visible on keyboard navigation
+- [ ] ARIA labels on icon-only buttons
+- [ ] Screen reader announces player state changes
+
+**Definition of Done**:
+- Press states feel responsive
+- Skeletons appear during loading
+- Empty states are friendly
+- Accessibility checklist passes
+
+---
+
+## V3 Analytics Events
+
+Track these events for KPI measurement:
+
+| Event | Parameters |
+|-------|------------|
+| `play_started` | track_id, source (feed/queue/search) |
+| `play_paused` | track_id, position |
+| `track_opened` | track_id |
+| `queue_add` | track_id, source |
+| `queue_remove` | track_id |
+| `queue_clear` | queue_length |
+| `like` | track_id |
+| `repost` | track_id |
+| `now_playing_opened` | track_id |
+| `comments_tab_opened` | track_id |
+| `up_next_tab_opened` | queue_length |
+| `signin_cta_clicked` | source (comments/nav) |
+
+---
+
+## V3 Summary
+
+| Phase | Milestones | Effort |
+|-------|------------|--------|
+| **Phase 1** | V3-0 (Design System) + V3-1 (Layout) + V3-2 (Components) | 3–4 days |
+| **Phase 2** | V3-3 (Now Playing) + V3-4 (Queue Sheet) | 3–4 days |
+| **Phase 3** | V3-5 (Desktop Sidebar) + V3-6 (Feed/Discovery) | 2–3 days |
+| **Phase 4** | V3-7 (Polish, Motion, Accessibility) | 2–3 days |
+
+**Total**: ~10–14 days of focused work
+
+---
+
+## V3 Component Checklist
+
+- [ ] `_tokens.scss` — design tokens
+- [ ] `TopBar` — dark navbar, search, auth
+- [ ] `BottomTabs` — mobile navigation
+- [ ] `MiniPlayer` — collapsed player
+- [ ] `TrackCard` — redesigned song card
+- [ ] `WaveformSeek` — dual-color, interactive
+- [ ] `BottomSheet` — reusable slide-up panel
 - [ ] `NowPlayingFull` — mobile full-screen view
-- [ ] `MiniPlayer` — mobile collapsed player
-- [ ] `TabBar` — Comments / Up Next / Details switcher
-- [ ] `CommentListDark` — dark-themed comment list
+- [ ] `NowPlayingSidebar` — desktop queue panel
+- [ ] `QueueList` — queue items with remove
+- [ ] `CommentList` — styled for dark theme
+- [ ] `CommentComposer` — input + sign-in CTA
+- [ ] `GenreFilters` — horizontal pills
+- [ ] `HeroSection` — featured playlist banner
 
 ---
 
-### V3 Testing Checklist
+## V3 QA Checklist
 
-- [ ] Navbar renders correctly on desktop and mobile
-- [ ] Search input is functional
-- [ ] Hero section displays (static or dynamic)
-- [ ] Genre filters work and persist active state
-- [ ] Song cards match mockup layout
-- [ ] Waveforms show dual-color progress
-- [ ] Desktop sidebar shows current track and queue
-- [ ] Mobile mini player expands to full view
-- [ ] All tabs in full view are functional
-- [ ] Dark theme applied consistently on mobile
+### Visual / Layout
+- [ ] Text truncation works (long titles/artists)
+- [ ] Empty states render (no queue, no comments)
+- [ ] Loading states render (skeleton cards)
+- [ ] Audio keeps playing while navigating
+- [ ] Dark theme consistent on mobile
+- [ ] No layout shift from images (fixed aspect ratios)
+
+### Touch / Interaction
+- [ ] All tap targets ≥ 44px
+- [ ] Press states provide feedback
+- [ ] Sheet drag-to-dismiss works
+- [ ] Waveform seek is smooth
+
+### Accessibility
+- [ ] Contrast ratio ≥ 4.5:1 for text
+- [ ] Focus rings visible on keyboard nav
+- [ ] Icon buttons have ARIA labels
+- [ ] Player state announced to screen readers
+
+### Responsiveness
+- [ ] Mobile layout correct at 375px
+- [ ] Tablet layout correct at 768px
+- [ ] Desktop layout correct at 1200px+
+- [ ] Sidebar hidden below 900px
