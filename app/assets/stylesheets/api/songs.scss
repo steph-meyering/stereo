@@ -369,6 +369,13 @@
     transition: all 0.2s;
     cursor: pointer;
   }
+
+  @include mobile {
+    height: 44px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 .pause-button {
@@ -385,6 +392,13 @@
     -webkit-filter: brightness(70%);
     transition: all 0.2s;
     cursor: pointer;
+  }
+
+  @include mobile {
+    height: 44px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
