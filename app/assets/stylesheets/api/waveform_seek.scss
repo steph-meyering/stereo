@@ -1,0 +1,37 @@
+@import "./style";
+
+.waveform-seek {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.waveform-bars {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  gap: 1px;
+}
+
+.waveform-bar {
+  flex: 1;
+  min-width: 2px;
+  transition: background-color 0.1s ease;
+  border-radius: 1px;
+
+  &.played {
+    background-color: var(--waveform-played);
+  }
+
+  &.unplayed {
+    background-color: var(--waveform-unplayed);
+  }
+
+  // Hover effect
+  .waveform-seek:hover & {
+    &.unplayed {
+      background-color: rgba(153, 153, 153, 0.7);
+    }
+  }
+}
