@@ -7,7 +7,35 @@ class TrackCardV3 extends React.Component {
     super(props);
     this.state = {
       showOverflow: false,
+      progress: 0,
     };
+    this.progressInterval = null;
+  }
+
+  componentDidMount() {
+    // Update progress periodically
+    this.progressInterval = setInterval(() => {
+      const { song, currentlyPlaying } = this.props;
+      const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
+      
+      if (isSelected) {
+        const audio = document.getElementById("audio-element");
+        if (audio && audio.duration) {
+          const progress = audio.currentTime / audio.duration;
+          if (this.state.progress !== progress) {
+            this.setState({ progress });
+          }
+        }
+      } else if (this.state.progress !== 0) {
+        this.setState({ progress: 0 });
+      }
+    }, 100);
+  }
+
+  componentWillUnmount() {
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval);
+    }
   }
 
   handlePlayClick = () => {
@@ -34,22 +62,15 @@ class TrackCardV3 extends React.Component {
       selectSong(song);
       // Give it a moment to load, then seek
       setTimeout(() => {
-        seek(song.id, percentage);
+        seek("waveform", percentage);
       }, 100);
     } else {
-      seek(song.id, percentage);
+      seek("waveform", percentage);
     }
   };
 
   getWaveformProgress = () => {
-    const { song, currentlyPlaying } = this.props;
-    const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
-    
-    if (!isSelected || !currentlyPlaying.progress) {
-      return 0;
-    }
-    
-    return currentlyPlaying.progress / 100;
+    return this.state.progress;
   };
 
   render() {
