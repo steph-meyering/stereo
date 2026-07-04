@@ -3,6 +3,10 @@
 This is a running summary checklist of work completed and what is still pending.
 
 ## ✅ Done
+- React 18 upgrade: createRoot bootstrap, react-redux 8, RTL 14; react-reveal removed in favor of CSS mount animations (play controls slide, modal bounce — note: no exit animations anymore)
+- Audio playback consolidated into a single audio_service singleton: PlayControls attaches the audio element; TrackCardV3/NowPlayingFull/VolumeControls subscribe instead of polling the DOM (16 new tests)
+- jQuery $.ajax replaced by fetch wrapper (frontend/util/api.js) with ApiError.responseJSON compatibility, FormData passthrough for uploads, CSRF header (12 new tests)
+- Webpack 5 migration: npm audit now reports 0 vulnerabilities (was 33); CI audit gate ratcheted to --audit-level=high; production bundle 16KB smaller
 - ESLint 9 flat config: zero errors, 34 warnings (pre-existing code smells downgraded); rules no-extra-boolean-cast, react/no-unescaped-entities, react/jsx-no-target-blank downgraded to warn; no-case-declarations off for reducer switch blocks
 - Rubocop gate: rubocop + rubocop-rails added; Metrics/Style/Layout/Naming/Rails departments disabled; Bundler/OrderedGems disabled; Security/Open excluded for db/seeds.rb; exits 0 on 86 files
 - GitHub Actions CI: three jobs (backend: Rails test + Rubocop; frontend: ESLint + Jest + Webpack; audit: npm audit --audit-level=critical); postgres:16 service with health check; ruby/setup-ruby@v1 with bundler-cache

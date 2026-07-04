@@ -1,5 +1,21 @@
 @import "./style";
 
+// Mount-time slide-up animation (replaces react-reveal <Slide bottom>).
+@keyframes reveal-slide-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.reveal-slide-bottom {
+  animation: reveal-slide-bottom 0.5s ease both;
+}
+
 #play-controls {
   position: fixed;
   display: flex;

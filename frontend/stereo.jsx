@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { signup, login, logout } from "./actions/session_actions";
 import configureStore from "./store/store";
 import Root from "./components/root";
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if(userScript) userScript.remove();
   // TESTING END
 
-  const root = document.getElementById("root");
-  ReactDOM.render(<Root store={store} />, root);
+  const rootEl = document.getElementById("root");
+  const root = createRoot(rootEl);
+  root.render(<Root store={store} />);
 });

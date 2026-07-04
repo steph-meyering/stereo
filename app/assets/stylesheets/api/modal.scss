@@ -21,6 +21,28 @@
 	color: var(--text);
 }
 
+// Mount-time bounce-in animation (replaces react-reveal <Bounce top>).
+@keyframes reveal-bounce-top {
+	0% {
+		transform: translateY(-500px);
+		opacity: 0;
+	}
+	60% {
+		transform: translateY(25px);
+		opacity: 1;
+	}
+	80% {
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.reveal-bounce-top {
+	animation: reveal-bounce-top 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
 .login-form-container {
 	width: 450px;
 

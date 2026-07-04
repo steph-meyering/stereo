@@ -1,5 +1,4 @@
 import React from "react";
-import Slide from "react-reveal/Slide";
 import VolumeControls from "./volume_controls";
 import audioService from "../../util/audio_service";
 
@@ -183,8 +182,7 @@ class PlayControls extends React.Component {
           }
         : undefined;
       return (
-        <Slide bottom>
-          <span id="play-controls" style={playerStyle}>
+          <span id="play-controls" className="reveal-slide-bottom" style={playerStyle}>
             <audio
               id="audio-element"
               onTimeUpdate={this.initProgress}
@@ -339,7 +337,6 @@ class PlayControls extends React.Component {
               </div>
             )}
           </span>
-        </Slide>
       );
     }
   }
