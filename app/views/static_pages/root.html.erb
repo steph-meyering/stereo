@@ -2,7 +2,7 @@
     <div id="bootstrap-current-user">
         <script type="text/javascript">
         window.currentUser = <%= render(
-            partial: "api/users/user",
+            partial: "api/users/current_user",
             formats: :json,
             locals: { user: current_user }
             ).html_safe %>

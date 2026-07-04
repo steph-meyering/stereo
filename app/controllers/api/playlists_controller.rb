@@ -1,10 +1,21 @@
 class Api::PlaylistsController < ApplicationController
+  PLAYLIST_INCLUDES = [
+    :user,
+    { playlist_songs: { song: [:artist, { file_attachment: :blob, photo_attachment: :blob }] } }
+  ].freeze
+
   before_action :require_logged_in, except: [:show, :index]
   before_action :set_playlist, only: [:show, :update, :destroy]
   before_action :authorize_owner, only: [:update, :destroy]
 
   def index
-    @playlists = Playlist.includes(:user).all
+    scope = Playlist.includes(*PLAYLIST_INCLUDES)
+    @playlists =
+      if current_user
+        scope.where(private: false).or(scope.where(user_id: current_user.id))
+      else
+        scope.where(private: false)
+      end
     render :index
   end
 
@@ -37,10 +48,17 @@ class Api::PlaylistsController < ApplicationController
   private
 
   def set_playlist
-    @playlist = Playlist.includes(playlist_songs: :song).find_by(id: params[:id])
-    unless @playlist
+    @playlist = Playlist.includes(*PLAYLIST_INCLUDES).find_by(id: params[:id])
+    # Render private playlists identically to missing ones so their
+    # existence isn't confirmed to non-owners.
+    if @playlist.nil? || (@playlist.private && !owner_or_admin?(@playlist))
+      @playlist = nil
       render json: { errors: ["Playlist not found"] }, status: 404
     end
+  end
+
+  def owner_or_admin?(playlist)
+    current_user && (current_user.id == playlist.user_id || current_user.admin?)
   end
 
   def authorize_owner

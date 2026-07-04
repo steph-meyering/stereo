@@ -36,6 +36,48 @@ class PlaylistsApiTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "index hides private playlists from anonymous users" do
+    get "/api/playlists", as: :json
+    assert_response :success
+    titles = json_response.map { |p| p["title"] }
+    assert_includes titles, playlists(:one).title
+    assert_not_includes titles, playlists(:two).title
+  end
+
+  test "index hides private playlists from non-owners" do
+    sign_in_as(@user)
+    get "/api/playlists", as: :json
+    assert_response :success
+    titles = json_response.map { |p| p["title"] }
+    assert_not_includes titles, playlists(:two).title
+  end
+
+  test "index shows own private playlists to owner" do
+    sign_in_as(users(:two))
+    get "/api/playlists", as: :json
+    assert_response :success
+    titles = json_response.map { |p| p["title"] }
+    assert_includes titles, playlists(:two).title
+  end
+
+  test "show returns 404 for private playlist to anonymous users" do
+    get "/api/playlists/#{playlists(:two).id}", as: :json
+    assert_response :not_found
+  end
+
+  test "show returns 404 for private playlist to non-owners" do
+    sign_in_as(@user)
+    get "/api/playlists/#{playlists(:two).id}", as: :json
+    assert_response :not_found
+  end
+
+  test "show returns private playlist to owner" do
+    sign_in_as(users(:two))
+    get "/api/playlists/#{playlists(:two).id}", as: :json
+    assert_response :success
+    assert_equal playlists(:two).title, json_response["title"]
+  end
+
   private
 
   def attach_song_assets(song)
