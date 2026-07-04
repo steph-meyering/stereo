@@ -1,33 +1,15 @@
-export const fetchComment = (commentId) =>
-  $.ajax({
-    method: "GET",
-    url: `/api/comments/${commentId}`
-  });
+import { apiGet, apiPost, apiPatch, apiDelete } from "./api";
 
-  export const fetchComments = (song_id) => {
-    return $.ajax({
-      method: "GET",
-      url: `/api/songs/${song_id}/comments`,
-    });
-  };
+export const fetchComment = (commentId) => apiGet(`/api/comments/${commentId}`);
 
-  export const editComment = (song_id, id, comment) => {
-    return $.ajax({
-      method: "PATCH",
-      url: `/api/songs/${song_id}/comments/${id}`,
-      data: comment,
-    });
-  };
+export const fetchComments = (song_id) =>
+  apiGet(`/api/songs/${song_id}/comments`);
 
-  export const postComment = (song_id, comment) =>
-    $.ajax({
-      method: "POST",
-      url: `/api/songs/${song_id}/comments`,
-      data: {comment},
-    });
+export const editComment = (song_id, id, comment) =>
+  apiPatch(`/api/songs/${song_id}/comments/${id}`, comment);
 
-  export const deleteComment = (song_id, commentId) =>
-    $.ajax({
-      method: "DELETE",
-      url: `/api/songs/${song_id}/comments/${commentId}`,
-    });
+export const postComment = (song_id, comment) =>
+  apiPost(`/api/songs/${song_id}/comments`, { comment });
+
+export const deleteComment = (song_id, commentId) =>
+  apiDelete(`/api/songs/${song_id}/comments/${commentId}`);

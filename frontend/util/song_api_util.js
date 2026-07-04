@@ -1,113 +1,49 @@
-export const fetchSong = (songId) =>
-  $.ajax({
-    method: "GET",
-    url: `/api/songs/${songId}`,
-  });
+import { apiGet, apiPost, apiPatch, apiDelete } from "./api";
 
-export const fetchSongs = () => {
-  return $.ajax({
-    method: "GET",
-    url: `/api/songs`,
-  });
-};
+export const fetchSong = (songId) => apiGet(`/api/songs/${songId}`);
 
-export const updateSong = (id, song) => {
-  return $.ajax({
-    method: "PATCH",
-    url: `/api/songs/${id}`,
-    data: song,
-    contentType: false,
-    processData: false,
-  });
-};
+export const fetchSongs = () => apiGet(`/api/songs`);
 
-export const uploadSong = (song) =>
-  $.ajax({
-    method: "POST",
-    url: `/api/songs`,
-    data: song,
-    contentType: false,
-    processData: false,
-  });
+// `song` is a FormData instance; passed through untouched.
+export const updateSong = (id, song) => apiPatch(`/api/songs/${id}`, song);
 
-export const deleteSong = (songId) =>
-  $.ajax({
-    method: "DELETE",
-    url: `/api/songs/${songId}`,
-  });
+// `song` is a FormData instance; passed through untouched.
+export const uploadSong = (song) => apiPost(`/api/songs`, song);
 
-export const likeSong = (songId) =>
-  $.ajax({
-    method: "POST",
-    url: `/api/songs/${songId}/like`,
-  });
+export const deleteSong = (songId) => apiDelete(`/api/songs/${songId}`);
 
-export const unlikeSong = (songId) =>
-  $.ajax({
-    method: "DELETE",
-    url: `/api/songs/${songId}/like`,
-  });
+export const likeSong = (songId) => apiPost(`/api/songs/${songId}/like`);
 
-export const repostSong = (songId) =>
-  $.ajax({
-    method: "POST",
-    url: `/api/songs/${songId}/repost`,
-  });
+export const unlikeSong = (songId) => apiDelete(`/api/songs/${songId}/like`);
+
+export const repostSong = (songId) => apiPost(`/api/songs/${songId}/repost`);
 
 export const unrepostSong = (songId) =>
-  $.ajax({
-    method: "DELETE",
-    url: `/api/songs/${songId}/repost`,
-  });
+  apiDelete(`/api/songs/${songId}/repost`);
 
-export const fetchPlaylists = () =>
-  $.ajax({
-    method: "GET",
-    url: "/api/playlists",
-  });
+export const fetchPlaylists = () => apiGet("/api/playlists");
 
 export const fetchPlaylist = (playlistId) =>
-  $.ajax({
-    method: "GET",
-    url: `/api/playlists/${playlistId}`,
-  });
+  apiGet(`/api/playlists/${playlistId}`);
 
 export const createPlaylist = (playlist) =>
-  $.ajax({
-    method: "POST",
-    url: "/api/playlists",
-    data: { playlist },
-  });
+  apiPost("/api/playlists", { playlist });
 
 export const updatePlaylist = (playlistId, playlist) =>
-  $.ajax({
-    method: "PATCH",
-    url: `/api/playlists/${playlistId}`,
-    data: { playlist },
-  });
+  apiPatch(`/api/playlists/${playlistId}`, { playlist });
 
 export const deletePlaylist = (playlistId) =>
-  $.ajax({
-    method: "DELETE",
-    url: `/api/playlists/${playlistId}`,
-  });
+  apiDelete(`/api/playlists/${playlistId}`);
 
 export const addSongToPlaylist = (playlistId, playlistSong) =>
-  $.ajax({
-    method: "POST",
-    url: `/api/playlists/${playlistId}/playlist_songs`,
-    data: { playlist_song: playlistSong },
+  apiPost(`/api/playlists/${playlistId}/playlist_songs`, {
+    playlist_song: playlistSong,
   });
 
 export const removeSongFromPlaylist = (playlistId, songId) =>
-  $.ajax({
-    method: "DELETE",
-    url: `/api/playlists/${playlistId}/playlist_songs/${songId}`,
-  });
+  apiDelete(`/api/playlists/${playlistId}/playlist_songs/${songId}`);
 
 export const reorderPlaylistSong = (playlistId, songId, playlistSong) =>
-  $.ajax({
-    method: "PATCH",
-    url: `/api/playlists/${playlistId}/playlist_songs/${songId}`,
-    data: { playlist_song: playlistSong },
+  apiPatch(`/api/playlists/${playlistId}/playlist_songs/${songId}`, {
+    playlist_song: playlistSong,
   });

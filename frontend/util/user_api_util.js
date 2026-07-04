@@ -1,6 +1,3 @@
-export const fetchUser = userId => (
-    $.ajax({
-        method: 'GET',
-        url: `/api/users/${userId}`
-    })
-)
+import { apiGet } from "./api";
+
+export const fetchUser = (userId) => apiGet(`/api/users/${userId}`);

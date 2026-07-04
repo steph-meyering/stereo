@@ -1,22 +1,7 @@
-export const login = user => (
-    $.ajax({
-        method: 'POST',
-        url: '/api/session',
-        data: { user }
-    })
-);
+import { apiPost, apiDelete } from "./api";
 
-export const signup = user => (
-    $.ajax({
-        method: 'POST',
-        url: '/api/users',
-        data: { user }
-    })
-);
+export const login = (user) => apiPost("/api/session", { user });
 
-export const logout = () => (
-    $.ajax({
-        method: 'DELETE',
-        url: '/api/session'
-    })
-);
+export const signup = (user) => apiPost("/api/users", { user });
+
+export const logout = () => apiDelete("/api/session");
