@@ -46,7 +46,7 @@ class NowPlayingFull extends React.Component {
       if (progressChanged || timeChanged) {
         this.setState({ progress, currentTime, duration });
       }
-    }, 200);
+    }, 250);
   }
 
   convertTime(seconds) {

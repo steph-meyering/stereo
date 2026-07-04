@@ -13,7 +13,7 @@ class VolumeControls extends React.Component {
 
   componentDidUpdate() {
     this.filledAxis.style.height = `${this.state.volume * 100}%`;
-    this.audio.volume = this.state.volume;
+    if (this.audio) this.audio.volume = this.state.volume;
     switch (true) {
       case this.state.volume === 0:
         this.trigger.className = "player-button player-volume-muted";
@@ -36,19 +36,30 @@ class VolumeControls extends React.Component {
     this.sliderAxis = document.getElementById("volume-slider-axis");
     this.filledAxis = document.getElementById("volume-slider-axis-filled");
     this.trigger = document.getElementById("volume-button");
-    this.trigger.addEventListener("mouseenter", (e) =>
-      this.getSliderDimensions(e)
-    );
-    document.addEventListener("mouseup", (e) => {
-      if (this.selecting){
-        this.dragEnd(e)
+    this.handleMouseEnter = (e) => this.getSliderDimensions(e);
+    this.handleMouseUp = (e) => {
+      if (this.selecting) {
+        this.dragEnd(e);
       }
-    });
-    document.addEventListener("mousemove", (e) => {
+    };
+    this.handleMouseMove = (e) => {
       if (this.selecting) {
         this.dragMove(e);
       }
-    });
+    };
+    if (this.trigger) {
+      this.trigger.addEventListener("mouseenter", this.handleMouseEnter);
+    }
+    document.addEventListener("mouseup", this.handleMouseUp);
+    document.addEventListener("mousemove", this.handleMouseMove);
+  }
+
+  componentWillUnmount() {
+    if (this.trigger) {
+      this.trigger.removeEventListener("mouseenter", this.handleMouseEnter);
+    }
+    document.removeEventListener("mouseup", this.handleMouseUp);
+    document.removeEventListener("mousemove", this.handleMouseMove);
   }
 
   getSliderDimensions(e) {

@@ -25,9 +25,7 @@ class Comment < ApplicationRecord
   class_name: 'User'
 
   def self.search(song_id)
-    comments = Comment.all
-    comments = comments.where(song_id: song_id)
-    comments
+    where(song_id: song_id)
   end
 
   private

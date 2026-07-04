@@ -29,7 +29,7 @@ class TrackCardV3 extends React.Component {
       } else if (this.state.progress !== 0) {
         this.setState({ progress: 0 });
       }
-    }, 100);
+    }, 250);
   }
 
   componentWillUnmount() {

@@ -59,16 +59,18 @@ const playQueueReducer = (state = initialState, action) => {
       return nextState;
     case PLAY_NEXT:
       if (nextState.queue.length > 1) {
-        const lastPlayed = nextState.queue.shift();
-        nextState.played.push(lastPlayed);
-        nextState.queueIds = nextState.queue.map((song) => song.id);
+        const [lastPlayed, ...restQueue] = nextState.queue;
+        nextState.queue = restQueue;
+        nextState.played = [...nextState.played, lastPlayed];
+        nextState.queueIds = restQueue.map((song) => song.id);
         nextState.playedIds = nextState.played.map((song) => song.id);
       }
       return nextState;
     case PLAY_PREVIOUS:
       if (nextState.played.length > 0) {
-        const lastPlayed = nextState.played.pop();
-        nextState.queue.unshift(lastPlayed);
+        const lastPlayed = nextState.played[nextState.played.length - 1];
+        nextState.played = nextState.played.slice(0, -1);
+        nextState.queue = [lastPlayed, ...nextState.queue];
         nextState.queueIds = nextState.queue.map((song) => song.id);
         nextState.playedIds = nextState.played.map((song) => song.id);
       }
