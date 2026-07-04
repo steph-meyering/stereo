@@ -147,6 +147,7 @@ class TrackCardV3 extends React.Component {
             waveformData={waveformData}
             progress={this.getWaveformProgress()}
             height={40}
+            barStride={5}
             onSeek={this.handleWaveformSeek}
           />
         </div>

@@ -1,7 +1,9 @@
 import React from "react";
 
-// Matches the classic SoundCloud/wavesurfer look: 2px bars with 1px gaps.
-const BAR_STRIDE = 3;
+// Default stride matches the classic SoundCloud/wavesurfer look:
+// 2px bars with 1px gaps. Pass a larger `barStride` prop for chunkier
+// bars (e.g. compact track cards).
+const DEFAULT_BAR_STRIDE = 3;
 const PLACEHOLDER_POOL_SIZE = 600;
 
 class WaveformSeek extends React.Component {
@@ -24,6 +26,12 @@ class WaveformSeek extends React.Component {
     window.addEventListener("resize", this.handleResize);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.barStride !== this.props.barStride) {
+      this.handleResize();
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleResize);
   }
@@ -31,7 +39,8 @@ class WaveformSeek extends React.Component {
   handleResize() {
     const el = this.waveformRef.current;
     if (!el) return;
-    const barCount = Math.max(40, Math.floor(el.clientWidth / BAR_STRIDE));
+    const stride = this.props.barStride || DEFAULT_BAR_STRIDE;
+    const barCount = Math.max(40, Math.floor(el.clientWidth / stride));
     if (barCount !== this.state.barCount) {
       this.setState({ barCount });
     }

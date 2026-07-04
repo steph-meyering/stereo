@@ -7,7 +7,7 @@ export const initWave = (container, options = {}) => {
       container: `#${container}`,
       backend: options.backend || "MediaElement",
       height: 100,
-      barWidth: 2,
+      barWidth: 1,
       barHeight: 1,
       barGap: null,
       progressColor: "#f50",
