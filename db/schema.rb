@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_17_005759) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_18_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,8 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_17_005759) do
     t.string "checksum"
     t.datetime "created_at", precision: nil, null: false
     t.string "service_name"
-    t.index ["key"], name: "index_active_storage_blobs_on_key"
-    t.unique_constraint ["key"], name: "active_storage_blobs_key_key"
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
@@ -52,6 +51,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_17_005759) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["song_id"], name: "index_comments_on_song_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "follower_id", null: false
+    t.bigint "followed_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_follows_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -102,6 +111,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_17_005759) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.json "waveform"
+    t.integer "likes_count", default: 0, null: false
+    t.integer "reposts_count", default: 0, null: false
     t.index ["artist_id"], name: "index_songs_on_artist_id"
   end
 
@@ -115,16 +126,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_17_005759) do
     t.string "session_token"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["session_token"], name: "index_users_on_session_token"
-    t.index ["username"], name: "index_users_on_username"
-    t.unique_constraint ["session_token"], name: "users_session_token_key"
-    t.unique_constraint ["username"], name: "users_username_key"
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id", name: "active_storage_attachments_blob_id_fkey"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "songs", name: "comments_song_id_fkey"
-  add_foreign_key "comments", "users", name: "comments_user_id_fkey"
+  add_foreign_key "comments", "songs"
+  add_foreign_key "comments", "users"
+  add_foreign_key "follows", "users", column: "followed_id"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "likes", "songs"
   add_foreign_key "likes", "users"
   add_foreign_key "playlist_songs", "playlists"

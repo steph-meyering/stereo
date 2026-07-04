@@ -6,3 +6,5 @@ json.likeCount song.likes_count
 json.liked current_user ? song.likes.exists?(user_id: current_user.id) : false
 json.repostCount song.reposts_count
 json.reposted current_user ? song.reposts.exists?(user_id: current_user.id) : false
+json.createdAt song.created_at
+json.updatedAt song.updated_at
