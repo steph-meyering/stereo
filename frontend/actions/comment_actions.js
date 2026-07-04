@@ -18,7 +18,7 @@ export const receiveComments = (comments) => {
 
 export const removeComment = (commentId) => {
   return {
-    type: REMOVE_SONG,
+    type: REMOVE_COMMENT,
     commentId,
   };
 };

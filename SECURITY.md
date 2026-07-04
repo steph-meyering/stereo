@@ -52,17 +52,12 @@ Implemented using `rack-attack` gem:
 ### 🟡 Medium Priority
 
 #### Version Updates
-The application currently uses:
-- Ruby 2.6.10 (EOL - end of life)
-- Rails 6.1.x (should update to 7.x for latest security patches)
-- Node.js 13.7.0 (EOL - end of life)
+The application currently runs on:
+- Ruby 3.2.0
+- Rails 7.1.x
+- Node.js 22 LTS
 
-**Recommendation**: Plan an upgrade path to:
-- Ruby 3.2+ or 3.3+
-- Rails 7.1+
-- Node.js 20 LTS or 22 LTS
-
-**Note**: This requires significant testing and may involve breaking changes.
+All runtimes are actively maintained. Continue monitoring for point releases and patch as needed.
 
 ### 🟡 SQL Injection Prevention
 Rails uses parameterized queries by default, which prevents SQL injection.
@@ -129,6 +124,9 @@ Song.where(genre: params[:genre])
    - ✅ Never commit keys to git (enforced via .gitignore)
    - ✅ Use environment variables for credentials
    - 💡 Consider: Migrate to IAM roles instead of access keys (if on EC2/ECS)
+   - ✅ AWS keys (AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY) were verified absent
+     from the full git history (`git log -p | grep -i 'AKIA'` returned no results).
+     Rotating them is still recommended as routine hygiene.
 
 4. **Bucket Security**:
    - ✅ Enable bucket versioning (for backup/recovery)

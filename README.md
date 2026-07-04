@@ -3,7 +3,7 @@
 Stereo is an online music streaming application, inspired by Soundcloud. 
 The goal of this project was to build an app from scratch in a 2 week timeframe, without using any external libraries.
 
-[See it live!](https://stereocloud.herokuapp.com/#/)
+Deployed on Render
 
 ## Technologies Used:
 
@@ -12,7 +12,7 @@ The goal of this project was to build an app from scratch in a 2 week timeframe,
 - Rails 7.1: backend management
 - AWS S3: music and photo storage
 - PostgreSQL: database
-- Heroku: app/db hosting
+- Render: app/db hosting
 - BCrypt: password encryption/decryption
 - Wavesurfer.js: waveform rendering
 
@@ -87,6 +87,30 @@ npm start
 6. **Visit the app**
 
 Open your browser to `http://localhost:3000`
+
+---
+
+## Running Tests
+
+```bash
+# Rails test suite (67 runs)
+bundle exec rails test
+
+# JavaScript test suite (Jest, 23 tests)
+npm test
+```
+
+---
+
+## Linting
+
+```bash
+# Ruby – Rubocop (Lint + Security departments enabled)
+bundle exec rubocop
+
+# JavaScript – ESLint 9 flat config
+npx eslint frontend
+```
 
 ---
 

@@ -1,0 +1,45 @@
+plugins:
+  - rubocop-rails
+
+AllCops:
+  NewCops: disable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+  Exclude:
+    - "db/schema.rb"
+    - "db/migrate/**/*"
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+
+# Disable all style/layout/naming/metrics departments wholesale
+# (this is a linter gate, not a style enforcer)
+Metrics:
+  Enabled: false
+
+Style:
+  Enabled: false
+
+Layout:
+  Enabled: false
+
+Naming:
+  Enabled: false
+
+Rails:
+  Enabled: false
+
+# Keep Lint and Security enabled (the defaults)
+# Any per-cop disables below address pre-existing issues
+# that are not worth changing mid-development
+
+# Bundler/OrderedGems — gem ordering was established before this gate;
+# not worth a churn-y reorder, so disable
+Bundler/OrderedGems:
+  Enabled: false
+
+# Security/Open in db/seeds.rb — pre-existing pattern fetching seed media from S3 URLs;
+# seeds only run in a controlled environment and not in production requests
+Security/Open:
+  Exclude:
+    - "db/seeds.rb"
