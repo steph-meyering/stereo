@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import WaveformSeek from "../waveform/waveform_seek";
+import audioService from "../../util/audio_service";
 
 class TrackCardV3 extends React.Component {
   constructor(props) {
@@ -9,32 +10,43 @@ class TrackCardV3 extends React.Component {
       showOverflow: false,
       progress: 0,
     };
-    this.progressInterval = null;
+    this.unsubscribe = null;
+    this.handleProgress = this.handleProgress.bind(this);
   }
 
   componentDidMount() {
-    // Update progress periodically
-    this.progressInterval = setInterval(() => {
-      const { song, currentlyPlaying } = this.props;
-      const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
-      
-      if (isSelected) {
-        const audio = document.getElementById("audio-element");
-        if (audio && audio.duration) {
-          const progress = audio.currentTime / audio.duration;
-          if (this.state.progress !== progress) {
-            this.setState({ progress });
-          }
-        }
-      } else if (this.state.progress !== 0) {
-        this.setState({ progress: 0 });
-      }
-    }, 250);
+    // Subscribe to the shared audio service instead of polling the DOM.
+    this.unsubscribe = audioService.subscribe(this.handleProgress);
+  }
+
+  componentDidUpdate() {
+    // When this card is no longer the selected song, reset its progress to 0.
+    // timeupdate events won't fire for a non-playing element, so we handle the
+    // reset here on the prop-driven re-render rather than in handleProgress.
+    const { song, currentlyPlaying } = this.props;
+    const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
+    if (!isSelected && this.state.progress !== 0) {
+      this.setState({ progress: 0 });
+    }
   }
 
   componentWillUnmount() {
-    if (this.progressInterval) {
-      clearInterval(this.progressInterval);
+    if (this.unsubscribe) {
+      this.unsubscribe();
+      this.unsubscribe = null;
+    }
+  }
+
+  handleProgress({ progress }) {
+    const { song, currentlyPlaying } = this.props;
+    const isSelected = currentlyPlaying && currentlyPlaying.id === song.id;
+
+    if (isSelected) {
+      if (progress && this.state.progress !== progress) {
+        this.setState({ progress });
+      }
+    } else if (this.state.progress !== 0) {
+      this.setState({ progress: 0 });
     }
   }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import audioService from "../../util/audio_service";
 
 class VolumeControls extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class VolumeControls extends React.Component {
 
   componentDidUpdate() {
     this.filledAxis.style.height = `${this.state.volume * 100}%`;
-    if (this.audio) this.audio.volume = this.state.volume;
+    audioService.setVolume(this.state.volume);
     switch (true) {
       case this.state.volume === 0:
         this.trigger.className = "player-button player-volume-muted";
@@ -30,7 +31,6 @@ class VolumeControls extends React.Component {
   }
 
   componentDidMount() {
-    this.audio = document.getElementById("audio-element");
     this.selected = document.getElementById("volume-slider-thumb");
     this.sliderBox = document.getElementById("volume-slider-box");
     this.sliderAxis = document.getElementById("volume-slider-axis");

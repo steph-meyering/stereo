@@ -1,6 +1,7 @@
 import React from "react";
 import Slide from "react-reveal/Slide";
 import VolumeControls from "./volume_controls";
+import audioService from "../../util/audio_service";
 
 class PlayControls extends React.Component {
   constructor(props) {
@@ -23,6 +24,13 @@ class PlayControls extends React.Component {
       scrubTime: null,
       scrubLeft: 0,
     };
+  }
+
+  componentWillUnmount() {
+    if (this.progress) {
+      this.progress.removeEventListener("click", this.seek);
+    }
+    audioService.detach();
   }
 
   componentDidUpdate() {
@@ -56,6 +64,9 @@ class PlayControls extends React.Component {
       this.progress.addEventListener("click", this.seek);
       this.playerTimeElement = document.getElementById("current-time");
       this.songDurationElement = document.getElementById("song-duration");
+      // Register the shared audio element so other consumers (TrackCardV3,
+      // NowPlayingFull, VolumeControls) can subscribe instead of polling.
+      audioService.attach(this.audio);
     }
     this.songDurationElement.innerHTML = this.convertTime(this.audio.duration);
     let currentTime = this.audio.currentTime;

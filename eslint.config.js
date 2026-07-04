@@ -28,6 +28,8 @@ export default [
         // jQuery is injected via Sprockets
         $: "readonly",
         process: "readonly",
+        // 404.jsx animation code references `global` (bundled by webpack)
+        global: "readonly",
       },
     },
     settings: {

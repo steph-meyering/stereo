@@ -2,6 +2,7 @@ import React from "react";
 import WaveformSeek from "../waveform/waveform_seek";
 import CommentForm from "../comments/comment_form";
 import CommentIndexContainer from "../comments/comment_index_container";
+import audioService from "../../util/audio_service";
 
 class NowPlayingFull extends React.Component {
   constructor(props) {
@@ -12,11 +13,12 @@ class NowPlayingFull extends React.Component {
       duration: 0,
       activeTab: "upNext",
     };
-    this.progressInterval = null;
+    this.unsubscribe = null;
+    this.handleProgress = this.handleProgress.bind(this);
   }
 
   componentDidMount() {
-    this.startProgressSync();
+    this.unsubscribe = audioService.subscribe(this.handleProgress);
   }
 
   componentDidUpdate(prevProps) {
@@ -26,27 +28,21 @@ class NowPlayingFull extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.progressInterval) {
-      clearInterval(this.progressInterval);
+    if (this.unsubscribe) {
+      this.unsubscribe();
+      this.unsubscribe = null;
     }
   }
 
-  startProgressSync() {
-    this.progressInterval = setInterval(() => {
-      const audio = document.getElementById("audio-element");
-      if (!audio || !audio.duration) return;
+  handleProgress({ currentTime, duration, progress }) {
+    if (!duration) return;
 
-      const progress = audio.currentTime / audio.duration;
-      const currentTime = audio.currentTime;
-      const duration = audio.duration;
+    const progressChanged = Math.abs(progress - this.state.progress) > 0.002;
+    const timeChanged = Math.abs(currentTime - this.state.currentTime) > 0.25;
 
-      const progressChanged = Math.abs(progress - this.state.progress) > 0.002;
-      const timeChanged = Math.abs(currentTime - this.state.currentTime) > 0.25;
-
-      if (progressChanged || timeChanged) {
-        this.setState({ progress, currentTime, duration });
-      }
-    }, 250);
+    if (progressChanged || timeChanged) {
+      this.setState({ progress, currentTime, duration });
+    }
   }
 
   convertTime(seconds) {
@@ -74,9 +70,8 @@ class NowPlayingFull extends React.Component {
   };
 
   handlePrevious = () => {
-    const audio = document.getElementById("audio-element");
-    if (audio && audio.currentTime > 2) {
-      audio.currentTime = 0;
+    if (audioService.getCurrentTime() > 2) {
+      audioService.seek(0);
       this.props.seek("playControls", 0);
       return;
     }
