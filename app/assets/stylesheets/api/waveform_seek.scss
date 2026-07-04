@@ -16,9 +16,8 @@
 
 .waveform-bar {
   flex: 1;
-  min-width: 2px;
+  min-width: 1px;
   transition: background-color 0.1s ease;
-  border-radius: 1px;
 
   &.played {
     background-color: var(--waveform-played);

@@ -1,12 +1,50 @@
 import React from "react";
 
+// Matches the classic SoundCloud/wavesurfer look: 2px bars with 1px gaps.
+const BAR_STRIDE = 3;
+const PLACEHOLDER_POOL_SIZE = 600;
+
 class WaveformSeek extends React.Component {
   constructor(props) {
     super(props);
     this.waveformRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
-    // Generate placeholder bars once in constructor, not on every render
-    this.placeholderBars = Array.from({ length: 100 }, () => Math.random() * 0.8 + 0.2);
+    this.handleResize = this.handleResize.bind(this);
+    // Generate a stable placeholder pool once; it is resampled to the
+    // measured bar count so bars don't re-randomize on resize/render.
+    this.placeholderPool = Array.from(
+      { length: PLACEHOLDER_POOL_SIZE },
+      () => Math.random() * 0.8 + 0.2
+    );
+    this.state = { barCount: 100 };
+  }
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  handleResize() {
+    const el = this.waveformRef.current;
+    if (!el) return;
+    const barCount = Math.max(40, Math.floor(el.clientWidth / BAR_STRIDE));
+    if (barCount !== this.state.barCount) {
+      this.setState({ barCount });
+    }
+  }
+
+  // Resample source amplitudes to the target bar count so density follows
+  // the container width instead of stretching a fixed number of bars.
+  resample(source, count) {
+    if (source.length === count) return source;
+    return Array.from({ length: count }, (_, i) => {
+      const idx = Math.floor((i / count) * source.length);
+      return source[idx];
+    });
   }
 
   handleClick(e) {
@@ -15,15 +53,17 @@ class WaveformSeek extends React.Component {
     const rect = this.waveformRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const percentage = x / rect.width;
-    
+
     this.props.onSeek(percentage);
   }
 
   render() {
     const { waveformData, progress = 0, height = 60 } = this.props;
-    
+    const { barCount } = this.state;
+
     // If we have actual waveform data, use it; otherwise use stable placeholder
-    const bars = waveformData || this.placeholderBars;
+    const source = waveformData || this.placeholderPool;
+    const bars = this.resample(source, barCount);
 
     return (
       <div
