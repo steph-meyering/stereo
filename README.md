@@ -3,7 +3,7 @@
 Stereo is an online music streaming application, inspired by Soundcloud. 
 The goal of this project was to build an app from scratch in a 2 week timeframe, without using any external libraries.
 
-Deployed on Render
+Deployed on Render: https://stereo-x465.onrender.com/
 
 ## Technologies Used:
 
