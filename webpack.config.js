@@ -18,7 +18,7 @@ module.exports = {
                 exclude: /(node_modules)/,
                 use: {
                     loader: "babel-loader",
-                    query: {
+                    options: {
                         presets: ["@babel/env", "@babel/react"]
                     }
                 }
@@ -27,14 +27,6 @@ module.exports = {
     },
     devtool: "source-map",
     resolve: {
-        extensions: [".js", ".jsx", "*"],
-        alias: {
-            css: path.resolve(__dirname, "frontend/css"),
-            js: path.resolve(__dirname, "frontend/js"),
-            store: path.resolve(__dirname, "frontend/redux/store"),
-            util: path.resolve(__dirname, "frontend/redux/util"),
-            reducers: path.resolve(__dirname, "frontend/redux/reducers"),
-            actions: path.resolve(__dirname, "frontend/redux/actions")
-        }
+        extensions: [".js", ".jsx"]
     }
 };
