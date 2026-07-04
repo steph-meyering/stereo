@@ -798,7 +798,7 @@ Create `app/assets/stylesheets/api/_tokens.scss`:
 │     ⇄      ◀◀     ▶▶      ≡    ♥   │
 │                                     │
 ├─────────────────────────────────────┤
-│  [Comments]  Up Next   Details      │
+│  [Comments]  Up Next                │
 ├─────────────────────────────────────┤
 │  (Tab content - scrollable)         │
 └─────────────────────────────────────┘
@@ -811,7 +811,7 @@ Create `app/assets/stylesheets/api/_tokens.scss`:
 | Artist | `--text-base`, `--dark-muted` |
 | Waveform | Full width, 60px, draggable seek |
 | Actions | 48px tap targets, `--accent` when active |
-| Tabs | Comments (orange bg active), Up Next, Details |
+| Tabs | Comments (orange bg active), Up Next |
 
 ### Tabs Content
 
@@ -824,10 +824,6 @@ Create `app/assets/stylesheets/api/_tokens.scss`:
 - Remove button per item (icon, not link)
 - Clear all button in header
 - (Later: drag to reorder)
-
-**Details Tab:**
-- Track metadata: genre, upload date, description
-- Artist info with link to profile
 
 **Definition of Done**:
 - Full-screen view opens from MiniPlayer tap

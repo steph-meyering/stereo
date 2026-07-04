@@ -12,6 +12,14 @@
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  // Override global defaults so navbar content stays light
+  a,
+  button,
+  input,
+  svg {
+    color: var(--navbar-text);
+  }
+
   @include mobile {
     height: 56px;
   }
@@ -34,10 +42,15 @@
 .topbar-logo {
   font-size: 24px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--navbar-text) !important;
   text-decoration: none;
   white-space: nowrap;
   margin-right: var(--space-5);
+
+  // Ensure logo stays bright on dark navbar
+  .topbar & {
+    color: var(--navbar-text) !important;
+  }
 
   @include mobile {
     font-size: 20px;
@@ -47,6 +60,7 @@
 
 .logo-mobile {
   display: none;
+  color: var(--navbar-text) !important;
 
   @include mobile {
     display: inline;
@@ -55,6 +69,7 @@
 
 .logo-full {
   display: inline;
+  color: var(--navbar-text) !important;
 
   @include mobile {
     display: none;
@@ -85,7 +100,7 @@
   transition: background-color 0.2s ease;
 
   &::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
   }
 
   &:focus {
@@ -124,6 +139,15 @@
 
   @include mobile {
     gap: var(--space-2);
+  }
+}
+
+// Ensure theme toggle uses light navbar color
+.topbar .theme-toggle {
+  color: var(--navbar-text);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.12);
   }
 }
 

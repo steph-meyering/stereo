@@ -1,14 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import NowPlayingFullContainer from "./now_playing_full_container";
 
 class MiniPlayer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showNowPlaying: false };
+  }
+
+  openNowPlaying = () => {
+    this.setState({ showNowPlaying: true });
+  };
+
+  closeNowPlaying = () => {
+    this.setState({ showNowPlaying: false });
+  };
+
   render() {
     const { currentSong, playing, playPauseSong } = this.props;
+    const { showNowPlaying } = this.state;
 
     if (!currentSong) return null;
 
     return (
-      <div className="mini-player">
+      <>
+        <div className="mini-player" onClick={this.openNowPlaying}>
         {/* Progress bar at top */}
         <div className="mini-player-progress">
           <div
@@ -32,13 +47,20 @@ class MiniPlayer extends React.Component {
 
           <button
             className="mini-player-play-button"
-            onClick={playPauseSong}
+            onClick={(e) => {
+              e.stopPropagation();
+              playPauseSong();
+            }}
             aria-label={playing ? "Pause" : "Play"}
           >
             {playing ? "❚❚" : "▶"}
           </button>
         </div>
-      </div>
+        </div>
+        {showNowPlaying && (
+          <NowPlayingFullContainer onClose={this.closeNowPlaying} />
+        )}
+      </>
     );
   }
 }

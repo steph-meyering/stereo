@@ -66,6 +66,30 @@
     width: 40px;
     height: 40px;
   }
+
+  // Play icon
+  .play-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-left: 2px; // Optical centering
+  }
+
+  // Pause icon - two vertical bars
+  .pause-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    span {
+      width: 3px;
+      height: 12px;
+      background-color: white;
+      border-radius: 1px;
+    }
+  }
 }
 
 .track-card-info {

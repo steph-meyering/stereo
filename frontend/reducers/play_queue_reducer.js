@@ -7,6 +7,7 @@ import {
   SET_QUEUE,
   ADD_TO_QUEUE,
   REMOVE_FROM_QUEUE,
+  REMOVE_FROM_QUEUE_INDEX,
   CLEAR_QUEUE,
   REORDER_QUEUE,
 } from "../actions/queue_actions";
@@ -98,6 +99,11 @@ const playQueueReducer = (state = initialState, action) => {
         if (index === 0) return true;
         return song.id !== action.songId;
       });
+      nextState.queueIds = nextState.queue.map((song) => song.id);
+      return nextState;
+    case REMOVE_FROM_QUEUE_INDEX:
+      if (action.index === 0 || action.index >= nextState.queue.length) return nextState;
+      nextState.queue = nextState.queue.filter((_, index) => index !== action.index);
       nextState.queueIds = nextState.queue.map((song) => song.id);
       return nextState;
     case CLEAR_QUEUE:

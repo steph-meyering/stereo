@@ -6,6 +6,7 @@ export const REPEAT_ALL = "REPEAT_ALL";
 export const SET_QUEUE = "SET_QUEUE";
 export const ADD_TO_QUEUE = "ADD_TO_QUEUE";
 export const REMOVE_FROM_QUEUE = "REMOVE_FROM_QUEUE";
+export const REMOVE_FROM_QUEUE_INDEX = "REMOVE_FROM_QUEUE_INDEX";
 export const CLEAR_QUEUE = "CLEAR_QUEUE";
 export const REORDER_QUEUE = "REORDER_QUEUE";
 
@@ -34,6 +35,11 @@ export const addToQueue = (song) => ({
 export const removeFromQueue = (songId) => ({
   type: REMOVE_FROM_QUEUE,
   songId,
+});
+
+export const removeFromQueueIndex = (index) => ({
+  type: REMOVE_FROM_QUEUE_INDEX,
+  index,
 });
 
 export const clearQueue = () => ({

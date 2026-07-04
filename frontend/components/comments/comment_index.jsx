@@ -10,11 +10,17 @@ class CommentIndex extends React.Component{
     this.props.fetchComments(this.props.songId);
   }
 
+  componentDidUpdate(prevProps){
+    if (prevProps.songId !== this.props.songId) {
+      this.props.fetchComments(this.props.songId);
+    }
+  }
+
   render(){
     if (this.props.comments.length === 0){
       return null
     }
-    let commentItems = this.props.comments.reverse().map((comment) => (
+    let commentItems = [...this.props.comments].reverse().map((comment) => (
       <CommentIndexItem
         key={comment.id} 
         comment={comment}

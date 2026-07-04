@@ -3,13 +3,18 @@
 
 * {
     font-family: interstatelight;
-    color: #333;
+    color: var(--text);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
 }
 
 .main {
     display: flex;
     justify-content: center;
-    background-color: #f2f2f2;
+    background-color: var(--bg);
     min-height: 100vh;
 }
 
@@ -18,7 +23,7 @@
     padding-bottom: 50px;
     width: 88%;
     min-height: 86vh;
-    background-color: white;
+    background-color: var(--bg);
 }
 
 .playlist-index {
@@ -26,7 +31,7 @@
 }
 
 a {
-    color: $blue;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -63,7 +68,9 @@ input {
     line-height: 24px;
     padding: 7px 8px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+    color: var(--text);
     margin: 10px 0px;
 }
 

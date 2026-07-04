@@ -156,6 +156,7 @@ class PlayControls extends React.Component {
     this.setState({ showQueue: !this.state.showQueue });
   }
 
+
   render() {
     if (this.props.currentlyPlaying === null) {
       return null;

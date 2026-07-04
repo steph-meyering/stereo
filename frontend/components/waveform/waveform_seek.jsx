@@ -5,6 +5,8 @@ class WaveformSeek extends React.Component {
     super(props);
     this.waveformRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
+    // Generate placeholder bars once in constructor, not on every render
+    this.placeholderBars = Array.from({ length: 100 }, () => Math.random() * 0.8 + 0.2);
   }
 
   handleClick(e) {
@@ -20,8 +22,8 @@ class WaveformSeek extends React.Component {
   render() {
     const { waveformData, progress = 0, height = 60 } = this.props;
     
-    // If we have actual waveform data, use it; otherwise use placeholder
-    const bars = waveformData || Array.from({ length: 100 }, () => Math.random() * 0.8 + 0.2);
+    // If we have actual waveform data, use it; otherwise use stable placeholder
+    const bars = waveformData || this.placeholderBars;
 
     return (
       <div

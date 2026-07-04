@@ -109,7 +109,14 @@ class TrackCardV3 extends React.Component {
               onClick={this.handlePlayClick}
               aria-label={isPlaying ? "Pause" : "Play"}
             >
-              {isPlaying ? "❚❚" : "▶"}
+              {isPlaying ? (
+                <span className="pause-icon">
+                  <span></span>
+                  <span></span>
+                </span>
+              ) : (
+                <span className="play-icon">▶</span>
+              )}
             </button>
           </div>
           <div className="track-card-info">

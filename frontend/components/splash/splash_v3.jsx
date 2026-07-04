@@ -2,7 +2,6 @@ import React from "react";
 import HeroSection from "../splash/hero_section";
 import GenreFilters from "../splash/genre_filters";
 import TrackCardV3Container from "../songs/track_card_v3_container";
-import MiniPlayerContainer from "../player/mini_player_container";
 
 class SplashV3 extends React.Component {
   constructor(props) {
@@ -51,7 +50,6 @@ class SplashV3 extends React.Component {
           </div>
         </div>
 
-        <MiniPlayerContainer />
       </div>
     );
   }

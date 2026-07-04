@@ -10,6 +10,7 @@ import UserShow from "./users/user_show_container";
 import NotFound from "./errors/404";
 import SongFormContainer from "./songs/song_form_container";
 import PlayControlsContainer from "./play_controls/play_controls_container";
+import MiniPlayerContainer from "./player/mini_player_container";
 import SplashHeader from "./splash/splash_header";
 import PlaylistIndexContainer from "./playlists/playlist_index_container";
 import SplashV3Container from "./splash/splash_v3_container";
@@ -35,6 +36,7 @@ const App = () => (
         <Redirect path="*" to="/404" />
       </Switch>
     </div>
+    <MiniPlayerContainer />
     <PlayControlsContainer />
   </div>
 );
